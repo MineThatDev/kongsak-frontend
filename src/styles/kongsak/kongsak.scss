@@ -1,0 +1,48 @@
+@import "./kongsak.variables.scss";
+@import "./kongsak.fonts.scss";
+@import "./kongsak.base.scss";
+body {
+  font-family: "Kongsak-Regular";
+}
+
+.expansion-item-height {
+  height: 68px;
+}
+.card-contact-us {
+  width: 100%;
+  max-width: 340px;
+  height: 320px;
+}
+.card-hover:hover {
+  cursor: pointer;
+  width: 101%;
+  transition: all 0.45 ease
+}
+.wrapper-add-remove-icon {
+  border: 1px solid $cedar-plank;
+  border-radius: 8px;
+}
+.wrapper-cart-bill {
+  height: 70%;
+  width: 60%;
+  border-radius: 8px;
+  border: 1px solid $trapped-darkness;
+}
+.no-uppercase {
+  text-transform: none;
+}
+.btn-radius {
+  border-radius: 8px;
+}
+.card-radius {
+  border-radius: 8px !important;
+}
+.field-radius {
+  border-radius: 8px;
+}
+
+.bg-kongsak-color {
+  background-color: #fdf5f5;
+}
+
+

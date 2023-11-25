@@ -1,0 +1,270 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "poopan@gmail.com",
+      "first_name": "ruchchanon",
+      "last_name": "sirisan",
+      "telephone": "0444444444",
+      "role": "creator",
+      "password": "123456"
+    },
+    {
+      "id": 2,
+      "email": "admin@gmail.com",
+      "first_name": "test",
+      "last_name": "admin",
+      "telephone": "0912345678",
+      "role": "admin",
+      "password": "123456"
+    },
+    {
+      "id": 3,
+      "email": "user@gmail.com",
+      "first_name": "test",
+      "last_name": "user",
+      "telephone": "0912345678",
+      "role": "user",
+      "password": "123456"
+    },
+    {
+      "email": "poogun@gmail.com",
+      "first_name": "ปานวาด",
+      "last_name": "ก้อนทอง",
+      "telephone": "0970726523",
+      "role": "user",
+      "password": "123456",
+      "id": 4
+    },
+    {
+      "email": "poogunza@gmail.com",
+      "first_name": "ruchy",
+      "last_name": "rich",
+      "telephone": "0856482951",
+      "role": "user",
+      "password": "12345678",
+      "id": 5
+    },
+    {
+      "email": "poopankodza@gmail.com",
+      "first_name": "poopankodza",
+      "last_name": "zakodpan",
+      "telephone": "0856482951",
+      "role": "user",
+      "password": "Pp123456",
+      "id": 6
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "HA-923D50ML คมชัด 5ล้านพิกเซล ภาพสี 24 ชั่วโมง บันทึกเสียง",
+      "model": "-Image Sensor 1 / 2.5 CMOS -Resolution 5MP -Image Size 2560 x 1936 -Video Output AHD / TVI /CVI -Audio 1CH built-in MIC -LED View Distance 20 ~30 m -Frame Rate 5MP@20fps /4MP@30fps -Min. Illumination O lux with LED ON -Lens 3.6 mm -Protection Grade IP 67 -Power Supply DC12V ( ±10% )",
+      "brand": "hi-view",
+      "highlight": "",
+      "price": 1250,
+      "src": "@/assets/products/HA-923D50ML.png",
+      "category": "กล้อง",
+      "is_active": true
+    },
+    {
+      "id": 2,
+      "name": "HA-923D50M คมชัด 5ล้านพิกเซล อินฟาเรด บันทึกเสียง",
+      "model": "-ความละเอียด 5ล้านพิกเซล (2560×1936) 20fps -3IN10 (AHD/TVI/CVI) -Lens Fixed 3.6mm./M12 -DWDR / BLC / AWB / 2D DNR -Integreted High Efficiency -Infrared Distance 25M -Industrial IR LED Array x1 / 10-20M IR didtance -Coaxial audio transmissi -OSD / COD -D12V/1A -IP67",
+      "brand": "hi-view",
+      "highlight": "",
+      "price": 1390,
+      "src": "@/assets/products/HA-923D50M.png",
+      "category": "กล้อง",
+      "is_active": true
+    },
+    {
+      "id": 3,
+      "name": "HA-923B50ML กล้องวงจรปิดไฮวิว 5 ล้านพิกเซล บันทึกภาพสี 24 ชั่วโมง มีไมค์ในตัว บันทึกภาพและเสียง",
+      "model": "-Image Sensor 1 / 2.5 CMOS -Resolution 5MP -Image Size 2560 x 1936 -Video Output AHD / TVI /CVI -Audio 1CH built-in MIC -LED Distance 10 ~20 m -Frame Rate 5MP@20fps/4MP@30fps -Min. Illumination 0 lux ( LED ON) -Lens 3.6 mm -Ingress Protection IP67 -Function Control OSD (COC Control) -Power Supply DC12V(土 15%)",
+      "brand": "hi-view",
+      "highlight": "",
+      "price": 1500,
+      "src": "@/assets/products/HA-923B50ML.jpg",
+      "category": "กล้อง",
+      "is_active": true
+    },
+    {
+      "id": 4,
+      "name": "HA-554D50 กล้องวงจรปิดไฮวิว 5 ล้านพิกเซล",
+      "model": "-Image Sensor 1 / 2.5 K03 -4in1 (AHD / TVI / CVI / CVBS) -พิกเซล 5MP, 4MP, 1080P -เลนส์ 3.6mm./F2.0 -IR SMD LED 18 ชิ้นระยะ IR 20 30M -Day & Night IRCUT, ATW, BLC, FLC, DWDR, 2DNR -สายเคเบิล OSD, UTC, IP66",
+      "brand": "hi-view",
+      "highlight": "",
+      "price": 1150,
+      "src": "@/assets/products/HA-554D50.jpg",
+      "category": "กล้อง",
+      "is_active": true
+    },
+    {
+      "id": 5,
+      "name": "HA-754B20M กล้องวงจรปิดไฮวิว 2 ล้านพิกเซล มีไมค์ในตัว",
+      "model": "-Resolution 2 Megapixel -Support 4S:UU AHD/TVI/CVI/CVBS -Built in Microphone (Audio Range 7M) -RG Cable Wiring Max 300M -Fix Lens 3.6mm. -IR Distance 20 M -Material Plastic -Water proof IP66",
+      "brand": "hi-view",
+      "highlight": "",
+      "price": 999,
+      "src": "@/assets/products/HA-754B20M.jpg",
+      "category": "กล้อง",
+      "is_active": true
+    },
+    {
+      "id": 6,
+      "name": "HA-923D20ML กล้องวงจรปิดไฮวิว 2 ล้านพิกเซล บันทึกภาพสี 24 ชั่วโมง มีไมค์ในตัว บันทึกภาพและเสียง",
+      "model": "-CMOS Image Sensor -Resolution 2MP (1920 x 1080) -Video Output AHD / TVI /CVI -Audio 1CH built in MIC -LED View Distance 10 ~20 m -Fix Lens 3.6 mm -Protection Grade",
+      "brand": "hi-view",
+      "highlight": "",
+      "price": 1990,
+      "src": "@/assets/products/HA-923D20ML.jpg",
+      "category": "กล้อง",
+      "is_active": true
+    },
+    {
+      "id": 7,
+      "name": "HP-55B40PE-M กล้องวงจรปิดไฮวิว Bullet IP Camera 4 ล้านพิกเซล มีไมค์ มีไฟ ภาพสี 24 ชั่วโมง",
+      "model": "-Bullet IP Camera 4.0 Mega pixel (PoE) -Full color ภาพสี 24 Hr. -1/2.8 CMOS sensor -Dual light 6 pcs (Day & Night Color) -light distance 20 30M. -Lens 3.6mm. -Built in Microphone ฟังเสียง real time บันทึกเสียงได้ -กันน้ำ กันฝน มาตรฐาน IP66 -H.265/H.265+ Support POE",
+      "brand": "hi-view",
+      "highlight": "",
+      "price": 1750,
+      "src": "@/assets/products/HP-55B40PE-M.png",
+      "category": "กล้อง",
+      "is_active": true
+    },
+    {
+      "id": 8,
+      "name": "HP-55D30PEL กล้องวงจรปิดไฮวิว ระบบไอพี 3 ล้านพิกเซล",
+      "model": "-3.0M 1/2.8 SC3335 Black light CMOS sensor -Pixels 2304(H) x 1296(V) -CPU XM535AI -H.265AI / H.265+ (Compatible with H.265/H.264) -Focal Length Fixed lens 3.2mm. -IR LED IR LED 2 Pcs and white light 2pcs -IR Distance 20 30M. -IR CUT Support IR CUT -ONVIF Support -Power DC12V / 05.5*2.1mm -Power Consumption <8W Max. -POE Support",
+      "brand": "hi-view",
+      "highlight": "",
+      "price": 1750,
+      "src": "@/assets/products/HP-55D30PEL.jpg",
+      "category": "กล้อง",
+      "is_active": true
+    },
+    {
+      "id": 9,
+      "name": "HP-78B202PE กล้องวงจรปิดไฮวิว Bullet IP Camera คมชัด 4 ล้านพิกเซล (POE)",
+      "model": "-1/2.7 Progressive CMOS -Effective Pixels 2MP1920(H)*1080(V) -Focal Length (Zoom Ratio) 2.8mm -Min. Illumination Color 0.05lux @ F1.2(AGC ON); -B/W 0 lux @ IR ON -IR Viewable Length Up to 30m -Audio Built in microphone -Ethernet R.J45(10/100BASE T) -Video Compression Format H.265/H.264 -IP IPv4 -Application Programming Interface ONVIF",
+      "brand": "hi-view",
+      "highlight": "",
+      "price": 2790,
+      "src": "@/assets/products/HP-78B202PE.jpg",
+      "category": "กล้อง",
+      "is_active": true
+    },
+    {
+      "id": 10,
+      "name": "HP-97B203PE-M กล้องวงจรปิดไฮวิว คมชัด 2 ล้านพิกเซล Built-in MIC มีไมค์ บันทึกเสียง",
+      "model": "-ความคมชัด 2MP (1920×1080) H.265 coding -Max.resolution : 1920 x 1080 -ICR auto switch, true day / night, ROI coding -3D DNR, digital WDR, HLC, BLC, defog -10~20m IR night view distance -DC12V/PoE power supply -P2P function optional -IP67 ingress protection Support dual streams -Support mobile surveillance by smart phones with iOS and Android OS -Intelligent analytics: video blur detection, scene change detection, line crossing detection and region intrusion detection",
+      "brand": "hi-view",
+      "highlight": "",
+      "price": 850,
+      "src": "@/assets/products/HP-97B203PE-M.png",
+      "category": "กล้อง",
+      "is_active": true
+    },
+    {
+      "id": 11,
+      "name": "HP-97B20PEL-M กล้องวงจรปิดไฮวิว ระบบไอพี 2 ล้านพิกเซล ใช้งานภายนอกและภายใน บันทึกภาพสี 24 ชั่วโมง",
+      "model": "-2MP (1920×1080) H.265 full real time coding -Max. resolution: 1920×1080 -10~20m white light view distance -24/7 full color imaging -3D DNR, digital WDR, HLC, BLC, Defog -DC12V/PoE power supply -IP 67 ingress protection -Support dual streams -Support mobile surveillance by smart phones with iOS and Android OS -Intelligent analytics: video blur detection, scene change detection, line crossing detection and region intrusion detection",
+      "brand": "hi-view",
+      "highlight": "",
+      "price": 1850,
+      "src": "@/assets/products/HP-97B20PEL-M.jpg",
+      "category": "กล้อง",
+      "is_active": true
+    },
+    {
+      "id": 12,
+      "name": "HP-9732H8-AI เครื่องบันทึกภาพกล้องวงจรปิดไฮวิว ระบบไอพี สำหรับ 32 กล้อง",
+      "model": "-NVR 32ch, H.264/H.265, Linux -IP input 32ch. / H.265 & H.264 Compression -support Res. 8MP / 5MP / 4MP / 3MP / 1080P / 960P -HDMI x2 : 4K output, true high resolution display -VGA x1 : 1920 x 1080 / USB 2.0x2 / USB 3.0 x1 -2way Audio RCAx1 / Playback Max 16 CH, Alarm in x8",
+      "brand": "hi-view",
+      "highlight": "",
+      "price": 1820,
+      "src": "@/assets/products/HP-9732H8-AI.jpg",
+      "category": "เครื่องบันทึกภาพ",
+      "is_active": true
+    },
+    {
+      "id": 13,
+      "name": "HP-9732H8-AI(NSV1) เครื่องบันทึกภาพกล้องวงจรปิดไฮวิว NVR 32 Ch / AI Support 4K output",
+      "model": "-Support 32CH 12MP/8MP/6MP/4MP/3MP/1080P/128*1042/96P/720P IP input -H.265S/H.265/H.264 coding -4K output, true high resotion display -Multi mode recording: manual / timed / motion / sensor / POS / AI recording -Playback: 16CH simultaneous Playback -Search: time slice, time, event, tag, smart and target database search -Support face detection and comparison -Support Multipla VCA (Video Content Analytics) event, such as object abandoned/missing, region intrusion, tripwire, video exception, etc. -Support POS information overlay on live view and playback -Express and flexible backup via USB, netwpork and so on -DHCP, DDNS, PPPoE network protocol -Compatible with third-party IPC, such as ONVIF -Remote contol via Web Client or CMS -4K output, true high resotion display -Support PTZ preset and auto cruse, up to 255 preset and 8 cruses. -Support NAT function and QR Code scanning by mobile phones",
+      "brand": "hi-view",
+      "highlight": "",
+      "price": 950,
+      "src": "@/assets/products/HP-9732H8-AI(NSV1).jpg",
+      "category": "เครื่องบันทึกภาพ",
+      "is_active": true
+    },
+    {
+      "id": 14,
+      "name": "HAC-85504A เครื่องบันทึกภาพกล้องวงจรปิดไฮวิว NVR 32 Ch / AI Support 4K output",
+      "model": "-Support 4ch 4K-N unreal time encoding -Support XVI,AHD, TVI,CVI, CVBS, IP video input -support VGA maximum 1080P output, HDMI up to 4K output -Mini 10 Case, 1SATA(Up to 14TB) -1*10/100Mbps auto-sensing Ethernet port, R.J45 port -Automatic networking support, a key to add equipment -Support the Onvif protocol -Support GB28181 (Optional) -Cloud services, P2P, alarm information push to phone -Support remote access, support ARSP -Support DHCP, FTP, DNS, DDNS, NTP, UPNP, EMAIL,3G, WIFI, IP search, Alarm center, etc -Mobile phone remote monitoring (iOS, Android) -Multi browser access (IE, Chrome, Firefox, Safari) -Support for more than twenty languages -Perfect protection circuit,unique triple watchdog function -Support WEB, CMS, VMS, MYEYE Platform -Support coaxial control, coaxial audio -Support human detection, face detection Vehicledetection and other intelligence",
+      "brand": "hi-view",
+      "highlight": "",
+      "price": 1799,
+      "src": "@/assets/products/HAC-85504A4K.jpg",
+      "category": "เครื่องบันทึกภาพ",
+      "is_active": true
+    },
+    {
+      "id": 15,
+      "name": "HAC-85504A เครื่องบันทึกภาพกล้องวงจรปิดไฮวิว NVR 32 Ch / AI Support 8K output",
+      "model": "-Support 8ch 4K N unreal time encoding -Support XVI,AHD, TVI,CVI, CVBS, IP video input -support VGA maximum 1080P output, HDMI up to 4K output -Mini 1 U Case, SATA(Up to 14TB) -1*10/100Mbps auto-sensing Ethernet port, R.J45 port -Automatic networking support, a key to add equipment -Support the Onvif protocol -Support GB28181 (Optional) -Cloud services, P2P, alarm information push to phone -Support remote access, support ARSP -Support DHCP, FTP, DNS, DDNS, NTP, UPNP, EMAIL,3G, WIFI, IP search, Alarm center, etc -Mobile phone remote monitoring (iOS, Android) -Multi browser access (IE, Chrome, Firefox, Safari) -Support for more than twenty languages -Perfect protection circuit,unique triple watchdog function -Support WEB, CMS, VMS, MYEYE Platform -Support coaxial control, coaxial audio -Support human detection, face detection Vehicledetection and other intelligence",
+      "brand": "hi-view",
+      "highlight": "",
+      "price": 1325,
+      "src": "@/assets/products/HAC-85504A8K.jpg",
+      "category": "เครื่องบันทึกภาพ",
+      "is_active": true
+    },
+    {
+      "id": 16,
+      "name": "HAC-85516H2 เครื่องบันทึกภาพกล้องวงจรปิดไฮวิว 5 ระบบ สำหรับ 16 กล้อง ความคมชัด 2 ล้านพิกเซล",
+      "model": "-16Ch. XVI 5in1, H.264/H.265 -Resolution 5MP, 4MP, 3MP, 2MP, 720P, 960H, D1 -HDD x2 (Max. 20Tb.), BNCx16, HDMIx1, VGAx1 -Audio in x6, Audio out x1, RJ45x1, USBx3, RS485x1, Alarm in 4/out1, Alarm buzzer x1 -HDMI output max. 4K -Backup Network (IE, App, VMS), USB hard Disk, USB Burnner -Backup Format H.26X, AVI(only for H.264), MP4 -DDNS hiview.org, CN99, Dyndns, Oray, NO IP -Onvif Support Onvif 2.4 -USB WiFi Supported WiFi (Extend via USB) -4G Supported / Cloud Support -Power suppply DC12V/2000mA",
+      "brand": "hi-view",
+      "highlight": "",
+      "price": 1725,
+      "src": "@/assets/products/HAC-85516H2.jpg",
+      "category": "เครื่องบันทึกภาพ",
+      "is_active": true
+    },
+    {
+      "id": 17,
+      "name": "HAC-85532H2 เครื่องบันทึกภาพกล้องวงจรปิดไฮวิว 5 ระบบ สำหรับ 32 กล้อง ความคมชัด 2 ล้านพิกเซล",
+      "model": "-Support 32ch 5M N unreal time encoding. -Support AHD, TVI, CVI, CVBS, IP video input -HDMI/VGA video output -BIG 1U Case, 2 SATA (Up to 8TB) -1*10/100/1000Mbps auto-sensing Ethernet port, RJ45 port. -Automatic networking support, a key to add equipment -Support the Onvif protocol -Support GB28181 (Optional) -Cloud services, P2P, alarm information push to phone -Support remote access, support ARSP -Mobile phone remote monitoring (iOS, Android) -Multi browser access (IE, Chrome, Firefox, Safari) -Support WEB, CMS, VMS, MYEYE Platform -Support coaxial control -Support intelligent analysis: Human shape detection, face detection, car shape detection",
+      "brand": "hi-view",
+      "highlight": "",
+      "price": 1919,
+      "src": "@/assets/products/HAC-85532H2.jpg",
+      "category": "เครื่องบันทึกภาพ",
+      "is_active": true
+    }
+  ],
+  "warranty-cards": [],
+  "shipping-addresses": [
+    {
+      "id": 1,
+      "first_name": "ปานวาด",
+      "last_name": "ก้อนทอง",
+      "phone": "0970726523",
+      "address": "305 หมู่ 8 ตำบลคำอาฮวน อำเภอเมืองมุกดาหาร จังหวัดมุกดาหาร 49000",
+      "user_id": 3
+    },
+    {
+      "first_name": "ปานวาด",
+      "last_name": "ก้อนอุจระ",
+      "phone": "0970976523",
+      "address": "โรงชาย",
+      "user_id": 4,
+      "id": 2
+    }
+  ],
+  "orders": [],
+  "order-products": [],
+  "order-statuses": [],
+  "images": []
+}
