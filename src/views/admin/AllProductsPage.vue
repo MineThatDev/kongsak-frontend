@@ -333,6 +333,7 @@
                     v-model="productInformation.price"
                     outlined
                     dense
+                    type="number"
                   />
                 </div>
               </div>
