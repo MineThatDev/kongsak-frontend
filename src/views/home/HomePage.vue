@@ -33,12 +33,15 @@
         <div
           v-for="(item, index) in products"
           :key="index"
-          class="col-xl-2 col-lg-2 col-md-3 col-sm-4 col-xs-12 q-px-sm" 
+          class="col-xl-2 col-lg-2 col-md-3 col-sm-4 col-xs-12 q-px-sm"
         >
-          <q-card class="card-radius" @click="redirect('/view-product', item.id)">
+          <q-card
+            class="card-radius"
+            @click="redirect('/view-product', item.id)"
+          >
             <div class="cursor-pointer">
               <q-card-section align="center" class="q-pa-lg">
-                <q-img :src="handleImageSrc(item.src)" />
+                <q-img :src="createUrlFromBase64(item.content)" />
               </q-card-section>
               <q-separator inset />
               <q-card-section>
@@ -155,9 +158,11 @@ import commonFunctions from "@/utils/commonFunctions";
 import store from "@/store";
 import { computed, ref, onMounted } from "vue";
 import { $api } from "@/services/api";
+import handleFile from "@/utils/file";
 export default {
   setup() {
     const { handleImageSrc, currencyFormat, redirect } = commonFunctions();
+    const { createUrlFromBase64 } = handleFile();
     const userInfo = computed(() => store.getters.userInfo);
     const products = ref([]);
     const fetchInformation = async () => {
@@ -167,13 +172,27 @@ export default {
         is_active: true,
       });
       for (let i = 0; i <= 5; i++) {
-        products.value.push(productsRes[i]);
+        const imageRes = await $api.files.getByParams({
+          key_ref: productsRes[i].id,
+          origin: "product",
+        });
+        products.value.push({
+          ...productsRes[i],
+          content: imageRes && imageRes[0] ? imageRes[0].content : null,
+        });
       }
     };
     onMounted(async () => {
       await fetchInformation();
     });
-    return { products, handleImageSrc, userInfo, currencyFormat, redirect };
+    return {
+      products,
+      handleImageSrc,
+      userInfo,
+      currencyFormat,
+      redirect,
+      createUrlFromBase64,
+    };
   },
 };
 </script>
