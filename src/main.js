@@ -8,7 +8,7 @@ import kongsakStyle from "./styles/kongsak/kongsak.scss";
 window.fbAsyncInit = () => {
   // eslint-disable-next-line no-undef
   FB.init({
-    appId: "1385356975396251",
+    appId: process.env.VUE_APP_FACEBOOK_APP_ID,
     cookie: true,
     xfbml: true,
     version: "v18.0",
