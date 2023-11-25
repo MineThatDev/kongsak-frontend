@@ -523,11 +523,11 @@ export default {
             code: code,
             client_id: process.env.VUE_APP_GOOGLE_CLIENT_ID,
             client_secret: process.env.VUE_APP_GOOGLE_CLIENT_SECRET,
-            redirect_uri: "https://localhost:8080",
+            redirect_uri: "https://kongsak-shop.onrender.com",
             grant_type: "authorization_code",
           },
         }
-      );
+      )
       return response;
     };
     onMounted(() => {

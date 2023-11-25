@@ -247,6 +247,7 @@ export default {
       const response = await $api.shipping_addresses.delete(id);
       if (response && response.status === 200) {
         showNotification("positive", "ลบที่อยู่สำเร็จ!");
+        radioSelected.value = "";
         await fetchInformation();
       } else {
         showNotification("negative", "ลบที่อยู่ล้มเหลว!");

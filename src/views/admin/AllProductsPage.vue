@@ -330,7 +330,7 @@
                 </div>
                 <div class="col-9 q-px-lg">
                   <q-input
-                    v-model.number="productInformation.price"
+                    v-model="productInformation.price"
                     outlined
                     dense
                   />
@@ -505,7 +505,7 @@ export default {
             name: productInformation.name,
             model: productInformation.model,
             brand: productInformation.brand,
-            price: productInformation.price,
+            price: Number(productInformation.price),
             category: productInformation.category,
             is_active: true,
           });
@@ -524,7 +524,7 @@ export default {
             name: productInformation.name,
             model: productInformation.model,
             brand: productInformation.brand,
-            price: productInformation.price,
+            price: Number(productInformation.price),
             category: productInformation.category,
             is_active: true,
           });
