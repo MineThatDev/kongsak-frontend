@@ -433,7 +433,7 @@ export default {
             if (bankTransferForm.transferFiles.length) {
               formData.append("file", bankTransferForm.transferFiles[0]);          
             } else if (qrCodeTransferForm.transferAmount.length) {
-              formData.append("file", qrCodeTransferForm.transferAmount[0]);  
+              formData.append("file", qrCodeTransferForm.transferFiles[0]);  
             }
             formData.append("key_ref", response.data.id);
             formData.append("origin", "payment-method");
