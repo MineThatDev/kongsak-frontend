@@ -1,20 +1,31 @@
 <template>
-  <q-toolbar class="shadow-1">
-    <div @click="redirect('/')" class="cursor-pointer">
-      <span class="text-trapped-darkness font-size-28 text-weight-bold"
-        >KONG</span
-      ><span class="text-pumping-spice font-size-28 text-weight-bold">SAK</span>
+  <div class="shadow-1 row">
+    <div class="row col-3 items-center q-px-sm">
+      <div @click="redirect('/')" class="cursor-pointer" v-if="$q.screen.gt.xs">
+        <span class="text-trapped-darkness font-size-28 text-weight-bold"
+          >KONG</span
+        ><span class="text-pumping-spice font-size-28 text-weight-bold"
+          >SAK</span
+        >
+      </div>
+      <div v-else @click="redirect('/')">
+        <span class="text-trapped-darkness font-size-20 text-weight-bold"
+          >KONG</span
+        ><span class="text-pumping-spice font-size-20 text-weight-bold"
+          >SAK</span
+        >
+      </div>
     </div>
-    <q-space />
-    <q-tabs v-model="tab" v-if="!userInfo || userInfo.role === 'user'">
-      <q-tab
-        v-for="(info, index) in userTabsInformation"
-        :key="index"
-        :name="info.path"
-        :label="info.name"
-        @click="redirect(info.path)"
-      />
-      <!-- <div>
+    <div class="col" v-if="!userInfo || userInfo.role === 'user'">
+      <q-tabs align="right" v-model="tab">
+        <q-tab
+          v-for="(info, index) in userTabsInformation"
+          :key="index"
+          :name="info.path"
+          :label="info.name"
+          @click="redirect(info.path)"
+        />
+        <!-- <div>
         <q-btn icon="search" flat v-if="!toggleSearch" @click="toggleSearch = true;"></q-btn>
         <q-input v-else color="dark" v-model="searchKeyword" dense outlined autofocus @blur="toggleSearch = false; searchKeyword = '';" @keydown.enter.prevent="redirect('/search-page', searchKeyword);">
           <template v-slot:append>
@@ -22,69 +33,76 @@
           </template>
         </q-input>
       </div> -->
-      <q-separator vertical inset />
-      <div>
-        <q-btn icon="shopping_bag" @click="redirect('/cart')" flat>
-          <q-badge class="bg-pumping-spice" floating transparent>
-            {{ cartLength }}
-          </q-badge>
-        </q-btn>
-      </div>
-      <q-separator vertical inset />
-      <!-- <q-tab name="favorite" icon="favorite_border"></q-tab> -->
-      <div v-if="!userInfo" class="q-pl-md">
-        <q-btn
-          class="bg-trapped-darkness text-white btn-radius"
-          @click="redirect('/login')"
-          ><span class="font-size-12">เข้าสู่ระบบ</span></q-btn
-        >
-      </div>
-      <div v-else>
-        <q-btn-dropdown auto-close flat icon="account_circle">
-          <q-list>
-            <q-item clickable @click="redirect('/track-orders')">
-              <q-item-section>ติดตามคำสั่งซื้อ</q-item-section>
-            </q-item>
+        <q-separator vertical inset />
+        <div>
+          <q-btn icon="shopping_bag" @click="redirect('/cart')" flat>
+            <q-badge class="bg-pumping-spice" floating transparent>
+              {{ cartLength }}
+            </q-badge>
+          </q-btn>
+        </div>
+        <q-separator vertical inset />
+        <!-- <q-tab name="favorite" icon="favorite_border"></q-tab> -->
+        <div v-if="!userInfo" class="q-px-md">
+          <q-btn
+            class="bg-trapped-darkness text-white btn-radius"
+            @click="redirect('/login')"
+            dense
+            style="min-width: 80px;"
+            ><span class="font-size-12">เข้าสู่ระบบ</span></q-btn
+          >
+        </div>
+        <div v-else>
+          <q-btn-dropdown auto-close flat icon="account_circle">
+            <q-list>
+              <q-item clickable @click="redirect('/track-orders')">
+                <q-item-section>ติดตามคำสั่งซื้อ</q-item-section>
+              </q-item>
 
-            <q-item clickable @click="redirect('/warranty-card')">
-              <q-item-section>ใบประกันสินค้า</q-item-section>
-            </q-item>
+              <q-item clickable @click="redirect('/warranty-card')">
+                <q-item-section>ใบประกันสินค้า</q-item-section>
+              </q-item>
 
-            <q-item clickable @click="logout()">
-              <q-item-section>ออกจากระบบ</q-item-section>
-            </q-item>
-          </q-list>
-        </q-btn-dropdown>
-      </div>
-    </q-tabs>
-    <q-tabs v-model="tab" v-if="userInfo.role === 'admin'">
-      <q-tab
-        v-for="(info, index) in adminTabsInformation"
-        :key="index"
-        :name="info.path"
-        :label="info.name"
-        @click="redirect(info.path)"
-      />
-      <q-separator vertical inset />
-      <q-separator vertical inset />
-      <div v-if="!userInfo" class="q-pl-md">
-        <q-btn
-          class="bg-trapped-darkness text-white btn-radius"
-          @click="redirect('/login')"
-          ><span class="font-size-12">เข้าสู่ระบบ</span></q-btn
-        >
-      </div>
-      <div v-else>
-        <q-btn-dropdown auto-close flat icon="account_circle">
-          <q-list>
-            <q-item clickable @click="logout()">
-              <q-item-section>ออกจากระบบ</q-item-section>
-            </q-item>
-          </q-list>
-        </q-btn-dropdown>
-      </div>
-    </q-tabs>
-  </q-toolbar>
+              <q-item clickable @click="logout()">
+                <q-item-section>ออกจากระบบ</q-item-section>
+              </q-item>
+            </q-list>
+          </q-btn-dropdown>
+        </div>
+      </q-tabs>
+    </div>
+    <div class="col" v-if="userInfo.role === 'admin'">
+      <q-tabs align="right" v-model="tab">
+        <q-tab
+          v-for="(info, index) in adminTabsInformation"
+          :key="index"
+          :name="info.path"
+          :label="info.name"
+          @click="redirect(info.path)"
+        />
+        <q-separator vertical inset />
+        <q-separator vertical inset />
+        <div v-if="!userInfo" class="q-pl-md">
+          <q-btn
+            class="bg-trapped-darkness text-white btn-radius"
+            dense
+            style="min-width: 80px;"
+            @click="redirect('/login')"
+            ><span class="font-size-12">เข้าสู่ระบบ</span></q-btn
+          >
+        </div>
+        <div v-else>
+          <q-btn-dropdown auto-close flat icon="account_circle">
+            <q-list>
+              <q-item clickable @click="logout()">
+                <q-item-section>ออกจากระบบ</q-item-section>
+              </q-item>
+            </q-list>
+          </q-btn-dropdown>
+        </div>
+      </q-tabs>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -129,13 +147,13 @@ export default {
         ok: "ยืนยัน",
         cancel: "ยกเลิก",
       }).onOk(() => {
-        checkLoginState((response => {
+        checkLoginState((response) => {
           if (response && response.status === "connected") {
             // eslint-disable-next-line no-undef
             FB.logout();
           }
           store.dispatch("logout");
-        }))
+        });
         $q.notify({
           message: "ออกจากระบบสำเร็จ!",
           position: "top",

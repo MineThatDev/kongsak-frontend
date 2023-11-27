@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <div class="row">
-      <div class="col-6">
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
         <div class="q-mt-lg font-size-44 text-pumping-spice">
           ศูนย์รวมกล้องวงจรปิด
         </div>
@@ -12,10 +12,10 @@
         </div>
         <div class="font-size-24">ให้คุณในราคาที่เหมาะสมกับงบประมาณของคุณ</div>
       </div>
-      <div class="col-6">
+      <div class="col">
         <div class="full-width text-right">
           <q-img
-            width="360px"
+            style="max-width: 360px;"
             height="360px"
             :ratio="1"
             src="../../assets/banner.png"
@@ -33,7 +33,7 @@
         <div
           v-for="(item, index) in products"
           :key="index"
-          class="col-xl-2 col-lg-2 col-md-3 col-sm-4 col-xs-12 q-px-sm"
+          class="col-xl-2 col-lg-2 col-md-3 col-sm-4 col-xs-12 q-px-sm q-mt-md"
         >
           <q-card
             class="card-radius"

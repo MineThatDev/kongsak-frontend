@@ -51,7 +51,7 @@
         <q-icon
           name="mail"
           class="q-mr-sm text-pumping-spice"
-        />kongsak@gmail.com
+        /><div style="word-wrap: break-word;">kongsak@gmail.com</div>
       </div>
       <div class="q-mt-sm text-grey text-weight-bold font-size-16">
         <q-icon name="phone" class="q-mr-sm text-pumping-spice" />081-234-5678

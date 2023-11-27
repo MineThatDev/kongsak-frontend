@@ -3,7 +3,7 @@
     <div class="row" style="min-height: 640px">
       <div
         class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12"
-        style="padding: 80px 0 0 100px"
+        :style="$q.screen.gt.xs ? `padding: 80px 0 0 100px` : 'padding: 0 10px; margin-top: 10px'"
       >
         <div class="font-size-40 text-pumping-spice">
           รู้สึกมั่นใจในทุกช่วงเวลา
@@ -14,7 +14,7 @@
         <div class="q-mt-md font-size-28">
           <q-img
             height="80px"
-            width="500px"
+            style="width: 80%;"
             fit
             :ratio="1"
             src="../../assets/logos.png"
@@ -27,20 +27,22 @@
         <div
           v-if="showPage === 'login'"
           class="bg-white"
-          style="width: 60%; height: 80%"
+          :style="$q.screen.gt.xs ? 'width: 60%;': 'width: 80%'"
         >
           <div
-            class="q-mt-lg text-weight-bold text-trapped-darkness font-size-28 text-center"
+            class="q-mt-lg text-weight-bold text-trapped-darkness text-center"
+            :class="$q.screen.gt.xs ? 'font-size-28' : 'font-size-20'"
           >
             เข้าสู่ระบบเพื่อเลือกซื้อสินค้า
           </div>
           <div class="row col-12 justify-center q-mt-md">
-            <div style="width: 360px">
+            <div style="width: 80%">
               <q-input
                 label="อีเมล / เบอร์โทรศัพท์"
                 filled
                 outlined
                 v-model="loginInformation.email"
+                :dense="!$q.screen.gt.xs"
               >
                 <template v-slot:prepend>
                   <q-icon name="mail"></q-icon>
@@ -53,6 +55,7 @@
                 filled
                 class="q-mt-md"
                 v-model="loginInformation.password"
+                :dense="!$q.screen.gt.xs"
               >
                 <template v-slot:prepend>
                   <q-icon name="key"></q-icon>
@@ -67,8 +70,8 @@
               </div>
               <q-btn
                 class="bg-trapped-darkness text-white font-size-20 full-width btn-radius"
-                style="height: 56px"
                 @click="login()"
+                :dense="!$q.screen.gt.xs"
                 >เข้าสู่ระบบ</q-btn
               >
               <div
@@ -77,8 +80,8 @@
               >
                 หรือ
               </div>
-              <div class="row">
-                <div class="col-6 text-center">
+              <div class="row col-12">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 q-my-sm text-center">
                   <q-btn
                     label="Facebook"
                     style="min-width: 140px !important"
@@ -87,7 +90,7 @@
                   >
                   </q-btn>
                 </div>
-                <div class="col-6 text-center">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 q-my-sm text-center">
                   <q-btn
                     label="Google"
                     style="min-width: 140px !important"
@@ -100,13 +103,15 @@
               </div>
               <div class="row q-my-md">
                 <div
-                  class="row col-6 justify-center items-center text-trapped-darkness font-size-20"
+                  class="row col-6 justify-center items-center text-trapped-darkness"
+                  :class="$q.screen.gt.xs ? 'font-size-20' : 'font-size-16'"
                 >
                   ยังไม่ได้เป็นสมาชิก ?
                 </div>
                 <div
-                  class="row col-6 justify-center items-center text-weight-bold text-trapped-darkness font-size-20 cursor-pointer"
+                  class="row col-6 justify-center items-center text-weight-bold text-trapped-darkness cursor-pointer"
                   @click="togglePage('signup')"
+                  :class="$q.screen.gt.xs ? 'font-size-20' : 'font-size-16'"
                 >
                   สมัครสมาชิก
                 </div>
@@ -117,15 +122,15 @@
         <div
           v-else-if="showPage === 'signup'"
           class="bg-white"
-          style="width: 60%"
+          :style="$q.screen.gt.xs ? 'width: 60%;': 'width: 80%'"
         >
           <div
             class="text-weight-bold q-mt-sm text-trapped-darkness font-size-28 text-center"
           >
             สมัครสมาชิก
           </div>
-          <div class="row col-12 justify-center q-mt-sm">
-            <div style="width: 360px">
+          <div class="row col-12 justify-center q-mt-md">
+            <div style="width: 80%">
               <q-input
                 label="ชื่อ"
                 filled
@@ -211,8 +216,8 @@
               >
                 หรือ
               </div>
-              <div class="row">
-                <div class="col-6 text-center">
+              <div class="row col-12">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 q-my-sm text-center">
                   <q-btn
                     label="Facebook"
                     style="min-width: 140px !important"
@@ -221,7 +226,7 @@
                   >
                   </q-btn>
                 </div>
-                <div class="col-6 text-center">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 q-my-sm text-center">
                   <q-btn
                     label="Google"
                     style="min-width: 140px !important"
@@ -234,12 +239,14 @@
               </div>
               <div class="row q-my-md">
                 <div
-                  class="row col-6 justify-center items-center text-trapped-darkness font-size-20"
+                  class="row col-6 justify-center items-center text-trapped-darkness"
+                  :class="$q.screen.gt.xs ? 'font-size-20' : 'font-size-16'"
                 >
                   เป็นสมาชิกแล้ว
                 </div>
                 <div
-                  class="row col-6 justify-center items-center text-weight-bold text-trapped-darkness font-size-20 cursor-pointer"
+                  class="row col-6 justify-center items-center text-weight-bold text-trapped-darkness cursor-pointer"
+                  :class="$q.screen.gt.xs ? 'font-size-20' : 'font-size-16'"
                   @click="togglePage('login')"
                 >
                   เข้าสู่ระบบ
