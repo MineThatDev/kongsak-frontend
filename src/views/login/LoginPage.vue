@@ -296,7 +296,7 @@ import emailing from "@/utils/email.js";
 import axios from "axios";
 export default {
   setup() {
-    const { redirect, showNotification, $q } = commonFunctions();
+    const { redirect, showNotification, $q, showSpinnerIosLoading, hideSpinnerIosLoading } = commonFunctions();
     const { checkLoginState } = auth();
     const { sendEmail } = emailing();
     const showPage = ref("login");
@@ -358,15 +358,18 @@ export default {
       password: "",
     });
     const login = async () => {
+      showSpinnerIosLoading();
       const userInfo = await $api.users.getByParams({
         email: loginInformation.email,
         password: loginInformation.password,
       });
       if (userInfo.length) {
         store.dispatch("setUser", userInfo[0]);
+        hideSpinnerIosLoading();
         showNotification("positive", "เข้าสู่ระบบสำเร็จ!");
         redirect("/home");
       } else {
+        hideSpinnerIosLoading();
         showNotification("negative", "เข้าสู่ระบบล้มเหลว! โปรดลองอีกครั้ง");
       }
     };

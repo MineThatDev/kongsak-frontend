@@ -71,12 +71,18 @@ import handleFile from "@/utils/file";
 export default {
   props: ["productId"],
   setup(props) {
-    const { handleImageSrc, redirect } = commonFunctions();
+    const {
+      handleImageSrc,
+      redirect,
+      showSpinnerIosLoading,
+      hideSpinnerIosLoading,
+    } = commonFunctions();
     const { createUrlFromBase64 } = handleFile();
     const product = ref({});
     const quantity = ref(1);
     const details = ref([]);
     const getProduct = async (id) => {
+      showSpinnerIosLoading();
       const productRes = await $api.products.getById(id);
       const imageRes = await $api.files.getByParams({
         key_ref: productRes.id,
@@ -90,6 +96,7 @@ export default {
         .split("-")
         .filter(Boolean)
         .map((item) => item.trim());
+      hideSpinnerIosLoading();
     };
     const addItemToCart = (item, path = "") => {
       store.dispatch("addItemToCart", { ...item, quantity: quantity.value });

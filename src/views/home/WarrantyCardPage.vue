@@ -74,13 +74,16 @@
 
 <script>
 import { onMounted, onUnmounted, ref } from "vue";
+import commonFunctions from "@/utils/commonFunctions";
 import store from "@/store";
 import { $api } from "@/services/api";
 export default {
   setup() {
+    const { showSpinnerIosLoading, hideSpinnerIosLoading } = commonFunctions();
     const warrantyCardList = ref([]);
     const loading = ref(true);
     const fetchInformation = async () => {
+      showSpinnerIosLoading();
       loading.value = true;
       warrantyCardList.value = [];
       const warrantyCards = await $api.warranty_cards.getByParams({
@@ -99,6 +102,7 @@ export default {
         }
       }
       loading.value = false;
+      hideSpinnerIosLoading();
     };
     onMounted(async () => {
       store.dispatch("updateBreadCrumbs", ["ใบรับประกัน"]);

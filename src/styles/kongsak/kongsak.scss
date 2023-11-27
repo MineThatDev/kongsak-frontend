@@ -44,5 +44,10 @@ body {
 .bg-kongsak-color {
   background-color: #fdf5f5;
 }
+.custom-spinner {
+  background-color: #00000000;
+  backdrop-filter: blur(2px); /* Increase the blur effect as needed */
+  -webkit-backdrop-filter: blur(2px); /* Add support for older versions of Safari */
+}
 
 

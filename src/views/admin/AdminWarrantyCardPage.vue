@@ -240,11 +240,12 @@ import { useQuasar } from "quasar";
 export default {
   setup() {
     const $q = useQuasar();
-    const { showNotification } = commonFunctions();
+    const { showNotification, showSpinnerIosLoading, hideSpinnerIosLoading } = commonFunctions();
     const warrantyCardList = ref([]);
     const loading = ref(true);
     const searchString = ref("");
     const fetchInformation = async () => {
+      showSpinnerIosLoading();
       loading.value = true;
       warrantyCardList.value = [];
       const warrantyCards = await $api.warranty_cards.getByParams({
@@ -263,6 +264,7 @@ export default {
         }
       }
       loading.value = false;
+      hideSpinnerIosLoading();
     };
     const showCreateWarrantyCardDialog = ref(false);
     const dialogForm = reactive({

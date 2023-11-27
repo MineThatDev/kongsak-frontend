@@ -375,7 +375,7 @@ import { Dialog } from "quasar";
 import handleFile from "@/utils/file";
 export default {
   setup() {
-    const { handleImageSrc, currencyFormat, redirect, showNotification } =
+    const { handleImageSrc, currencyFormat, redirect, showNotification, showSpinnerIosLoading, hideSpinnerIosLoading } =
       commonFunctions();
     const { createUrlFromFile, createUrlFromBase64 } = handleFile();
     const categoryOptions = ref(["กล้อง", "เครื่องบันทึกภาพ", "อื่นๆ"]);
@@ -391,6 +391,7 @@ export default {
     const testUpload = async () => {};
     const searchString = ref("");
     const fetchProducts = async () => {
+      showSpinnerIosLoading();
       products.value = [];
       const productsRes = await $api.products.getByParams({
         name_like: searchString.value ? searchString.value : null,
@@ -405,6 +406,7 @@ export default {
           content: imageRes && imageRes[0] ? imageRes[0].content : null,
         });
       }
+      hideSpinnerIosLoading();
     };
     const confirmEdit = async (obj) => {
       const response = await $api.products.update(obj);

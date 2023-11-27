@@ -165,7 +165,7 @@ import store from "@/store";
 import { $api } from "@/services/api";
 export default {
   setup() {
-    const { currencyFormat } = commonFunctions();
+    const { currencyFormat, showSpinnerIosLoading, hideSpinnerIosLoading } = commonFunctions();
     const { openFiles } = file();
     
     const orderList = ref([]);
@@ -175,6 +175,7 @@ export default {
     const succeedLength = ref(0);
     const loading = ref(true);
     const fetchInformation = async (deliveryStatus = null) => {
+      showSpinnerIosLoading();
       loading.value = true;
       if (deliveryStatus === null) {
         selectedType.value = "ทั้งหมด";
@@ -271,6 +272,7 @@ export default {
         }
       }
       loading.value = false;
+      hideSpinnerIosLoading();
     };
     onMounted(async () => {
       store.dispatch("updateBreadCrumbs", ["รายการคำสั่งซื้อ"]);

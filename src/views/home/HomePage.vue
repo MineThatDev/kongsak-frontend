@@ -161,13 +161,13 @@ import { $api } from "@/services/api";
 import handleFile from "@/utils/file";
 export default {
   setup() {
-    const { handleImageSrc, currencyFormat, redirect } = commonFunctions();
+    const { handleImageSrc, currencyFormat, redirect, showSpinnerIosLoading, hideSpinnerIosLoading } = commonFunctions();
     const { createUrlFromBase64 } = handleFile();
     const userInfo = computed(() => store.getters.userInfo);
     const products = ref([]);
     const fetchInformation = async () => {
+      showSpinnerIosLoading();
       products.value = [];
-
       const productsRes = await $api.products.getByParams({
         is_active: true,
       });
@@ -181,6 +181,7 @@ export default {
           content: imageRes && imageRes[0] ? imageRes[0].content : null,
         });
       }
+      hideSpinnerIosLoading();
     };
     onMounted(async () => {
       await fetchInformation();

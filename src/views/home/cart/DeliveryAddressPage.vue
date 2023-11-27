@@ -171,7 +171,7 @@ import { onMounted, ref, computed, onUnmounted } from "vue";
 import { $api } from "@/services/api";
 export default {
   setup() {
-    const { redirect, currencyFormat, showNotification } = commonFunctions();
+    const { redirect, currencyFormat, showNotification, showSpinnerIosLoading, hideSpinnerIosLoading } = commonFunctions();
     const { getCurrentDateInDDMMYYYYFormat, increaseDateByDays } = date();
     const totalPrice = computed(() =>
       store.getters.cart.reduce(
@@ -190,6 +190,7 @@ export default {
     const entryPhoneNumber = ref("");
     const address = ref("");
     const fetchInformation = async () => {
+      showSpinnerIosLoading();
       deliveryAddress.value = [];
       const response = await $api.shipping_addresses.getByParams({
         user_id: store.getters.userInfo._id,
@@ -203,6 +204,7 @@ export default {
             phone: info.phone,
           });
       }
+      hideSpinnerIosLoading();
     };
     const validateDeliveryAddressForm = () => {
       if (

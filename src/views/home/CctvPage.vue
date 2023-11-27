@@ -209,11 +209,12 @@ import { ref, onMounted, onUnmounted } from "vue";
 import handleFile from "@/utils/file";
 export default {
   setup() {
-    const { handleImageSrc, currencyFormat, redirect } = commonFunctions();
+    const { handleImageSrc, currencyFormat, redirect, showSpinnerIosLoading, hideSpinnerIosLoading } = commonFunctions();
     const { createUrlFromBase64 } = handleFile();
     const products = ref([]);
     const searchString = ref("");
     const fetchProducts = async () => {
+      showSpinnerIosLoading();
       const productsRes = await $api.products.getByParams({
         category: "กล้อง",
         name_like: searchString.value ? searchString.value : null,
@@ -228,6 +229,7 @@ export default {
           content: imageRes && imageRes[0] ? imageRes[0].content : null,
         });
       }
+      hideSpinnerIosLoading();
     };
     onMounted(async () => {
       store.dispatch("updateBreadCrumbs", ["กล้องวงจรปิด"]);

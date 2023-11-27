@@ -255,7 +255,7 @@ import store from "@/store";
 import { $api } from "@/services/api";
 export default {
   setup() {
-    const { showNotification, currencyFormat } = commonFunctions();
+    const { showNotification, currencyFormat, showSpinnerIosLoading, hideSpinnerIosLoading } = commonFunctions();
     const { openFiles } = file();
     const orderList = ref([]);
     const selectedType = ref("ทั้งหมด");
@@ -265,6 +265,7 @@ export default {
     const loading = ref(true);
     const searchString = ref("");
     const fetchInformation = async (deliveryStatus = null) => {
+      showSpinnerIosLoading();
       loading.value = true;
       orderList.value = [];
       if (deliveryStatus === null) {
@@ -366,6 +367,7 @@ export default {
         }
       }
       loading.value = false;
+      hideSpinnerIosLoading();
     };
     const runProcess = async (orderId) => {
       const orderStatus = await $api.order_statuses.getByParams({

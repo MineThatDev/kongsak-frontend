@@ -1,5 +1,5 @@
 import router from "@/router";
-import { useQuasar } from "quasar";
+import { useQuasar, QSpinnerIos } from "quasar";
 export default function commonFunctions() {
   const $q = useQuasar();
   const redirect = (path, slug = "") => {
@@ -15,7 +15,7 @@ export default function commonFunctions() {
       position: position ? position : "top",
       type: type,
     });
-  }
+  };
   const handleImageSrc = (imgSrc) => {
     let condition = "@/assets/products";
     // if local path
@@ -38,5 +38,15 @@ export default function commonFunctions() {
     }
     return num;
   };
-  return { redirect, handleImageSrc, currencyFormat, showNotification, $q };
+  const showSpinnerIosLoading = () => {
+    $q.loading.show({
+      spinner: QSpinnerIos,
+      spinnerColor: "pumping-spice",
+      spinnerSize: 70,
+    });
+  };
+  const hideSpinnerIosLoading = () => {
+    $q.loading.hide();
+  };
+  return { redirect, handleImageSrc, currencyFormat, showNotification, $q, showSpinnerIosLoading, hideSpinnerIosLoading };
 }
