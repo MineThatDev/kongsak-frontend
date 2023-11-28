@@ -122,7 +122,7 @@
         <div
           v-for="(item, index) in products"
           :key="index"
-          class="col-xl-2 col-lg-2 col-md-2 col-sm-6 col-xs-12 q-px-sm"
+          class="col-xl-2 col-lg-2 col-md-3 col-sm-4 col-xs-12 q-px-sm"
         >
           <q-card class="card-radius q-mt-md" v-if="item.is_active">
             <q-btn
@@ -148,8 +148,6 @@
             <div>
               <q-card-section align="center" class="q-pa-lg">
                 <q-img
-                  width="180px"
-                  height="180px"
                   :src="createUrlFromBase64(item.content)"
                 />
               </q-card-section>

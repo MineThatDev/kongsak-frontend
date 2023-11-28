@@ -74,7 +74,7 @@
     </div>
     <div style="background-color: #f9f7f7" class="q-pb-md">
       <div class="row">
-        <div class="col-3 text-center">
+        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-xs-12 text-center">
           <div class="q-my-md">
             <q-icon name="settings" size="48px"></q-icon>
           </div>
@@ -91,7 +91,7 @@
             ความต้องการของคุณ
           </div>
         </div>
-        <div class="col-3 text-center">
+        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-xs-12 text-center">
           <div class="q-my-md">
             <q-icon name="forum" size="48px"></q-icon>
           </div>
@@ -111,7 +111,7 @@
             กล้องวงจรปิดอย่างมีประสิทธิภาพ
           </div>
         </div>
-        <div class="col-3 text-center">
+        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-xs-12 text-center">
           <div class="q-my-md">
             <q-icon name="thumb_up" size="48px"></q-icon>
           </div>
@@ -128,7 +128,7 @@
             พร้อมการรับประกันที่ดีที่สุด
           </div>
         </div>
-        <div class="col-3 text-center">
+        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-xs-12 text-center">
           <div class="q-my-md">
             <q-icon name="support_agent" size="48px"></q-icon>
           </div>

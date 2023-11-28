@@ -1,6 +1,6 @@
 <template>
-  <div class="q-my-md row">
-    <div class="col-3 text-center">
+  <div class="q-mt-md row">
+    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-xs-12 text-center q-my-sm">
       <div>
         <span class="text-trapped-darkness text-h5 text-weight-bold">KONG</span
         ><span class="text-pumping-spice text-h5 text-weight-bold">SAK</span>
@@ -12,7 +12,7 @@
         และมีคุณภาพเพื่อคุณ
       </div>
     </div>
-    <div class="col-3 text-center">
+    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-xs-12 text-center q-my-sm">
       <div class="text-trapped-darkness text-weight-bold font-size-16">
         สินค้าของเรา
       </div>
@@ -26,12 +26,12 @@
         อุปกรณ์อื่นๆ
       </div>
     </div>
-    <div class="col-3 text-center">
+    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-xs-12 text-center q-my-sm">
       <div class="text-trapped-darkness text-weight-bold font-size-16">
         บัญชีของฉัน
       </div>
       <div class="q-mt-sm text-grey text-weight-bold font-size-16">
-        คะกร้าสินค้าของฉัน
+        ตะกร้าสินค้าของฉัน
       </div>
       <div class="q-mt-sm text-grey text-weight-bold font-size-16">
         คำสั่งซื้อของฉัน
@@ -43,7 +43,7 @@
         การรับประกันสินค้าของฉัน
       </div>
     </div>
-    <div class="col-3 text-center">
+    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-xs-12 text-center q-my-sm">
       <div class="text-trapped-darkness text-weight-bold font-size-16">
         ติดต่อเรา
       </div>
@@ -64,7 +64,7 @@
       </div>
     </div>
   </div>
-  <q-toolbar class="q-gutter-sm"
+  <q-toolbar class="q-gutter-xs"
     ><div>COPYRIGHT</div>
     <q-icon name="copyright" class="text-pumping-spice"></q-icon>
     <div>2023</div>

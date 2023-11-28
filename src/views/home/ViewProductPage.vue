@@ -1,10 +1,10 @@
 <template>
   <q-page padding>
     <div class="row">
-      <div class="col-6 flex flex-center" style="padding: 120px">
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 flex flex-center" style="padding: 120px">
         <q-img :src="createUrlFromBase64(product.content)" :ratio="1" />
       </div>
-      <div class="col-6 q-px-lg" style="padding-top: 20px">
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 q-px-lg" style="padding-top: 20px">
         <div class="font-kongsak-bold font-size-24">{{ product.name }}</div>
         <div class="font-kongsak-bold font-size-18 q-my-md text-cedar-plank">
           {{ product.brand }}
