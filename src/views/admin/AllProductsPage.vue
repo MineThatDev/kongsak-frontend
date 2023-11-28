@@ -247,7 +247,7 @@
       </div>
     </div>
     <q-dialog v-model="showAddProductDialog">
-      <q-card style="min-width: 800px; height: 600px">
+      <q-card style="height: 600px" :style="$q.screen.gt.xs ? 'min-width: 40%;' : 'min-width: 80%;'">
         <div class="row">
           <div
             class="row col-12 items-center justify-between q-px-md q-my-md"

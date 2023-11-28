@@ -1,7 +1,7 @@
 <template>
   <q-page class="row">
     <div class="col-7-xl col-lg-7 col-md-6 col-sm-12 col-xs-12">
-      <div class="row items-center q-mt-md q-mb-xl" style="padding-left: 40px">
+      <div class="row items-center q-mt-md q-mb-xl" :style="$q.screen.gt.xs ? 'padding-left: 40px' : ''" :class="$q.screen.gt.xs ? '' : 'justify-center'">
         <div class="font-size-24 text-weight-bold text-black">
           วิธีการชำระเงิน
         </div>
@@ -52,7 +52,7 @@
       </div>
     </div>
     <div class="col-5-xl col-lg-5 col-md-6 col-sm-12 col-xs-12 row justify-center">
-      <div class="wrapper-cart-bill q-mt-xl q-pa-md">
+      <div class="wrapper-cart-bill q-mt-md q-pa-md">
         <div class="row q-mt-sm">
           <div class="font-size-18 text-weight-bold">ยอดสั่งซื้อรวม</div>
         </div>

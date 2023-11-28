@@ -1,7 +1,7 @@
 <template>
   <q-page class="row">
     <div class="col-7-xl col-lg-7 col-md-6 col-sm-12 col-xs-12">
-      <div class="row items-center q-mt-md q-mb-xl" style="padding-left: 40px">
+      <div class="row items-center q-mt-md q-mb-xl" :style="$q.screen.gt.xs ? 'padding-left: 40px' : ''" :class="$q.screen.gt.xs ? '' : 'justify-center'">
         <div class="font-size-24 text-weight-bold text-black">
           ตะกร้าสินค้าของฉัน
         </div>
@@ -17,12 +17,10 @@
         <div class="col-3 flex flex-center">
           <q-img
             :src="createUrlFromBase64(product.content)"
-            height="100px"
-            width="100px"
             :ratio="1"
           />
         </div>
-        <div class="col-9 q-px-xl q-pt-md">
+        <div class="col-9 q-pt-md" :class="$q.screen.gt.sm ? 'q-px-xl' : 'q-px-md'">
           <div class="row justify-between">
             <div class="text-trapped-darkness text-weight-bold font-size-18">
               {{ product.name }}
@@ -75,7 +73,7 @@
       </div>
     </div>
     <div class="col-5-xl col-lg-5 col-md-6 col-sm-12 col-xs-12 row justify-center">
-      <div class="wrapper-cart-bill q-mt-xl q-pa-md">
+      <div class="wrapper-cart-bill q-mt-md q-pa-md">
         <div class="row q-mt-sm">
           <div class="font-size-18 text-weight-bold">ยอดสั่งซื้อรวม</div>
         </div>
