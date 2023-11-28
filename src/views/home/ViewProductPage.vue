@@ -1,10 +1,16 @@
 <template>
   <q-page padding>
     <div class="row">
-      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 flex flex-center" style="padding: 120px">
-        <q-img :src="createUrlFromBase64(product.content)" :ratio="1" />
+      <div
+        class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 flex flex-center"
+        style="padding: 120px"
+      >
+        <q-img :src="createUrlFromBase64(product.content)" :ratio="1" style="min-width: 240px;" :style="$q.screen.gt.xs ? '' : 'height:120px'" />
       </div>
-      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 q-px-lg" style="padding-top: 20px">
+      <div
+        class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 q-px-lg"
+        style="padding-top: 20px"
+      >
         <div class="font-kongsak-bold font-size-24">{{ product.name }}</div>
         <div class="font-kongsak-bold font-size-18 q-my-md text-cedar-plank">
           {{ product.brand }}
@@ -23,35 +29,69 @@
           <span class="font-kongsak-bold font-size-18 text-cedar-plank"
             >จำนวน</span
           ><q-icon
+            v-if="$q.screen.gt.xs"
             name="remove_circle"
             size="40px"
             class="q-mx-lg cursor-pointer"
             @click="decreaseQuantity()"
-          /><span
+          />
+          <q-icon
+            v-else
+            name="remove_circle"
+            size="24px"
+            class="q-mx-md cursor-pointer"
+            @click="decreaseQuantity()"
+          />
+          <span
             class="font-kongsak-bold font-size-18 q-my-xl text-pumping-spice"
             >{{ quantity }}</span
           >
           <q-icon
+            v-if="$q.screen.gt.xs"
             name="add_circle"
             size="40px"
             class="q-mx-lg cursor-pointer"
+            @click="increaseQuantity()"
+          />
+          <q-icon
+            v-else
+            name="add_circle"
+            size="24px"
+            class="q-mx-md cursor-pointer"
             @click="increaseQuantity()"
           />
         </div>
         <div class="row q-mt-xl">
           <div class="col-6 flex flex-center">
             <q-btn
+              v-if="$q.screen.gt.xs"
               class="bg-cedar-plank text-white btn-radius"
               icon="shopping_cart"
               style="min-width: 160px"
               @click="addItemToCart(product)"
               >เพิ่มไปยังรถเข็น</q-btn
             >
+            <q-btn
+              v-else
+              class="bg-cedar-plank text-white btn-radius"
+              icon="shopping_cart"
+              style="min-width: 80px"
+              @click="addItemToCart(product)"
+              >เพิ่ม</q-btn
+            >
           </div>
           <div class="col-6 flex flex-center">
             <q-btn
+              v-if="$q.screen.gt.xs"
               class="bg-pumping-spice text-white btn-radius"
               style="min-width: 160px"
+              @click="addItemToCart(product, '/cart')"
+              >ซื้อเลย</q-btn
+            >
+            <q-btn
+              v-else
+              class="bg-pumping-spice text-white btn-radius"
+              style="min-width: 80px"
               @click="addItemToCart(product, '/cart')"
               >ซื้อเลย</q-btn
             >
