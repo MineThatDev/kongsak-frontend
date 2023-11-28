@@ -268,8 +268,6 @@
               <q-img
                 v-if="imgSrc"
                 :src="imgSrc"
-                width="360px"
-                height="360px"
                 fit
               >
                 <q-badge class="cursor-pointer" rounded @click="file = null">
