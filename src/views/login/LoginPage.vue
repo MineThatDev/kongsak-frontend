@@ -103,13 +103,13 @@
               </div>
               <div class="row q-my-md">
                 <div
-                  class="row col-6 justify-center items-center text-trapped-darkness"
+                  class="row col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 justify-center items-center text-trapped-darkness"
                   :class="$q.screen.gt.xs ? 'font-size-20' : 'font-size-16'"
                 >
                   ยังไม่ได้เป็นสมาชิก ?
                 </div>
                 <div
-                  class="row col-6 justify-center items-center text-weight-bold text-trapped-darkness cursor-pointer"
+                  class="row col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 justify-center items-center text-weight-bold text-trapped-darkness cursor-pointer"
                   @click="togglePage('signup')"
                   :class="$q.screen.gt.xs ? 'font-size-20' : 'font-size-16'"
                 >
@@ -239,13 +239,13 @@
               </div>
               <div class="row q-my-md">
                 <div
-                  class="row col-6 justify-center items-center text-trapped-darkness"
+                  class="row col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 justify-center items-center text-trapped-darkness"
                   :class="$q.screen.gt.xs ? 'font-size-20' : 'font-size-16'"
                 >
                   เป็นสมาชิกแล้ว
                 </div>
                 <div
-                  class="row col-6 justify-center items-center text-weight-bold text-trapped-darkness cursor-pointer"
+                  class="row col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 justify-center items-center text-weight-bold text-trapped-darkness cursor-pointer"
                   :class="$q.screen.gt.xs ? 'font-size-20' : 'font-size-16'"
                   @click="togglePage('login')"
                 >
