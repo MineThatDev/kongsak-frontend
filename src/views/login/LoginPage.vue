@@ -260,7 +260,8 @@
     <q-dialog v-model="activeForgotPassword">
       <q-card
         class="q-pa-md"
-        style="min-width: 540px; height: 240px; border-radius: 16px"
+        style="height: 240px; border-radius: 16px"
+        :style="$q.screen.gt.xs ? 'width: 60%;' : 'width: 80%;'"
       >
         <div class="row justify-between items-center">
           <div class="q-pl-md q-pt-md text-trapped-darkness font-size-16">
