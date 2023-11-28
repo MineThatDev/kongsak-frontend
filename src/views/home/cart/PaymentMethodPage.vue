@@ -94,7 +94,8 @@
   <q-dialog v-model="showBankTransferPaymentDialog">
     <div
       class="q-py-md q-px-xl bg-white"
-      style="width: 640px; max-width: 640px; height: 560px; border-radius: 16px"
+      style="height: 560px; border-radius: 16px"
+      :style="$q.screen.gt.xs ? 'min-width: 40%;' : 'min-width: 80%;'"
     >
       <div class="row justify-between items-center">
         <div class="text-trapped-darkness font-size-18 q-mt-md">
@@ -233,7 +234,7 @@
     </div>
   </q-dialog>
   <q-dialog v-model="showQrCodePaymentDialog">
-    <q-card class="q-pa-lg" style="width: 800px">
+    <q-card class="q-pa-lg" :style="$q.screen.gt.xs ? 'min-width: 40%;' : 'min-width: 80%;'">
       <div class="row justify-between items-center">
         <div class="text-trapped-darkness font-size-18 q-mt-md">
           QR Code พร้อมเพย์

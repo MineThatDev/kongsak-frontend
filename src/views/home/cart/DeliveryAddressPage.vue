@@ -95,7 +95,8 @@
     <q-dialog v-model="activeDeliveryPopup">
       <q-card
         class="q-pa-md"
-        style="min-width: 540px; height: 480px; border-radius: 16px"
+        style="height: 480px; border-radius: 16px"
+        :style="$q.screen.gt.xs ? 'min-width: 40%;' : 'min-width: 80%;'"
       >
         <div class="row justify-between items-center">
           <div class="q-pl-md q-pt-md text-trapped-darkness font-size-16">

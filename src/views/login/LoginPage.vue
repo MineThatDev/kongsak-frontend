@@ -81,7 +81,7 @@
                 หรือ
               </div>
               <div class="row col-12">
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 q-my-sm text-center">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 q-my-sm text-center">
                   <q-btn
                     label="Facebook"
                     style="min-width: 140px !important"
@@ -90,7 +90,7 @@
                   >
                   </q-btn>
                 </div>
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 q-my-sm text-center">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 q-my-sm text-center">
                   <q-btn
                     label="Google"
                     style="min-width: 140px !important"
@@ -103,13 +103,13 @@
               </div>
               <div class="row q-my-md">
                 <div
-                  class="row col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 justify-center items-center text-trapped-darkness"
+                  class="row col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 justify-center items-center text-trapped-darkness"
                   :class="$q.screen.gt.xs ? 'font-size-20' : 'font-size-16'"
                 >
                   ยังไม่ได้เป็นสมาชิก ?
                 </div>
                 <div
-                  class="row col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 justify-center items-center text-weight-bold text-trapped-darkness cursor-pointer"
+                  class="row col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 justify-center items-center text-weight-bold text-trapped-darkness cursor-pointer"
                   @click="togglePage('signup')"
                   :class="$q.screen.gt.xs ? 'font-size-20' : 'font-size-16'"
                 >
@@ -217,7 +217,7 @@
                 หรือ
               </div>
               <div class="row col-12">
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 q-my-sm text-center">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 q-my-sm text-center">
                   <q-btn
                     label="Facebook"
                     style="min-width: 140px !important"
@@ -226,7 +226,7 @@
                   >
                   </q-btn>
                 </div>
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 q-my-sm text-center">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 q-my-sm text-center">
                   <q-btn
                     label="Google"
                     style="min-width: 140px !important"
@@ -239,13 +239,13 @@
               </div>
               <div class="row q-my-md">
                 <div
-                  class="row col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 justify-center items-center text-trapped-darkness"
+                  class="row col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 justify-center items-center text-trapped-darkness"
                   :class="$q.screen.gt.xs ? 'font-size-20' : 'font-size-16'"
                 >
                   เป็นสมาชิกแล้ว
                 </div>
                 <div
-                  class="row col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 justify-center items-center text-weight-bold text-trapped-darkness cursor-pointer"
+                  class="row col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 justify-center items-center text-weight-bold text-trapped-darkness cursor-pointer"
                   :class="$q.screen.gt.xs ? 'font-size-20' : 'font-size-16'"
                   @click="togglePage('login')"
                 >
@@ -261,7 +261,7 @@
       <q-card
         class="q-pa-md"
         style="height: 240px; border-radius: 16px"
-        :style="$q.screen.gt.xs ? 'width: 60%;' : 'width: 80%;'"
+        :style="$q.screen.gt.xs ? 'min-width: 40%;' : 'min-width: 80%;'"
       >
         <div class="row justify-between items-center">
           <div class="q-pl-md q-pt-md text-trapped-darkness font-size-16">
