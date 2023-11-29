@@ -137,7 +137,7 @@
                     dense
                   ></q-input>
                 </div>
-                <div class="col-6 q-pl-sm">
+                <div class="col-6 q-pl-sm q-pr-lg">
                   <q-input
                     outlined
                     v-model="dialogForm.lastName"
@@ -147,7 +147,7 @@
                 </div>
               </div>
             </div>
-            <div class="q-pl-lg q-py-sm">
+            <div class="q-px-lg q-py-sm">
               <div class="row text-black font-size-14">ชื่อสินค้า</div>
               <div class="col-12">
                 <q-input
@@ -159,7 +159,7 @@
               </div>
             </div>
 
-            <div class="q-pl-lg q-py-sm">
+            <div class="q-px-lg q-py-sm">
               <div class="row text-black font-size-14">
                 ประวัติการซ่อม/เปลี่ยนสินค้า
               </div>
