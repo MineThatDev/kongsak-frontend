@@ -416,6 +416,7 @@ export default {
           ok: "ยืนยัน",
           cancel: "ยกเลิก",
         }).onOk(async () => {
+          showSpinnerIosLoading();
           await $api.users.create({
             email: signupInformation.email,
             first_name: signupInformation.firstName,
@@ -426,6 +427,7 @@ export default {
             login_method: "regular",
             is_active: true,
           });
+          hideSpinnerIosLoading();
           showNotification("positive", "สมัครสมาชิกสำเร็จ!");
           togglePage("login");
         });

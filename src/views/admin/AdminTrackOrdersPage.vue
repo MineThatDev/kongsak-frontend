@@ -1,42 +1,44 @@
 <template>
   <q-page padding>
     <div class="row">
-      <div class="col-2">
-        <div
-          class="font-size-18 cursor-pointer q-mb-md"
-          @click="fetchInformation()"
-          :class="
-            selectedType === 'ทั้งหมด'
-              ? 'text-pumping-spice'
-              : 'text-trapped-darkness'
-          "
-        >
-          ทั้งหมด ({{ allLength }})
-        </div>
-        <div
-          class="font-size-18 cursor-pointer q-mb-md"
-          @click="fetchInformation('กำลังดำเนินการ')"
-          :class="
-            selectedType === 'ที่ต้องจัดส่ง'
-              ? 'text-pumping-spice'
-              : 'text-trapped-darkness'
-          "
-        >
-          ที่ต้องจัดส่ง ({{ mustShippedLength }})
-        </div>
-        <div
-          class="font-size-18 cursor-pointer"
-          @click="fetchInformation('สำเร็จ')"
-          :class="
-            selectedType === 'สำเร็จ'
-              ? 'text-pumping-spice'
-              : 'text-trapped-darkness'
-          "
-        >
-          สำเร็จ ({{ succeedLength }})
+      <div class="col-xl-2 col-lg-2 col-md-2 col-sm-3 col-xs-12">
+        <div :class="$q.screen.gt.xs ? '' : 'row justify-between'">
+          <div
+            class="font-size-18 cursor-pointer q-mb-md"
+            @click="fetchInformation()"
+            :class="
+              selectedType === 'ทั้งหมด'
+                ? 'text-pumping-spice'
+                : 'text-trapped-darkness'
+            "
+          >
+            ทั้งหมด ({{ allLength }})
+          </div>
+          <div
+            class="font-size-18 cursor-pointer q-mb-md"
+            @click="fetchInformation('กำลังดำเนินการ')"
+            :class="
+              selectedType === 'ที่ต้องจัดส่ง'
+                ? 'text-pumping-spice'
+                : 'text-trapped-darkness'
+            "
+          >
+            ที่ต้องจัดส่ง ({{ mustShippedLength }})
+          </div>
+          <div
+            class="font-size-18 cursor-pointer"
+            @click="fetchInformation('สำเร็จ')"
+            :class="
+              selectedType === 'สำเร็จ'
+                ? 'text-pumping-spice'
+                : 'text-trapped-darkness'
+            "
+          >
+            สำเร็จ ({{ succeedLength }})
+          </div>
         </div>
       </div>
-      <div class="col-10">
+      <div class="col-xl-10 col-lg-10 col-md-10 col-sm-9 col-xs-12">
         <div class="row justify-between items-center">
           <div class="text-trapped-darkness font-size-18 text-weight-bold">
             รายการสั่งซื้อ:
@@ -139,7 +141,12 @@
                         <q-icon name="attachment" color="smokey-grey" />
                       </template>
                       <template v-slot:after v-if="order.files.length">
-                        <q-btn class="text-black" flat @click="openFiles(order.files)">ดูไฟล์</q-btn>
+                        <q-btn
+                          class="text-black"
+                          flat
+                          @click="openFiles(order.files)"
+                          >ดูไฟล์</q-btn
+                        >
                       </template>
                     </q-file>
                   </div>
@@ -255,7 +262,12 @@ import store from "@/store";
 import { $api } from "@/services/api";
 export default {
   setup() {
-    const { showNotification, currencyFormat, showSpinnerIosLoading, hideSpinnerIosLoading } = commonFunctions();
+    const {
+      showNotification,
+      currencyFormat,
+      showSpinnerIosLoading,
+      hideSpinnerIosLoading,
+    } = commonFunctions();
     const { openFiles } = file();
     const orderList = ref([]);
     const selectedType = ref("ทั้งหมด");
@@ -318,7 +330,10 @@ export default {
             origin: "payment-method",
           });
           if (fileInformation && fileInformation.length) {
-            files.push({ ...fileInformation[0], name: fileInformation[0].filename })
+            files.push({
+              ...fileInformation[0],
+              name: fileInformation[0].filename,
+            });
           }
           if (orderProducts && orderProducts.length) {
             for (const product of orderProducts) {
@@ -370,6 +385,7 @@ export default {
       hideSpinnerIosLoading();
     };
     const runProcess = async (orderId) => {
+      showSpinnerIosLoading();
       const orderStatus = await $api.order_statuses.getByParams({
         order_id: orderId,
         is_active: true,
@@ -397,6 +413,7 @@ export default {
           await fetchInformation("กำลังดำเนินการ");
         }
       }
+      hideSpinnerIosLoading();
     };
     const confirmFinishForm = async (obj) => {
       if (
@@ -406,6 +423,7 @@ export default {
         obj.deliveredBy &&
         obj.trackingUrl
       ) {
+        showSpinnerIosLoading();
         const response = await $api.orders.update({
           id: obj.orderId,
           tracking_number: obj.trackingNumber,
@@ -426,6 +444,7 @@ export default {
             "ยืนยันการจัดส่งล้มเหลว! โปรดลองอีกครั้ง"
           );
         }
+        hideSpinnerIosLoading();
       } else {
         showNotification("negative", "กรุณากรอกข้อมูลให้ครบก่อนกดยืนยัน!");
       }
@@ -449,7 +468,7 @@ export default {
       currencyFormat,
       loading,
       searchString,
-      openFiles
+      openFiles,
     };
   },
 };

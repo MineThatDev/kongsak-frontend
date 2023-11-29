@@ -423,6 +423,7 @@ export default {
       });
     };
     const deleteProduct = async (id) => {
+      showSpinnerIosLoading();
       const response = await $api.products.update({
         id: id,
         is_active: false,
@@ -432,6 +433,7 @@ export default {
       } else {
         showNotification("negative", "ลบสินค้าล้มเหลว");
       }
+      hideSpinnerIosLoading();
       await fetchProducts();
     };
     const showAddProductDialog = ref(false);

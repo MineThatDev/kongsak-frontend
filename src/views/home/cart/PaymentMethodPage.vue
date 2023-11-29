@@ -215,10 +215,9 @@
             v-model="bankTransferForm.transferFiles"
             class="text-black"
             borderless
-            label="Upload File"
+            label="Upload Image"
             label-color="gold"
             dense
-            multiple
             append
             use-chips
           >
@@ -324,10 +323,9 @@
           <q-file
             class="text-black"
             borderless
-            label="Upload File"
+            label="Upload Image"
             label-color="gold"
             dense
-            multiple
             append
             use-chips
             v-model="qrCodeTransferForm.transferFiles"
@@ -409,7 +407,7 @@ export default {
           bankTransferForm.bankType &&
           bankTransferForm.transferAmount &&
           bankTransferForm.transferDate &&
-          bankTransferForm.transferFiles.length
+          Object.keys(bankTransferForm.transferFiles).length
         ) {
           return true;
         } else {
@@ -419,7 +417,7 @@ export default {
         if (
           qrCodeTransferForm.transferAmount &&
           qrCodeTransferForm.transferDate &&
-          qrCodeTransferForm.transferFiles.length
+          Object.keys(qrCodeTransferForm.transferAmount).length
         ) {
           return true;
         } else {
@@ -447,10 +445,10 @@ export default {
           if (response && response.status === 201) {
             // Create file
             const formData = new FormData();
-            if (bankTransferForm.transferFiles.length) {
-              formData.append("file", bankTransferForm.transferFiles[0]);
-            } else if (qrCodeTransferForm.transferAmount.length) {
-              formData.append("file", qrCodeTransferForm.transferFiles[0]);
+            if (Object.keys(bankTransferForm.transferFiles).length) {
+              formData.append("file", bankTransferForm.transferFiles);
+            } else if (Object.keys(qrCodeTransferForm.transferAmount).lengths) {
+              formData.append("file", qrCodeTransferForm.transferFiles);
             }
             formData.append("key_ref", response.data.id);
             formData.append("origin", "payment-method");

@@ -1,14 +1,14 @@
 <template>
   <q-page padding>
     <div class="row">
-      <div class="col-2">
+      <div class="col-xl-2 col-lg-2 col-md-2 col-sm-3 col-xs-12">
         <div
           class="text-pumping-spice font-size-18 text-weight-bold cursor-pointer"
         >
           ทั้งหมด ({{ warrantyCardList.length }})
         </div>
       </div>
-      <div class="col-10">
+      <div class="col-xl-10 col-lg-10 col-md-10 col-sm-9 col-xs-12">
         <div class="row justify-between items-center">
           <div class="text-trapped-darkness font-size-18 text-weight-bold">
             รายการใบรับประกัน:
@@ -26,7 +26,7 @@
           >
             <div class="q-px-lg q-py-md">
               <div class="row items-center">
-                <div class="col-6">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xl-12">
                   <div class="text-trapped-darkness text-weight-bold q-mt-md">
                     ชื่อสินค้า
                   </div>
@@ -34,7 +34,7 @@
                     {{ card.product_name }}
                   </div>
                 </div>
-                <div class="col-6">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xl-12">
                   <div class="text-trapped-darkness text-weight-bold q-mt-md">
                     Serial Number
                   </div>
@@ -42,7 +42,7 @@
                 </div>
               </div>
               <div class="row items-center">
-                <div class="col-6">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xl-12">
                   <div class="text-trapped-darkness text-weight-bold q-mt-md">
                     ประวัติการซ่อม / เปลี่ยนสินค้า
                   </div>
@@ -54,7 +54,7 @@
                     }}
                   </div>
                 </div>
-                <div class="col-6">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xl-12">
                   <div class="text-trapped-darkness text-weight-bold q-mt-md">
                     วันที่ เริ่ม - สิ้นสุด การรับประกันสินค้า
                   </div>

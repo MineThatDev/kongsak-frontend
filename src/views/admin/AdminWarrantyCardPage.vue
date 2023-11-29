@@ -1,14 +1,14 @@
 <template>
   <q-page padding>
     <div class="row">
-      <div class="col-2">
+      <div class="col-xl-2 col-lg-2 col-md-2 col-sm-3 col-xs-12">
         <div
           class="text-pumping-spice font-size-18 text-weight-bold cursor-pointer"
         >
           ทั้งหมด ({{ warrantyCardList.length }})
         </div>
       </div>
-      <div class="col-10">
+      <div class="col-xl-10 col-lg-10 col-md-10 col-sm-9 col-xs-12">
         <div class="row justify-between items-center">
           <div class="text-trapped-darkness font-size-18 text-weight-bold">
             รายการใบรับประกัน:
@@ -44,7 +44,7 @@
           >
             <div class="q-px-lg q-py-md">
               <div class="row items-center">
-                <div class="col-6">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xl-12">
                   <div class="text-trapped-darkness text-weight-bold q-mt-md">
                     ชื่อสินค้า
                   </div>
@@ -52,7 +52,7 @@
                     {{ card.product_name }}
                   </div>
                 </div>
-                <div class="col-6">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xl-12">
                   <div class="text-trapped-darkness text-weight-bold q-mt-md">
                     Serial Number
                   </div>
@@ -60,7 +60,7 @@
                 </div>
               </div>
               <div class="row items-center">
-                <div class="col-6">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xl-12">
                   <div class="text-trapped-darkness text-weight-bold q-mt-md">
                     ประวัติการซ่อม / เปลี่ยนสินค้า
                   </div>
@@ -72,7 +72,7 @@
                     }}
                   </div>
                 </div>
-                <div class="col-6">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xl-12">
                   <div class="text-trapped-darkness text-weight-bold q-mt-md">
                     วันที่ เริ่ม - สิ้นสุด การรับประกันสินค้า
                   </div>
@@ -125,7 +125,7 @@
           ></q-btn>
         </div>
         <div class="row q-pb-md">
-          <div class="col-6 q-mt-md">
+          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 q-mt-md">
             <div class="q-pl-lg">
               <div class="row text-black font-size-14">ชื่อ - นามสกุล</div>
               <div class="row">
@@ -176,7 +176,7 @@
               </div>
             </div>
           </div>
-          <div class="col-6 q-mt-md">
+          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 q-mt-md">
             <div class="q-px-lg">
               <div class="text-black font-size-14">
                 วันที่ เริ่ม - สิ้นสุด การรับประกันสินค้า
@@ -215,7 +215,8 @@
               </div>
             </div>
           </div>
-          <div class="col-12 text-center q-mt-lg">
+        </div>
+        <div class="col-12 text-center q-mt-lg">
             <div>
               <q-btn
                 class="bg-green text-white btn-radius"
@@ -225,7 +226,6 @@
               >
             </div>
           </div>
-        </div>
       </q-card>
     </q-dialog>
   </q-page>
@@ -307,6 +307,7 @@ export default {
       clearDialogForm();
     };
     const mountInformationToDialog = async (id) => {
+      showSpinnerIosLoading();
       const card = await $api.warranty_cards.getById(id);
       if (card) {
         const userRes = await $api.users.getById(card.user_id);
@@ -323,10 +324,12 @@ export default {
         dialogForm.expiryDate = card.expiry_date ? card.expiry_date : "";
         openWarrantyCardDialog();
       }
+      hideSpinnerIosLoading();
     };
     const saveWarrantyCard = async (id) => {
       const isValid = validateDeliveryAddressForm();
       if (isValid) {
+        showSpinnerIosLoading()
         const warrantyCard = await $api.warranty_cards.getById(id);
         const response = await $api.warranty_cards.update({
           id: id,
@@ -352,6 +355,7 @@ export default {
             type: "negative",
           });
         }
+        hideSpinnerIosLoading();
       } else {
         showNotification("negative", "กรุณากรอกข้อมูลให้ครบ!");
       }
@@ -363,12 +367,14 @@ export default {
         ok: "ยืนยัน",
         cancel: "ยกเลิก",
       }).onOk(async () => {
+        showSpinnerIosLoading();
         await $api.warranty_cards.delete(id);
         $q.notify({
           message: "ลบรายการสำเร็จสำเร็จ!",
           position: "top",
           type: "positive",
         });
+        hideSpinnerIosLoading();
         await fetchInformation();
       });
     };
