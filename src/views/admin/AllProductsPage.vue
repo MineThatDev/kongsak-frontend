@@ -253,7 +253,7 @@
             class="row col-12 items-center justify-between q-px-md q-my-md"
             style="height: 30px"
           >
-            <div class="text-weight-bold font-size-20">
+            <div class="text-weight-bold " :class="$q.screen.gt.sm ? 'font-size-20':'font-size-16'">
               กรอกรายละเอียดสินค้าและเพิ่มรูป
             </div>
             <q-btn
@@ -264,7 +264,7 @@
             ></q-btn>
           </div>
           <div class="row col-12">
-            <div class="col-6 flex flex-center">
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12 flex flex-center q-px-sm">
               <q-img
                 v-if="imgSrc"
                 :src="imgSrc"
@@ -276,7 +276,6 @@
               </q-img>
               <div
                 v-else
-                style="width: 360; height: 360px"
                 class="flex flex-center"
               >
                 <q-file
@@ -295,7 +294,7 @@
                 </q-file>
               </div>
             </div>
-            <div class="col-6">
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
               <div class="row col-12 items-center q-mt-xl">
                 <div class="col-3 text-right">
                   <span>ชื่อสินค้า:</span>
