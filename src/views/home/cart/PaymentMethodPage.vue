@@ -1,7 +1,11 @@
 <template>
   <q-page class="row">
     <div class="col-7-xl col-lg-7 col-md-6 col-sm-12 col-xs-12">
-      <div class="row items-center q-mt-md q-mb-xl" :style="$q.screen.gt.xs ? 'padding-left: 40px' : ''" :class="$q.screen.gt.xs ? '' : 'justify-center'">
+      <div
+        class="row items-center q-mt-md q-mb-xl"
+        :style="$q.screen.gt.xs ? 'padding-left: 40px' : ''"
+        :class="$q.screen.gt.xs ? '' : 'justify-center'"
+      >
         <div class="font-size-24 text-weight-bold text-black">
           วิธีการชำระเงิน
         </div>
@@ -51,7 +55,9 @@
         </div>
       </div>
     </div>
-    <div class="col-5-xl col-lg-5 col-md-6 col-sm-12 col-xs-12 row justify-center">
+    <div
+      class="col-5-xl col-lg-5 col-md-6 col-sm-12 col-xs-12 row justify-center"
+    >
       <div class="wrapper-cart-bill q-mt-md q-pa-md">
         <div class="row q-mt-sm">
           <div class="font-size-18 text-weight-bold">ยอดสั่งซื้อรวม</div>
@@ -234,7 +240,10 @@
     </div>
   </q-dialog>
   <q-dialog v-model="showQrCodePaymentDialog">
-    <q-card class="q-pa-lg" :style="$q.screen.gt.xs ? 'min-width: 40%;' : 'min-width: 80%;'">
+    <q-card
+      class="q-pa-lg"
+      :style="$q.screen.gt.xs ? 'min-width: 40%;' : 'min-width: 80%;'"
+    >
       <div class="row justify-between items-center">
         <div class="text-trapped-darkness font-size-18 q-mt-md">
           QR Code พร้อมเพย์
@@ -351,7 +360,13 @@ import { $api } from "@/services/api";
 export default {
   props: ["shippingAddressId"],
   setup(props) {
-    const { currencyFormat, showNotification, redirect } = commonFunctions();
+    const {
+      currencyFormat,
+      showNotification,
+      redirect,
+      showSpinnerIosLoading,
+      hideSpinnerIosLoading,
+    } = commonFunctions();
     const { getCurrentDateInDDMMYYYYFormat, increaseDateByDays } = date();
     const deliveryDate = computed(() =>
       increaseDateByDays(getCurrentDateInDDMMYYYYFormat(), 7)
@@ -414,9 +429,10 @@ export default {
     };
     const createOrder = async () => {
       // create order
-      try {
-        const isValid = validateInformation();
-        if (isValid) {
+      const isValid = validateInformation();
+      if (isValid) {
+        showSpinnerIosLoading();
+        try {
           const response = await $api.orders.create({
             tracking_number: "",
             tracking_url: "",
@@ -432,9 +448,9 @@ export default {
             // Create file
             const formData = new FormData();
             if (bankTransferForm.transferFiles.length) {
-              formData.append("file", bankTransferForm.transferFiles[0]);          
+              formData.append("file", bankTransferForm.transferFiles[0]);
             } else if (qrCodeTransferForm.transferAmount.length) {
-              formData.append("file", qrCodeTransferForm.transferFiles[0]);  
+              formData.append("file", qrCodeTransferForm.transferFiles[0]);
             }
             formData.append("key_ref", response.data.id);
             formData.append("origin", "payment-method");
@@ -479,16 +495,18 @@ export default {
               });
             }
           }
-          store.dispatch("clearCart");
-          redirect("/track-orders");
-          showNotification("positive", "แจ้งโอนสำเร็จ!");
-        } else {
-          showNotification("negative", "กรุณากรอกข้อมูลให้ครบก่อนแจ้งโอน!");
-          return;
+        } catch (error) {
+          console.log(error);
+          hideSpinnerIosLoading();
+          showNotification("positive", "แจ้งโอนล้มเหลว!");
         }
-      } catch (error) {
-        console.log(error);
-        showNotification("positive", "แจ้งโอนล้มเหลว!");
+        store.dispatch("clearCart");
+        hideSpinnerIosLoading();
+        redirect("/track-orders");
+        showNotification("positive", "แจ้งโอนสำเร็จ!");
+      } else {
+        showNotification("negative", "กรุณากรอกข้อมูลให้ครบก่อนแจ้งโอน!");
+        return;
       }
       showBankTransferPaymentDialog.value = false;
       showQrCodePaymentDialog.value = false;
@@ -505,8 +523,9 @@ export default {
     onUnmounted(() => {
       store.dispatch("clearBreadCrumbs");
     });
-    watch(() => bankTransferForm.transferFiles, (value) =>
-      console.log("value: ", value)
+    watch(
+      () => bankTransferForm.transferFiles,
+      (value) => console.log("value: ", value)
     );
     return {
       products,

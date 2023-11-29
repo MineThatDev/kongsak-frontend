@@ -1,7 +1,11 @@
 <template>
   <q-page class="row">
     <div class="col-7-xl col-lg-7 col-md-6 col-sm-12 col-xs-12">
-      <div class="row items-center q-mt-md q-mb-xl" :style="$q.screen.gt.xs ? 'padding-left: 40px' : ''" :class="$q.screen.gt.xs ? '' : 'justify-center'">
+      <div
+        class="row items-center q-mt-md q-mb-xl"
+        :style="$q.screen.gt.xs ? 'padding-left: 40px' : ''"
+        :class="$q.screen.gt.xs ? '' : 'justify-center'"
+      >
         <div class="font-size-24 text-weight-bold text-black">
           ที่อยู่จัดส่ง
         </div>
@@ -53,7 +57,9 @@
         </div>
       </div>
     </div>
-    <div class="col-5-xl col-lg-5 col-md-6 col-sm-12 col-xs-12 row justify-center">
+    <div
+      class="col-5-xl col-lg-5 col-md-6 col-sm-12 col-xs-12 row justify-center"
+    >
       <div class="wrapper-cart-bill q-mt-md q-pa-md">
         <div class="row q-mt-sm">
           <div class="font-size-18 text-weight-bold">ยอดสั่งซื้อรวม</div>
@@ -111,44 +117,29 @@
         </div>
         <div class="q-px-md">
           <div class="row q-mt-lg">
-          <div class="col-6">
-            <span>ชื่อ: <span class="text-red">*</span></span>
-            <q-input
-              v-model="entryFirstName"
-              dense
-              outlined
-              style="max-width: 95%"
-            >
-            </q-input>
+            <div class="col-6">
+              <span>ชื่อ: <span class="text-red">*</span></span>
+              <q-input
+                v-model="entryFirstName"
+                dense
+                outlined
+                style="max-width: 95%"
+              >
+              </q-input>
+            </div>
+            <div class="col-6">
+              <span>นามสกุล: <span class="text-red">*</span></span>
+              <q-input v-model="entryLastName" dense outlined> </q-input>
+            </div>
           </div>
-          <div class="col-6">
-            <span>นามสกุล: <span class="text-red">*</span></span>
-            <q-input
-              v-model="entryLastName"
-              dense
-              outlined
-            >
-            </q-input>
+          <div class="q-mt-md">
+            <span>เบอร์โทรศัพท์: <span class="text-red">*</span></span>
+            <q-input v-model="entryPhoneNumber" dense outlined> </q-input>
           </div>
-        </div>
-        <div class="q-mt-md">
-          <span>เบอร์โทรศัพท์: <span class="text-red">*</span></span>
-          <q-input
-            v-model="entryPhoneNumber"
-            dense
-            outlined
-          >
-          </q-input>
-        </div>
-        <div class="q-mt-md">
-          <span>รายละเอียดที่อยู่: <span class="text-red">*</span></span>
-          <q-input
-            type="textarea"
-            v-model="address"
-            dense
-            outlined
-          ></q-input>
-        </div>
+          <div class="q-mt-md">
+            <span>รายละเอียดที่อยู่: <span class="text-red">*</span></span>
+            <q-input type="textarea" v-model="address" dense outlined></q-input>
+          </div>
         </div>
         <div class="q-mt-lg row items-center justify-center">
           <q-btn
@@ -172,7 +163,13 @@ import { onMounted, ref, computed, onUnmounted } from "vue";
 import { $api } from "@/services/api";
 export default {
   setup() {
-    const { redirect, currencyFormat, showNotification, showSpinnerIosLoading, hideSpinnerIosLoading } = commonFunctions();
+    const {
+      redirect,
+      currencyFormat,
+      showNotification,
+      showSpinnerIosLoading,
+      hideSpinnerIosLoading,
+    } = commonFunctions();
     const { getCurrentDateInDDMMYYYYFormat, increaseDateByDays } = date();
     const totalPrice = computed(() =>
       store.getters.cart.reduce(
@@ -222,13 +219,14 @@ export default {
     const addNewDeliveryAddress = async () => {
       const isValid = validateDeliveryAddressForm();
       if (isValid) {
+        showSpinnerIosLoading();
         const response = await $api.shipping_addresses.create({
           first_name: entryFirstName.value,
           last_name: entryLastName.value,
           phone: entryPhoneNumber.value,
           address: address.value,
           user_id: store.getters.userInfo._id,
-          is_active: true
+          is_active: true,
         });
         if (response && response.status === 201) {
           entryId.value = "";
@@ -242,11 +240,13 @@ export default {
         } else {
           showNotification("negative", "เพิ่มที่อยู่ล้มเหลว!");
         }
+        hideSpinnerIosLoading();
       } else {
         showNotification("negative", "กรุณากรอกข้อมูลให้ครบ!");
       }
     };
     const removeDeliveryAddress = async (id) => {
+      showSpinnerIosLoading();
       const response = await $api.shipping_addresses.delete(id);
       if (response && response.status === 200) {
         showNotification("positive", "ลบที่อยู่สำเร็จ!");
@@ -255,10 +255,12 @@ export default {
       } else {
         showNotification("negative", "ลบที่อยู่ล้มเหลว!");
       }
+      hideSpinnerIosLoading();
     };
     const editDeliveryAddress = async (id) => {
       const isValid = validateDeliveryAddressForm();
       if (isValid) {
+        showSpinnerIosLoading();
         const response = await $api.shipping_addresses.update({
           id: id,
           first_name: entryFirstName.value,
@@ -273,6 +275,7 @@ export default {
         } else {
           showNotification("negative", "แก้ไขที่อยู่ล้มเหลว!");
         }
+        hideSpinnerIosLoading();
       } else {
         showNotification("negative", "กรุณากรอกข้อมูลให้ครบ!");
       }
@@ -281,6 +284,7 @@ export default {
     const popUpDeliveryAddressForm = async (id) => {
       if (id) {
         // Edit
+        showSpinnerIosLoading();
         const shippingAddress = await $api.shipping_addresses.getById(id);
         if (shippingAddress) {
           entryId.value = shippingAddress.id;
@@ -289,6 +293,7 @@ export default {
           entryPhoneNumber.value = shippingAddress.phone;
           address.value = shippingAddress.address;
         }
+        hideSpinnerIosLoading();
       } else {
         // Create
         entryId.value = "";
