@@ -219,9 +219,9 @@ const adminTabsInformation = [
   //   name: "ข้อมูลสมาชิก",
   //   path: "/member-information",
   // },
-  // {
-  //   name: "ข้อมูลสถิติ",
-  //   path: "/statistical-information",
-  // },
+  {
+    name: "ข้อมูลสถิติ",
+    path: "/statistical-information",
+  },
 ];
 </script>

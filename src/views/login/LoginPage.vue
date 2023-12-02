@@ -314,6 +314,7 @@ export default {
     };
     const email = ref("");
     const sendPasswordToEmail = async () => {
+      showSpinnerIosLoading();
       const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
       if (emailRegex.test(email.value)) {
         const userInfo = await $api.users.getByParams({
@@ -324,23 +325,33 @@ export default {
             "service_6xntwtu",
             "template_b08ahwk",
             {
-              subject: "รหัสผ่านของคุณ Kongsak",
+              subject: "ข้อมูลรหัสผ่านสำหรับบัญชีของคุณ",
               to_email: userInfo[0].email,
               from_name: "",
-              message: `นี่คือรหัสผ่านของคุณ โปรดเก็บรักษาไว้ให้ปลอดภัย ${userInfo[0].password}`,
+              message: `เรียน คุณ ${userInfo[0].first_name} ${userInfo[0].last_name},
+
+เราขอแจ้งให้ทราบว่าเราได้ส่งรหัสผ่านสำหรับบัญชีของคุณไปยังที่อยู่อีเมลนี้ เพื่อความปลอดภัย, กรุณาเก็บข้อมูลนี้ไว้ในที่ปลอดภัยและไม่แชร์กับผู้อื่น.
+
+รหัสผ่านของคุณคือ: ${userInfo[0].password}
+
+หากคุณไม่ได้ทำคำขอนี้หรือมีคำถามใดๆ เกี่ยวกับบัญชีของคุณ, กรุณาติดต่อทีมสนับสนุนของเรา.
+
+ขอบคุณที่ให้ความสนใจ, KongsakShop`,
             },
             "Bnzo6dG5nRlgeMOTH"
           );
           showNotification(
-            "postive",
+            "positive",
             "รหัสผ่านคุณถูกส่งไปยังอีเมลที่กรอกเรียบร้อยแล้ว"
           );
+          activeForgotPassword.value = false;
         } else {
           showNotification("negative", "ไม่มีอีเมลดังกล่างในระบบ");
         }
       } else {
         showNotification("negative", "รูปแบบอีเมลไม่ถูกต้อง");
       }
+      hideSpinnerIosLoading();
     };
     const togglePage = (page) => {
       signupInformation.firstName = "";

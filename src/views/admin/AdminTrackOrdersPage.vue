@@ -336,15 +336,15 @@ export default {
             });
           }
           if (orderProducts && orderProducts.length) {
-            for (const product of orderProducts) {
+            for (const op of orderProducts) {
               const additionalProductInformation = await $api.products.getById(
-                product.product_id
+                op.product_id
               );
               totalAmount =
                 totalAmount +
-                additionalProductInformation.price * product.quantity;
+                additionalProductInformation.price * op.quantity;
               products.push({
-                ...product,
+                ...op,
                 ...additionalProductInformation,
               });
             }
@@ -379,6 +379,7 @@ export default {
             total_amount: totalAmount,
             ...order,
           });
+          totalAmount = 0
         }
       }
       loading.value = false;

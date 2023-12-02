@@ -48,5 +48,17 @@ export default function commonFunctions() {
   const hideSpinnerIosLoading = () => {
     $q.loading.hide();
   };
-  return { redirect, handleImageSrc, currencyFormat, showNotification, $q, showSpinnerIosLoading, hideSpinnerIosLoading };
+  const convertISOFormatToDDMMYYYY = (date) => {
+    if (date) {
+      const utcDate = new Date(date);
+      const day = utcDate.getUTCDate();
+      const month = utcDate.getUTCMonth() + 1; // Months are zero-indexed, so we add 1
+      const year = utcDate.getUTCFullYear();
+      return `${day.toString().padStart(2, "0")}/${month
+        .toString()
+        .padStart(2, "0")}/${year}`;
+    }
+    return "";
+  };
+  return { redirect, handleImageSrc, currencyFormat, showNotification, $q, showSpinnerIosLoading, hideSpinnerIosLoading, convertISOFormatToDDMMYYYY };
 }

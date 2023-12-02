@@ -147,9 +147,7 @@
             </q-btn>
             <div>
               <q-card-section align="center" class="q-pa-lg">
-                <q-img
-                  :src="createUrlFromBase64(item.content)"
-                />
+                <q-img :src="createUrlFromBase64(item.content)" />
               </q-card-section>
               <q-separator inset />
               <q-card-section style="min-height: 176px">
@@ -218,7 +216,7 @@
                 />
               </q-card-section>
               <q-separator inset />
-              <q-card-section style="min-height: 176px"> 
+              <q-card-section style="min-height: 176px">
                 <div class="text-weight-bold font-size-16 ellipsis-2-lines">
                   {{ item.name }}
                   <q-tooltip transition-show="scale" transition-hide="scale">
@@ -247,13 +245,19 @@
       </div>
     </div>
     <q-dialog v-model="showAddProductDialog">
-      <q-card style="height: 600px" :style="$q.screen.gt.xs ? 'min-width: 40%;' : 'min-width: 80%;'">
+      <q-card
+        style="height: 600px"
+        :style="$q.screen.gt.xs ? 'min-width: 60%;' : 'min-width: 80%;'"
+      >
         <div class="row">
           <div
             class="row col-12 items-center justify-between q-px-md q-my-md"
             style="height: 30px"
           >
-            <div class="text-weight-bold " :class="$q.screen.gt.sm ? 'font-size-20':'font-size-16'">
+            <div
+              class="text-weight-bold"
+              :class="$q.screen.gt.sm ? 'font-size-20' : 'font-size-16'"
+            >
               กรอกรายละเอียดสินค้าและเพิ่มรูป
             </div>
             <q-btn
@@ -264,20 +268,15 @@
             ></q-btn>
           </div>
           <div class="row col-12">
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12 flex flex-center q-px-sm">
-              <q-img
-                v-if="imgSrc"
-                :src="imgSrc"
-                fit
-              >
+            <div
+              class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12 flex flex-center q-px-sm"
+            >
+              <q-img v-if="imgSrc" :src="imgSrc" fit>
                 <q-badge class="cursor-pointer" rounded @click="file = null">
                   <q-icon name="close" color="white" />
                 </q-badge>
               </q-img>
-              <div
-                v-else
-                class="flex flex-center"
-              >
+              <div v-else class="flex flex-center">
                 <q-file
                   v-model="file"
                   class="text-black"
@@ -297,23 +296,28 @@
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
               <div class="row col-12 items-center q-mt-xl">
                 <div class="col-3 text-right">
-                  <span>ชื่อสินค้า:</span>
+                  <span>ชื่อสินค้า :</span><span class="text-red">*</span>
                 </div>
                 <div class="col-9 q-px-lg">
                   <q-input v-model="productInformation.name" outlined dense />
                 </div>
               </div>
-              <div class="row col-12 q-mt-md items-center">
+              <div class="row col-12 q-mt-md items-start">
                 <div class="col-3 text-right">
-                  <span>โมเดล:</span>
+                  <span>โมเดล :</span><span class="text-red">*</span>
                 </div>
                 <div class="col-9 q-px-lg">
-                  <q-input v-model="productInformation.model" outlined dense />
+                  <q-input
+                    v-model="productInformation.model"
+                    type="textarea"
+                    outlined
+                    dense
+                  />
                 </div>
               </div>
               <div class="row col-12 q-mt-md items-center">
                 <div class="col-3 text-right">
-                  <span>แบรนด์:</span>
+                  <span>แบรนด์ :</span><span class="text-red">*</span>
                 </div>
                 <div class="col-9 q-px-lg">
                   <q-input v-model="productInformation.brand" outlined dense />
@@ -321,7 +325,7 @@
               </div>
               <div class="row col-12 q-mt-md items-center">
                 <div class="col-3 text-right">
-                  <span>ราคา:</span>
+                  <span>ราคา :</span><span class="text-red">*</span>
                 </div>
                 <div class="col-9 q-px-lg">
                   <q-input
@@ -334,7 +338,7 @@
               </div>
               <div class="row col-12 q-mt-md items-center">
                 <div class="col-3 text-right">
-                  <span>หมวดหมู่:</span>
+                  <span>หมวดหมู่ :</span><span class="text-red">*</span>
                 </div>
                 <div class="col-9 q-px-lg">
                   <q-select
@@ -370,8 +374,14 @@ import { Dialog } from "quasar";
 import handleFile from "@/utils/file";
 export default {
   setup() {
-    const { handleImageSrc, currencyFormat, redirect, showNotification, showSpinnerIosLoading, hideSpinnerIosLoading } =
-      commonFunctions();
+    const {
+      handleImageSrc,
+      currencyFormat,
+      redirect,
+      showNotification,
+      showSpinnerIosLoading,
+      hideSpinnerIosLoading,
+    } = commonFunctions();
     const { createUrlFromFile, createUrlFromBase64 } = handleFile();
     const categoryOptions = ref(["กล้อง", "เครื่องบันทึกภาพ", "อื่นๆ"]);
     const products = ref([]);
@@ -491,15 +501,28 @@ export default {
       price: "",
       category: "",
     });
-    const addProduct = async () => {
+    const validateInformation = async () => {
       if (
-        productInformation.name &&
-        productInformation.model &&
-        productInformation.brand &&
-        productInformation.price &&
-        productInformation.category &&
-        file.value
+        !productInformation.name ||
+        !productInformation.model ||
+        !productInformation.brand ||
+        !productInformation.price ||
+        !productInformation.category
       ) {
+        return [false, "กรุณากรอกข้อมูลให้ครบ"];
+      }
+      if (!file.value || !Object.keys(file.value).length)
+        return [false, "กรุณาอัพโหลดไฟล์"];
+      const productRes = await $api.products.getByParams({
+        name: productInformation.name,
+      });
+      if (productRes && productRes.length)
+        return [false, "มีสินค้านี้ในระบบแล้ว"];
+      return [true, null];
+    };
+    const addProduct = async () => {
+      const [isValid, errorText] = await validateInformation();
+      if (isValid) {
         if (!productInformation.id) {
           const createdProductRes = await $api.products.create({
             name: productInformation.name,
@@ -546,7 +569,7 @@ export default {
         }
         await fetchProducts();
       } else {
-        showNotification("negative", "กรุณากรอกข้อมูลให้ครบ");
+        showNotification("negative", errorText);
       }
     };
     onMounted(async () => {

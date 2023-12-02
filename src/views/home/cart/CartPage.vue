@@ -1,7 +1,11 @@
 <template>
   <q-page class="row">
     <div class="col-7-xl col-lg-7 col-md-6 col-sm-12 col-xs-12">
-      <div class="row items-center q-mt-md q-mb-xl" :style="$q.screen.gt.xs ? 'padding-left: 40px' : ''" :class="$q.screen.gt.xs ? '' : 'justify-center'">
+      <div
+        class="row items-center q-mt-md q-mb-xl"
+        :style="$q.screen.gt.xs ? 'padding-left: 40px' : ''"
+        :class="$q.screen.gt.xs ? '' : 'justify-center'"
+      >
         <div class="font-size-24 text-weight-bold text-black">
           ตะกร้าสินค้าของฉัน
         </div>
@@ -15,12 +19,12 @@
           <q-separator />
         </div>
         <div class="col-3 flex flex-center">
-          <q-img
-            :src="createUrlFromBase64(product.content)"
-            :ratio="1"
-          />
+          <q-img :src="createUrlFromBase64(product.content)" :ratio="1" />
         </div>
-        <div class="col-9 q-pt-md" :class="$q.screen.gt.sm ? 'q-px-xl' : 'q-px-md'">
+        <div
+          class="col-9 q-pt-md"
+          :class="$q.screen.gt.sm ? 'q-px-xl' : 'q-px-md'"
+        >
           <div class="row justify-between">
             <div class="text-trapped-darkness text-weight-bold font-size-18">
               {{ product.name }}
@@ -72,22 +76,33 @@
         </div>
       </div>
     </div>
-    <div class="col-5-xl col-lg-5 col-md-6 col-sm-12 col-xs-12 row justify-center">
+    <div
+      class="col-5-xl col-lg-5 col-md-6 col-sm-12 col-xs-12 row justify-center"
+    >
       <div class="wrapper-cart-bill q-mt-md q-pa-md">
         <div class="row q-mt-sm">
           <div class="font-size-18 text-weight-bold">ยอดสั่งซื้อรวม</div>
         </div>
         <div class="row q-my-sm justify-between">
           <div class="font-size-18">ราคา</div>
-          <div class="font-size-18">{{ currencyFormat(totalPrice) }} บาท</div>
+          <div class="font-size-18">
+            {{ currencyFormat(totalPrice - totalPrice * 0.07) }} 
+            บาท
+          </div>
         </div>
         <div class="row q-my-sm justify-between">
+          <div class="font-size-18">VAT 7%</div>
+          <div class="font-size-18 text-green">
+            {{ currencyFormat(totalPrice * 0.07) }} บาท
+          </div>
+        </div>
+        <!-- <div class="row q-my-sm justify-between">
           <div class="font-size-18">ส่วนลด</div>
           <div class="font-size-18 text-green">{{ currencyFormat(0) }} บาท</div>
-        </div>
+        </div> -->
         <div class="row q-my-sm justify-between">
           <div class="font-size-18">ค่าจัดส่ง</div>
-          <div class="font-size-18 text-green">ฟรี</div>
+          <div class="font-size-18 text-green">150.00 บาท</div>
         </div>
         <div class="col-12 q-my-sm">
           <q-separator />
@@ -95,7 +110,7 @@
         <div class="row justify-between q-mt-lg q-mb-sm">
           <div class="font-size-18 text-weight-bold">ยอดรวม</div>
           <div class="font-size-18 text-weight-bold">
-            {{ currencyFormat(totalPrice) }} บาท
+            {{ currencyFormat(totalPrice + 150) }} บาท
           </div>
         </div>
         <div class="row items-center justify-between">
@@ -169,7 +184,7 @@ export default {
       totalPrice,
       deliveryDate,
       confirmOrder,
-      createUrlFromBase64
+      createUrlFromBase64,
     };
   },
 };
