@@ -516,7 +516,8 @@ export default {
       const productRes = await $api.products.getByParams({
         name: productInformation.name,
       });
-      if (productRes && productRes.length)
+      // 'id' used for seperate update case and create case
+      if (productRes && productRes.length && productInformation.id) 
         return [false, "มีสินค้านี้ในระบบแล้ว"];
       return [true, null];
     };
