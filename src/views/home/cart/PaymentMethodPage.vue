@@ -405,8 +405,14 @@ export default {
     ]);
     const pay = () => {
       if (paymentMethod.value === "bank-transfer") {
+        bankTransferForm.transferAmount = "";
+        bankTransferForm.transferDate = "";
+        bankTransferForm.transferFiles = null;
         showBankTransferPaymentDialog.value = true;
       } else if (paymentMethod.value === "qr-code") {
+        qrCodeTransferForm.transferAmount = "";
+        qrCodeTransferForm.transferDate = "";
+        qrCodeTransferForm.transferFiles = null;
         showQrCodePaymentDialog.value = true;
       }
     };

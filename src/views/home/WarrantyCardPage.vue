@@ -38,7 +38,7 @@
                   <div class="text-trapped-darkness text-weight-bold q-mt-md">
                     Serial Number
                   </div>
-                  <div>{{ card.product_code }}</div>
+                  <div>{{ card.product_code ? card.product_code : 'ยังไม่ระบุ' }}</div>
                 </div>
               </div>
               <div class="row items-center">
