@@ -434,7 +434,8 @@ export default {
           qrCodeTransferForm.transferAmount &&
           qrCodeTransferForm.transferDate &&
           qrCodeTransferForm.transferAmount &&
-          Object.keys(qrCodeTransferForm.transferAmount).length
+          qrCodeTransferForm.transferFiles &&
+          Object.keys(qrCodeTransferForm.transferFiles).length
         ) {
           return true;
         } else {
