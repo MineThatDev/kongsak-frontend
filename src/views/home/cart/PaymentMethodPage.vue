@@ -463,9 +463,9 @@ export default {
           if (response && response.status === 201) {
             // Create file
             const formData = new FormData();
-            if (Object.keys(bankTransferForm.transferFiles).length) {
+            if (bankTransferForm.transferFiles && Object.keys(bankTransferForm.transferFiles).length) {
               formData.append("file", bankTransferForm.transferFiles);
-            } else if (Object.keys(qrCodeTransferForm.transferAmount).lengths) {
+            } else if (qrCodeTransferForm.transferFiles && Object.keys(qrCodeTransferForm.transferFiles).lengths) {
               formData.append("file", qrCodeTransferForm.transferFiles);
             }
             formData.append("key_ref", response.data.id);
