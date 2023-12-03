@@ -383,12 +383,12 @@ export default {
       bankType: "kasikorn",
       transferAmount: "",
       transferDate: "",
-      transferFiles: {},
+      transferFiles: ref(),
     });
     const qrCodeTransferForm = reactive({
       transferAmount: "",
       transferDate: "",
-      transferFiles: {},
+      transferFiles: ref(),
     });
     const showBankTransferPaymentDialog = ref(false);
     const showQrCodePaymentDialog = ref(false);
@@ -416,6 +416,7 @@ export default {
           bankTransferForm.bankType &&
           bankTransferForm.transferAmount &&
           bankTransferForm.transferDate &&
+          bankTransferForm.transferFiles &&
           Object.keys(bankTransferForm.transferFiles).length
         ) {
           return true;
@@ -426,6 +427,7 @@ export default {
         if (
           qrCodeTransferForm.transferAmount &&
           qrCodeTransferForm.transferDate &&
+          qrCodeTransferForm.transferAmount &&
           Object.keys(qrCodeTransferForm.transferAmount).length
         ) {
           return true;
