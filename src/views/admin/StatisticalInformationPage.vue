@@ -148,6 +148,7 @@ export default {
             name: product.name,
             quantity: op.quantity,
             price: currencyFormat(product.price),
+            sum_price: currencyFormat(product.price * op.quantity),
             created_at: convertISOFormatToDDMMYYYY(op.created_at),
           });
         } else {
@@ -212,9 +213,15 @@ const columns = [
   },
   {
     name: "price",
-    label: "ราคา",
+    label: "ราคา/ชิ้น",
     align: "right",
     field: "price",
+  },
+  {
+    name: "sum_price",
+    label: "ราคารวม",
+    align: "right",
+    field: "sum_price",
   },
 ];
 </script>
