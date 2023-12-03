@@ -517,7 +517,7 @@ export default {
         name: productInformation.name,
       });
       // 'id' used for seperate update case and create case
-      if (productRes && productRes.length && productInformation.id) 
+      if (productRes && productRes.length && !productInformation.id) 
         return [false, "มีสินค้านี้ในระบบแล้ว"];
       return [true, null];
     };
