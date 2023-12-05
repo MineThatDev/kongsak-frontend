@@ -502,7 +502,7 @@ export default {
       ) {
         return [false, "กรุณากรอกข้อมูลให้ครบ"];
       }
-      if (!file.value && !Object.keys(file.value).length || file.value && !Object.keys(file.value).length)
+      if (!file.value)
         return [false, "กรุณาอัพโหลดไฟล์"];
       const productRes = await $api.products.getByParams({
         name: productInformation.name,
