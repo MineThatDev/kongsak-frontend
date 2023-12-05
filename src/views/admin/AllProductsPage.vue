@@ -502,19 +502,20 @@ export default {
       ) {
         return [false, "กรุณากรอกข้อมูลให้ครบ"];
       }
-      if (!file.value && !Object.keys(file.value).length)
+      if (!file.value && !Object.keys(file.value).length || file.value && !Object.keys(file.value).length)
         return [false, "กรุณาอัพโหลดไฟล์"];
       const productRes = await $api.products.getByParams({
         name: productInformation.name,
       });
       // 'id' used for seperate update case and create case
-      if (productRes && productRes.length && !productInformation.id) 
+      if (productRes && productRes.length && !productInformation.id)
         return [false, "มีสินค้านี้ในระบบแล้ว"];
       return [true, null];
     };
     const addProduct = async () => {
       const [isValid, errorText] = await validateInformation();
       if (isValid) {
+        showSpinnerIosLoading();
         if (!productInformation.id) {
           const createdProductRes = await $api.products.create({
             name: productInformation.name,
@@ -533,6 +534,7 @@ export default {
             showNotification("positive", "เพิ่มสินค้าสำเร็จ");
             showAddProductDialog.value = false;
           }
+          hideSpinnerIosLoading();
         } else {
           const updatedProductRes = await $api.products.update({
             id: productInformation.id,
