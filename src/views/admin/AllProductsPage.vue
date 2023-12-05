@@ -272,7 +272,7 @@
               class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12 flex flex-center q-px-sm"
             >
               <q-img v-if="imgSrc" :src="imgSrc" fit>
-                <q-badge class="cursor-pointer" rounded @click="file = null">
+                <q-badge class="cursor-pointer" rounded @click="file = null; imgSrc = ''">
                   <q-icon name="close" color="white" />
                 </q-badge>
               </q-img>
