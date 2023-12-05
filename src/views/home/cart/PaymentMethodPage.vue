@@ -465,7 +465,7 @@ export default {
             const formData = new FormData();
             if (bankTransferForm.transferFiles && Object.keys(bankTransferForm.transferFiles).length) {
               formData.append("file", bankTransferForm.transferFiles);
-            } else if (qrCodeTransferForm.transferFiles && Object.keys(qrCodeTransferForm.transferFiles).lengths) {
+            } else if (qrCodeTransferForm.transferFiles && Object.keys(qrCodeTransferForm.transferFiles).length) {
               formData.append("file", qrCodeTransferForm.transferFiles);
             }
             formData.append("key_ref", response.data.id);

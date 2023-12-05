@@ -413,15 +413,6 @@ export default {
       }
       hideSpinnerIosLoading();
     };
-    const confirmEdit = async (obj) => {
-      const response = await $api.products.update(obj);
-      if (response) {
-        showNotification("positive", "แก้ไขสินค้าสำเร็จ");
-      } else {
-        showNotification("negative", "แก้ไขสินค้าล้มเหลว");
-      }
-      await fetchProducts();
-    };
     const showDeleteDialog = async (id) => {
       Dialog.create({
         title: "ยืนยันการลบสินค้า",
@@ -543,7 +534,7 @@ export default {
             showAddProductDialog.value = false;
           }
         } else {
-          const createdProductRes = await $api.products.update({
+          const updatedProductRes = await $api.products.update({
             id: productInformation.id,
             name: productInformation.name,
             model: productInformation.model,
@@ -557,7 +548,7 @@ export default {
           });
           const formData = new FormData();
           formData.append("file", file.value);
-          formData.append("key_ref", createdProductRes.data.id);
+          formData.append("key_ref", updatedProductRes.data.id);
           formData.append("origin", "product");
           if (fileRes && fileRes.length) {
             formData.append("id", fileRes[0].id);
@@ -565,7 +556,7 @@ export default {
           } else {
             await $api.files.create(formData);
           }
-          showNotification("positive", "เพิ่มสินค้าสำเร็จ");
+          showNotification("positive", "แก้ไขสินค้าสำเร็จ");
           showAddProductDialog.value = false;
         }
         await fetchProducts();
@@ -587,7 +578,6 @@ export default {
       redirect,
       deleteProduct,
       fetchProducts,
-      confirmEdit,
       showDeleteDialog,
       searchString,
       showAddProductDialog,
