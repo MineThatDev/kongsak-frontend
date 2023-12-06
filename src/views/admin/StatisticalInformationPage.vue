@@ -32,6 +32,25 @@
       :rows-per-page-options="[0]"
       hide-pagination
     >
+      <template v-slot:body="props">
+        <q-tr :props="props">
+          <q-td key="created_at" :props="props">
+            {{ props.row.created_at }}
+          </q-td>
+          <q-td key="name" :props="props">
+            {{ props.row.name }} 
+          </q-td>
+          <q-td key="quantity"  :props="props">
+            {{ props.row.quantity }}
+          </q-td>
+          <q-td key="price" :props="props">
+            {{ currencyFormat(props.row.price) }}
+          </q-td>
+          <q-td key="sum_price" :props="props">
+            {{ currencyFormat(props.row.price * props.row.quantity) }}
+          </q-td>
+        </q-tr>
+      </template>
       <template v-slot:bottom>
         <div class="full-width text-right text-weight-bold font-size-14">
           ยอดรวมทั้งหมด
@@ -48,8 +67,12 @@ import { $api } from "@/services/api";
 import commonFunctions from "@/utils/commonFunctions";
 export default {
   setup() {
-    const { showSpinnerIosLoading, hideSpinnerIosLoading, currencyFormat, convertISOFormatToDDMMYYYY } =
-      commonFunctions();
+    const {
+      showSpinnerIosLoading,
+      hideSpinnerIosLoading,
+      currencyFormat,
+      convertISOFormatToDDMMYYYY,
+    } = commonFunctions();
     const monthOptions = ref([
       {
         month: "มกราคม",
@@ -147,8 +170,7 @@ export default {
           information.value.push({
             name: product.name,
             quantity: op.quantity,
-            price: currencyFormat(product.price),
-            sum_price: currencyFormat(product.price * op.quantity),
+            price: product.price,
             created_at: convertISOFormatToDDMMYYYY(op.created_at),
           });
         } else {

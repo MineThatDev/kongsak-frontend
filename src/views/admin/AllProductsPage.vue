@@ -493,6 +493,7 @@ export default {
       category: "",
     });
     const validateInformation = async () => {
+      console.log("file.value: ", file.value)
       if (
         !productInformation.name ||
         !productInformation.model ||
