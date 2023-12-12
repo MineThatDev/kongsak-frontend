@@ -35,7 +35,7 @@
       </div> -->
         <q-separator vertical inset />
         <div>
-          <q-btn icon="shopping_bag" @click="redirect('/cart')" flat>
+          <q-btn icon="shopping_cart" @click="redirect('/cart')" flat>
             <q-badge class="bg-pumping-spice" floating transparent>
               {{ cartLength }}
             </q-badge>
@@ -143,7 +143,7 @@ export default {
     const logout = async () => {
       $q.dialog({
         title: "ออกจากระบบ",
-        message: "ต้องการออกจากระบบหรือไม่?",
+        message: "ต้องการออกจากระบบหรือไม่ ?",
         ok: "ยืนยัน",
         cancel: "ยกเลิก",
       }).onOk(() => {
@@ -155,7 +155,7 @@ export default {
           store.dispatch("logout");
         });
         $q.notify({
-          message: "ออกจากระบบสำเร็จ!",
+          message: "ออกจากระบบสำเร็จ !",
           position: "top",
           type: "positive",
         });
@@ -194,7 +194,7 @@ const userTabsInformation = [
     path: "/dvr",
   },
   {
-    name: "อุปกรณ์อื่นๆ",
+    name: "อุปกรณ์อื่น ๆ",
     path: "/etc",
   },
   {

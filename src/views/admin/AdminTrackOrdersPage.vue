@@ -438,7 +438,7 @@ export default {
         if (response) {
           await runProcess(obj.orderId);
           await fetchInformation("สำเร็จ");
-          showNotification("positive", "ยืนยันการจัดส่งสำเร็จ!");
+          showNotification("positive", "ยืนยันการจัดส่งสำเร็จ !");
         } else {
           showNotification(
             "negative",

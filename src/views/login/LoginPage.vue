@@ -37,8 +37,8 @@
           </div>
           <div class="row col-12 justify-center q-mt-md">
             <div style="width: 80%">
-              <q-input
-                label="อีเมล / เบอร์โทรศัพท์"
+              <q-input 
+                label="อีเมล"
                 filled
                 outlined
                 v-model="loginInformation.email"
@@ -81,7 +81,7 @@
                 หรือ
               </div>
               <div class="row col-12">
-                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 q-my-sm text-center">
+                <!-- <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 q-my-sm text-center">
                   <q-btn
                     label="Facebook"
                     style="min-width: 140px !important"
@@ -89,8 +89,8 @@
                     @click="loginFacebook()"
                   >
                   </q-btn>
-                </div>
-                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 q-my-sm text-center">
+                </div> -->
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 q-my-sm text-center">
                   <q-btn
                     label="Google"
                     style="min-width: 140px !important"
@@ -154,7 +154,7 @@
                   <q-icon name="person"></q-icon>
                 </template>
               </q-input>
-              <q-input
+              <!-- <q-input
                 label="เบอร์โทรศัพท์"
                 outlined
                 filled
@@ -165,7 +165,7 @@
                 <template v-slot:prepend>
                   <q-icon name="phone"></q-icon>
                 </template>
-              </q-input>
+              </q-input> -->
               <q-input
                 label="อีเมล"
                 outlined
@@ -217,7 +217,7 @@
                 หรือ
               </div>
               <div class="row col-12">
-                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 q-my-sm text-center">
+                <!-- <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 q-my-sm text-center">
                   <q-btn
                     label="Facebook"
                     style="min-width: 140px !important"
@@ -225,8 +225,8 @@
                     @click="loginFacebook()"
                   >
                   </q-btn>
-                </div>
-                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 q-my-sm text-center">
+                </div> -->
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 q-my-sm text-center">
                   <q-btn
                     label="Google"
                     style="min-width: 140px !important"
@@ -356,7 +356,7 @@ export default {
     const togglePage = (page) => {
       signupInformation.firstName = "";
       signupInformation.lastName = "";
-      signupInformation.telephone = "";
+      // signupInformation.telephone = "";
       signupInformation.email = "";
       signupInformation.password = "";
       signupInformation.confirmPassword = "";
@@ -367,7 +367,7 @@ export default {
     const signupInformation = reactive({
       firstName: "",
       lastName: "",
-      telephone: "",
+      // telephone: "",
       email: "",
       password: "",
       confirmPassword: "",
@@ -385,11 +385,11 @@ export default {
       if (userInfo.length) {
         store.dispatch("setUser", userInfo[0]);
         hideSpinnerIosLoading();
-        showNotification("positive", "เข้าสู่ระบบสำเร็จ!");
+        showNotification("positive", "เข้าสู่ระบบสำเร็จ !");
         redirect("/home");
       } else {
         hideSpinnerIosLoading();
-        showNotification("negative", "เข้าสู่ระบบล้มเหลว! โปรดลองอีกครั้ง");
+        showNotification("negative", "เข้าสู่ระบบล้มเหลว ! โปรดลองอีกครั้ง");
       }
     };
     const validateSignupInformation = async () => {
@@ -402,9 +402,9 @@ export default {
         return false;
       });
       if (!isSignupInformationNotEmpty) return [false, "กรุณากรอกข้อมูลให้ครบ"];
-      const thaiPhoneNumberRegex = /^0[1-9]\d{8}$/;
-      if (!thaiPhoneNumberRegex.test(signupInformation.telephone))
-        return [false, "รูปแบบเบอร์โทรศัพท์ไม่ถูกต้อง"];
+      // const thaiPhoneNumberRegex = /^0[1-9]\d{8}$/;
+      // if (!thaiPhoneNumberRegex.test(signupInformation.telephone))
+      //   return [false, "รูปแบบเบอร์โทรศัพท์ไม่ถูกต้อง"];
       const isDup = await $api.users.getByParams({
         email: signupInformation.email,
       });
@@ -423,7 +423,7 @@ export default {
       if (isValid) {
         $q.dialog({
           title: "สมัครสมาชิก",
-          message: "ยืนยันการสมัครสมาชิก?",
+          message: "ยืนยันการสมัครสมาชิก ?",
           ok: "ยืนยัน",
           cancel: "ยกเลิก",
         }).onOk(async () => {
@@ -432,14 +432,14 @@ export default {
             email: signupInformation.email,
             first_name: signupInformation.firstName,
             last_name: signupInformation.lastName,
-            telephone: signupInformation.telephone,
+            // telephone: signupInformation.telephone,
             role: "user",
             password: signupInformation.password,
             login_method: "regular",
             is_active: true,
           });
           hideSpinnerIosLoading();
-          showNotification("positive", "สมัครสมาชิกสำเร็จ!");
+          showNotification("positive", "สมัครสมาชิกสำเร็จ !");
           togglePage("login");
         });
       } else {
@@ -471,7 +471,7 @@ export default {
                   email: response.email,
                   first_name: response.first_name,
                   last_name: response.last_name,
-                  telephone: null,
+                  // telephone: null,
                   role: "user",
                   password: null,
                   login_method: "facebook",
@@ -481,14 +481,14 @@ export default {
                   email: response.email,
                   first_name: response.first_name,
                   last_name: response.last_name,
-                  telephone: null,
+                  // telephone: null,
                   role: "user",
                   password: null,
                   login_method: "facebook",
                   is_active: true,
                 });
               }
-              showNotification("positive", "เข้าสู่ระบบสำเร็จ!");
+              showNotification("positive", "เข้าสู่ระบบสำเร็จ !");
               redirect("/home");
             }
           );
@@ -515,7 +515,7 @@ export default {
                   email: googleUserInfo.data.email,
                   first_name: googleUserInfo.data.given_name,
                   last_name: googleUserInfo.data.family_name,
-                  telephone: null,
+                  // telephone: null,
                   role: "user",
                   password: null,
                   login_method: "gmail",
@@ -525,14 +525,14 @@ export default {
                   email: googleUserInfo.email,
                   first_name: googleUserInfo.given_name,
                   last_name: googleUserInfo.family_name,
-                  telephone: null,
+                  // telephone: null,
                   role: "user",
                   password: null,
                   login_method: "gmail",
                   is_active: true,
                 });
               }
-              showNotification("positive", "เข้าสู่ระบบสำเร็จ!");
+              showNotification("positive", "เข้าสู่ระบบสำเร็จ !");
               redirect("/home");
             },
           })

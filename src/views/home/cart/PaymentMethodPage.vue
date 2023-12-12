@@ -93,7 +93,7 @@
           </div>
         </div>
         <div class="row items-center justify-between">
-          <div class="font-size-18">สินค้าจัดส่งประมาณวันที่</div>
+          <div class="font-size-18">จัดส่งสินค้าภายในวันที่</div>
           <div class="font-size-18">{{ deliveryDate }}</div>
         </div>
         <div class="row q-mt-lg">
