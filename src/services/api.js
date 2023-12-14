@@ -3,8 +3,8 @@ import emailjs from "emailjs-com";
 
 class BaseApiServices {
   serviceUrl = process.env.VUE_APP_SERVICE_URL;
-  // xServiceUrl = process.env.VUE_APP_XSERVICE_URL;
-  xServiceUrl = "/xapi";
+  xServiceUrl = process.env.VUE_APP_XSERVICE_URL;
+  // xServiceUrl = "/xapi";
   constructor(resource) {
     if (!resource) throw new Error("Resource is not provided");
     this.resource = resource;
