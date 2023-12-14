@@ -41,7 +41,7 @@
         </div>
         <div class="row q-px-xl">
           <div class="text-cedar-plank">
-            {{ detail.address }}
+            {{ detail.address }} {{ detail.district }} {{ detail.province }} {{ detail.zip_code }}
           </div>
         </div>
       </div>
@@ -67,7 +67,7 @@
         <div class="row q-my-sm justify-between">
           <div class="font-size-18">ราคา</div>
           <div class="font-size-18">
-            {{ currencyFormat(totalPrice - totalPrice * 0.07) }} 
+            {{ currencyFormat(totalPrice - totalPrice * 0.07) }}
             บาท
           </div>
         </div>
@@ -110,7 +110,7 @@
     <q-dialog v-model="activeDeliveryPopup">
       <q-card
         class="q-pa-md"
-        style="height: 480px; border-radius: 16px"
+        style="height: 540px; border-radius: 16px"
         :style="$q.screen.gt.xs ? 'min-width: 40%;' : 'min-width: 80%;'"
       >
         <div class="row justify-between items-center">
@@ -147,7 +147,21 @@
           </div>
           <div class="q-mt-md">
             <span>รายละเอียดที่อยู่: <span class="text-red">*</span></span>
-            <q-input type="textarea" v-model="address" dense outlined></q-input>
+            <q-input v-model="address" dense outlined></q-input>
+          </div>
+          <div class="q-mt-md">
+            <span>อำเภอ: <span class="text-red">*</span></span>
+            <q-input v-model="entryDistrict" dense outlined> </q-input>
+          </div>
+          <div class="row q-mt-lg">
+            <div class="col-6">
+              <span>จังหวัด: <span class="text-red">*</span></span>
+              <q-input v-model="entryProvince" dense outlined style="max-width: 95%"> </q-input>
+            </div>
+            <div class="col-6">
+              <span>รหัสไปรณีย์: <span class="text-red">*</span></span>
+              <q-input v-model="entryZipCode" dense outlined> </q-input>
+            </div>
           </div>
         </div>
         <div class="q-mt-lg row items-center justify-center">
@@ -196,6 +210,9 @@ export default {
     const entryLastName = ref("");
     const entryPhoneNumber = ref("");
     const address = ref("");
+    const entryDistrict = ref("");
+    const entryProvince = ref("");
+    const entryZipCode = ref("");
     const fetchInformation = async () => {
       showSpinnerIosLoading();
       deliveryAddress.value = [];
@@ -218,7 +235,10 @@ export default {
         entryFirstName.value &&
         entryLastName.value &&
         entryPhoneNumber.value &&
-        address.value
+        address.value &&
+        entryDistrict.value &&
+        entryProvince.value &&
+        entryZipCode.value
       ) {
         return true;
       } else {
@@ -234,6 +254,9 @@ export default {
           last_name: entryLastName.value,
           phone: entryPhoneNumber.value,
           address: address.value,
+          district: entryDistrict.value,
+          province: entryProvince.value,
+          zip_code: entryZipCode.value,
           user_id: store.getters.userInfo._id,
           is_active: true,
         });
@@ -243,6 +266,9 @@ export default {
           entryLastName.value = "";
           entryPhoneNumber.value = "";
           address.value = "";
+          entryDistrict.value = "";
+          entryProvince.value = "";
+          entryZipCode.value = "";
           activeDeliveryPopup.value = false;
           showNotification("positive", "เพิ่มที่อยู่สำเร็จ!");
           await fetchInformation();
@@ -276,6 +302,9 @@ export default {
           last_name: entryLastName.value,
           phone: entryPhoneNumber.value,
           address: address.value,
+          district: entryDistrict.value,
+          province: entryProvince.value,
+          zip_code: entryZipCode.value,
         });
         if (response) {
           showNotification("positive", "แก้ไขที่อยู่สำเร็จ!");
@@ -301,15 +330,22 @@ export default {
           entryLastName.value = shippingAddress.last_name;
           entryPhoneNumber.value = shippingAddress.phone;
           address.value = shippingAddress.address;
+          entryDistrict.value = shippingAddress.district;
+          entryProvince.value = shippingAddress.province;
+          entryZipCode.value = shippingAddress.zip_code;
         }
         hideSpinnerIosLoading();
       } else {
         // Create
+        const user = await $api.users.getById(store.getters.userInfo.id)
         entryId.value = "";
-        entryFirstName.value = "";
-        entryLastName.value = "";
+        entryFirstName.value = user.first_name;
+        entryLastName.value = user.last_name;
         entryPhoneNumber.value = "";
         address.value = "";
+        entryDistrict.value = "";
+        entryProvince.value = "";
+        entryZipCode.value = "";
       }
       activeDeliveryPopup.value = true;
     };
@@ -342,6 +378,9 @@ export default {
       entryPhoneNumber,
       entryId,
       address,
+      entryDistrict,
+      entryProvince,
+      entryZipCode,
       totalPrice,
       currencyFormat,
       removeDeliveryAddress,

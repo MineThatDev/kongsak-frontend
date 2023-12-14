@@ -144,7 +144,7 @@
                       <span> | </span
                       ><span>{{ order.shippingAddresses.phone }}</span>
                     </div>
-                    <div>{{ order.shippingAddresses.address }}</div>
+                    <div>{{ order.shippingAddresses.address }} {{ order.shippingAddresses.district }} {{ order.shippingAddresses.province }} {{ order.shippingAddresses.zip_code }}</div>
                   </div>
                   <div></div>
                 </div>

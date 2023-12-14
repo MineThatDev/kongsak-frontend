@@ -43,6 +43,7 @@
                 outlined
                 v-model="loginInformation.email"
                 :dense="!$q.screen.gt.xs"
+                :error="!loginInformation.email"
               >
                 <template v-slot:prepend>
                   <q-icon name="mail"></q-icon>
@@ -56,6 +57,7 @@
                 class="q-mt-md"
                 v-model="loginInformation.password"
                 :dense="!$q.screen.gt.xs"
+                :error="!loginInformation.password"
               >
                 <template v-slot:prepend>
                   <q-icon name="key"></q-icon>
@@ -137,6 +139,7 @@
                 outlined
                 v-model="signupInformation.firstName"
                 dense
+                :error="!signupInformation.firstName"
               >
                 <template v-slot:prepend>
                   <q-icon name="person"></q-icon>
@@ -149,6 +152,7 @@
                 v-model="signupInformation.lastName"
                 dense
                 class="q-mt-md"
+                :error="!signupInformation.lastName"
               >
                 <template v-slot:prepend>
                   <q-icon name="person"></q-icon>
@@ -173,9 +177,13 @@
                 class="q-mt-md"
                 dense
                 v-model="signupInformation.email"
+                :error="!signupInformation.email"
               >
                 <template v-slot:prepend>
                   <q-icon name="mail"></q-icon>
+                </template>
+                <template v-slot:error>
+                  <div>ตัวอย่าง example@gmail.com</div>
                 </template>
               </q-input>
               <q-input
@@ -186,9 +194,13 @@
                 dense
                 class="q-mt-md"
                 v-model="signupInformation.password"
+                :error="signupInformation.password"
               >
                 <template v-slot:prepend>
                   <q-icon name="key"></q-icon>
+                </template>
+                <template v-slot:error>
+                  <div>รหัสผ่านต้องไม่ต่ำกว่า 8 ตัว</div>
                 </template>
               </q-input>
               <q-input
@@ -199,9 +211,13 @@
                 dense
                 class="q-my-md"
                 v-model="signupInformation.confirmPassword"
+                :error="signupInformation.confirmPassword"
               >
                 <template v-slot:prepend>
                   <q-icon name="key"></q-icon>
+                </template>
+                <template v-slot:error>
+                  <div>รหัสผ่านต้องไม่ต่ำกว่า 8 ตัว</div>
                 </template>
               </q-input>
               <q-btn

@@ -49,7 +49,7 @@
               outlined
               dense
               color="dark"
-              label="ค้นหาชื่อผู้ใช้"
+              label="ค้นหาชื่อผู้ใช้หรือหมายเลขการสั่งซื้อ"
               @keydown.enter.prevent="fetchInformation()"
             >
               <template v-slot:append
@@ -162,7 +162,7 @@
                       <span> | </span
                       ><span>{{ order.shippingAddresses.phone }}</span>
                     </div>
-                    <div>{{ order.shippingAddresses.address }}</div>
+                    <div>{{ order.shippingAddresses.address }} {{ order.shippingAddresses.district }} {{ order.shippingAddresses.province }} {{ order.shippingAddresses.zip_code }}</div>
                   </div>
                   <div>
                     <div>

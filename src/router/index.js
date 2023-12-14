@@ -71,7 +71,7 @@ const routes = [
         props: true,
         component: () => import("@/views/home/ViewProductPage.vue"),
         meta: {
-          requireRoles: permission(2),
+          requireRoles: permission(1),
         },
       },
       {

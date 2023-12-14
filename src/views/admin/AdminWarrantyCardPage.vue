@@ -19,7 +19,7 @@
               outlined
               dense
               color="dark"
-              label="ค้นหาชื่อผู้ใช้"
+              label="ค้นหาชื่อผู้ใช้หรือหมายเลขใบรับประกัน"
               @keydown.enter.prevent="fetchInformation()"
             >
               <template v-slot:append
@@ -37,12 +37,19 @@
             v-for="(card, index) in warrantyCardList"
             :key="index"
             :default-opened="index === 0"
-            :label="`${card.firstName} ${card.lastName}`"
+            :label="`หมายเลขใบรับประกันสินค้า : ${card.id}`"
             header-class="text-trapped-darkness font-size-16 text-weight-bold rounded-borders expansion-item-height"
             style="border: 1px solid rgb(237, 228, 228); border-radius: 8px"
             class="q-my-md"
           >
             <div class="q-px-lg q-py-md">
+              <div class="row items-center">
+                <div class="col-12">
+                  <div class="text-trapped-darkness text-weight-bold q-mt-md">
+                    {{ `${card.firstName} ${card.lastName}` }}
+                  </div>
+                </div>
+              </div>
               <div class="row items-center">
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xl-12">
                   <div class="text-trapped-darkness text-weight-bold q-mt-md">

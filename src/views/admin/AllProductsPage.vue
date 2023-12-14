@@ -181,7 +181,7 @@
                 z-index: 2;
                 rotate: -30deg;
               "
-              class="text-red text-weight-bold font-size-24"
+              class="text-red text-weight-bold font-size-20"
             >
               สินค้ายกเลิกการขาย
             </div>

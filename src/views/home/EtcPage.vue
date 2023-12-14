@@ -216,6 +216,7 @@ export default {
       const productsRes = await $api.products.getByParams({
         category: "อื่นๆ",
         name_like: searchString.value ? searchString.value : null,
+        is_active: true
       });
       for (const product of productsRes) {
         const imageRes = await $api.files.getByParams({
