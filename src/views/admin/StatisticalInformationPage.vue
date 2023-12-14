@@ -1,29 +1,40 @@
 <template>
   <q-page padding>
-    <div class="row justify-end items-center">
-      <q-select
-        v-model="monthModel"
-        :options="monthOptions"
-        :option-label="(monthOption) => monthOption.month"
-        color="dark"
-        dense
-        outlined
-      >
-        <template v-slot:selected-item="scope">
-          <div class="ellipsis">
-            {{ scope.opt.month }}
-          </div>
-        </template>
-      </q-select>
-      <q-select
-        class="q-ml-md"
-        v-model="yearModel"
-        :options="yearOptions"
-        color="dark"
-        dense
-        outlined
-      >
-      </q-select>
+    <div class="row justify-between items-center">
+      <div class="row">
+        <q-select
+          v-model="yearModel"
+          :options="yearOptions"
+          color="dark"
+          dense
+          outlined
+        >
+        </q-select>
+        <q-select
+          class="q-ml-md"
+          v-model="monthModel"
+          :options="monthOptions"
+          :option-label="(monthOption) => monthOption.month"
+          color="dark"
+          dense
+          outlined
+        >
+          <template v-slot:selected-item="scope">
+            <div class="ellipsis">
+              {{ scope.opt.month }}
+            </div>
+          </template>
+        </q-select>
+      </div>
+      <div>
+        <q-btn
+          outline
+          @click="exportToCSV()"
+          label="export"
+          :disable="!information.length"
+        >
+        </q-btn>
+      </div>
     </div>
     <q-table
       class="q-mt-md"
@@ -38,16 +49,16 @@
             {{ props.row.created_at }}
           </q-td>
           <q-td key="name" :props="props">
-            {{ props.row.name }} 
+            {{ props.row.name }}
           </q-td>
-          <q-td key="quantity"  :props="props">
+          <q-td key="quantity" :props="props">
             {{ props.row.quantity }}
           </q-td>
           <q-td key="price" :props="props">
             {{ currencyFormat(props.row.price) }}
           </q-td>
           <q-td key="sum_price" :props="props">
-            {{ currencyFormat(props.row.price * props.row.quantity) }}
+            {{ currencyFormat(props.row.sum_price) }}
           </q-td>
         </q-tr>
       </template>
@@ -65,6 +76,7 @@ import { onMounted, onUnmounted, ref, watch } from "vue";
 import store from "@/store";
 import { $api } from "@/services/api";
 import commonFunctions from "@/utils/commonFunctions";
+import * as XLSX from "xlsx";
 export default {
   setup() {
     const {
@@ -72,6 +84,7 @@ export default {
       hideSpinnerIosLoading,
       currencyFormat,
       convertISOFormatToDDMMYYYY,
+      $q,
     } = commonFunctions();
     const monthOptions = ref([
       {
@@ -171,17 +184,55 @@ export default {
             name: product.name,
             quantity: op.quantity,
             price: product.price,
+            sum_price: product.price * op.quantity,
             created_at: convertISOFormatToDDMMYYYY(op.created_at),
           });
         } else {
           information.value = information.value.map((info) => {
             return info.name === product.name
-              ? { ...info, quantity: info.quantity + op.quantity }
+              ? {
+                  ...info,
+                  quantity: info.quantity + op.quantity,
+                  sum_price: info.price * (info.quantity + op.quantity),
+                }
               : { ...info };
           });
         }
       }
       hideSpinnerIosLoading();
+    };
+    const exportToCSV = () => {
+      $q.dialog({
+        title: "ยืนยันการดาวโหลด",
+        message: "ยืนยันการดาวโหลด?",
+        ok: "ยืนยัน",
+        cancel: "ยกเลิก",
+      }).onOk(() => {
+        const worksheet = XLSX.utils.json_to_sheet(information.value, {
+          header: columns.map((column) => column.field),
+        });
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
+
+        // Create an ArrayBuffer from the workbook
+        const arrayBuffer = XLSX.write(workbook, {
+          bookType: "xlsx",
+          type: "array",
+        });
+
+        // Convert the ArrayBuffer to a Blob
+        const blob = new Blob([arrayBuffer], {
+          type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        });
+
+        // Create a download link and trigger the download
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.setAttribute("download", "export.xlsx");
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      });
     };
     watch(
       () => monthModel.value,
@@ -211,6 +262,7 @@ export default {
       information,
       currencyFormat,
       totalAmount,
+      exportToCSV,
     };
   },
 };
