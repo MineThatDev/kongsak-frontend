@@ -247,7 +247,7 @@ export default {
       }
     );
     onMounted(async () => {
-      store.dispatch("updateBreadCrumbs", ["ข้อมูลสถิติ"]);
+      store.dispatch("updateBreadCrumbs", ["ข้อมูลสถิติการขายสินค้า"]);
       await fetchInformation();
     });
     onUnmounted(() => {

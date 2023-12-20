@@ -213,6 +213,7 @@ export default {
     const searchString = ref("");
     const fetchProducts = async () => {
       showSpinnerIosLoading();
+      products.value = [];
       const productsRes = await $api.products.getByParams({
         category: "อื่นๆ",
         name_like: searchString.value ? searchString.value : null,

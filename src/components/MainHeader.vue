@@ -220,7 +220,7 @@ const adminTabsInformation = [
   //   path: "/member-information",
   // },
   {
-    name: "ข้อมูลสถิติ",
+    name: "ข้อมูลสถิติการขายสินค้า",
     path: "/statistical-information",
   },
 ];

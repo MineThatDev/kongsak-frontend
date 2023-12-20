@@ -86,7 +86,7 @@
         <div class="row q-my-sm justify-between">
           <div class="font-size-18">ราคา</div>
           <div class="font-size-18">
-            {{ currencyFormat(totalPrice - totalPrice * 0.07) }} 
+            {{ currencyFormat(totalPrice - totalPrice * 0.07) }}
             บาท
           </div>
         </div>
@@ -148,6 +148,9 @@ export default {
         0
       )
     );
+    const totalQuantity = computed(() =>
+      store.getters.cart.reduce((sum, product) => sum + product.quantity, 0)
+    );
     const deliveryDate = computed(() =>
       increaseDateByDays(getCurrentDateInDDMMYYYYFormat(), 7)
     );
@@ -162,7 +165,14 @@ export default {
     };
     const confirmOrder = () => {
       if (store.getters.cart.length) {
-        redirect("/cart/delivery-address");
+        if (totalQuantity.value > 10) {
+          showNotification(
+            "negative",
+            "เนื่องจากสั่งซื้อเกิน 10 ชิ้น กรุณาติดต่อทางร้าน !"
+          );
+        } else {
+          redirect("/cart/delivery-address");
+        }
       } else {
         showNotification("negative", "กรุณาเลือกสินค้าก่อนสั่งซื้อ!");
       }

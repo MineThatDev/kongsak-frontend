@@ -5,7 +5,12 @@
         class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 flex flex-center"
         style="padding: 120px"
       >
-        <q-img :src="createUrlFromBase64(product.content)" :ratio="1" style="min-width: 240px;" :style="$q.screen.gt.xs ? '' : 'height:120px'" />
+        <q-img
+          :src="createUrlFromBase64(product.content)"
+          :ratio="1"
+          style="min-width: 240px"
+          :style="$q.screen.gt.xs ? '' : 'height:120px'"
+        />
       </div>
       <div
         class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 q-px-lg"
@@ -116,6 +121,7 @@ export default {
       redirect,
       showSpinnerIosLoading,
       hideSpinnerIosLoading,
+      showNotification,
     } = commonFunctions();
     const { createUrlFromBase64 } = handleFile();
     const product = ref({});
@@ -139,9 +145,16 @@ export default {
       hideSpinnerIosLoading();
     };
     const addItemToCart = (item, path = "") => {
-      store.dispatch("addItemToCart", { ...item, quantity: quantity.value });
-      if (path) {
-        redirect(path);
+      if (quantity.value > 10) {
+        showNotification(
+          "negative",
+          "เนื่องจากสั่งซื้อเกิน 10 ชิ้น กรุณาติดต่อทางร้าน !"
+        );
+      } else {
+        store.dispatch("addItemToCart", { ...item, quantity: quantity.value });
+        if (path) {
+          redirect(path);
+        }
       }
     };
     const increaseQuantity = () => {
