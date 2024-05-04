@@ -131,7 +131,7 @@
 
 <script>
 import store from "@/store";
-import commonFunctions from "@/utils/commonFunctions";
+import commonFunctions from "@/utils/common-function";
 import date from "@/utils/date";
 import { onMounted, onUnmounted, computed } from "vue";
 import handleFile from "@/utils/file";

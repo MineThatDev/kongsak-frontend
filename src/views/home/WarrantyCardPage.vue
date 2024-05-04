@@ -74,7 +74,7 @@
 
 <script>
 import { onMounted, onUnmounted, ref } from "vue";
-import commonFunctions from "@/utils/commonFunctions";
+import commonFunctions from "@/utils/common-function";
 import store from "@/store";
 import { $api } from "@/services/api";
 export default {

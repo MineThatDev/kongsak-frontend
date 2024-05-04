@@ -107,7 +107,7 @@
 
 <script>
 import { ref, computed, watch, onMounted } from "vue";
-import commonFunctions from "@/utils/commonFunctions";
+import commonFunctions from "@/utils/common-function";
 import role from "@/utils/role";
 import store from "@/store";
 import { useRoute } from "vue-router";

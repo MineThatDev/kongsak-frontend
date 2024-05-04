@@ -110,7 +110,7 @@
 <script>
 import { $api } from "@/services/api";
 import { ref, onMounted, onUnmounted } from "vue";
-import commonFunctions from "@/utils/commonFunctions";
+import commonFunctions from "@/utils/common-function";
 import store from "@/store";
 import handleFile from "@/utils/file";
 export default {

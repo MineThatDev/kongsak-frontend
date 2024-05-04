@@ -180,7 +180,7 @@
 
 <script>
 import store from "@/store";
-import commonFunctions from "@/utils/commonFunctions";
+import commonFunctions from "@/utils/common-function";
 import date from "@/utils/date";
 import { onMounted, ref, computed, onUnmounted } from "vue";
 import { $api } from "@/services/api";

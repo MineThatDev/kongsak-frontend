@@ -367,7 +367,7 @@
 
 <script>
 import store from "@/store";
-import commonFunctions from "@/utils/commonFunctions";
+import commonFunctions from "@/utils/common-function";
 import { $api } from "@/services/api";
 import { ref, onMounted, onUnmounted, watch, reactive } from "vue";
 import { Dialog } from "quasar";
