@@ -361,7 +361,7 @@
 <script>
 import store from "@/store";
 import { onMounted, ref, computed, onUnmounted, reactive, watch } from "vue";
-import commonFunctions from "@/utils/commonFunctions";
+import commonFunctions from "@/utils/common-function";
 import date from "@/utils/date";
 import { $api } from "@/services/api";
 export default {

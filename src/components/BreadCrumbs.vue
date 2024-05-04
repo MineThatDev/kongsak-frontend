@@ -29,7 +29,7 @@
 <script>
 import store from "@/store";
 import { computed } from "vue";
-import commonFunctions from "@/utils/commonFunctions";
+import commonFunctions from "@/utils/common-function";
 export default {
   setup() {
     const { redirect } = commonFunctions();

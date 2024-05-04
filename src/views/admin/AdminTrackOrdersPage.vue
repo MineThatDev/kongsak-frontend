@@ -256,7 +256,7 @@
 
 <script>
 import { onMounted, onUnmounted, ref } from "vue";
-import commonFunctions from "@/utils/commonFunctions";
+import commonFunctions from "@/utils/common-function";
 import file from "@/utils/file";
 import store from "@/store";
 import { $api } from "@/services/api";

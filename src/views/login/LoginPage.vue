@@ -310,7 +310,7 @@
 </template>
 
 <script>
-import commonFunctions from "@/utils/commonFunctions";
+import commonFunctions from "@/utils/common-function";
 import auth from "@/utils/auth";
 import { reactive, ref, onMounted } from "vue";
 import store from "@/store";

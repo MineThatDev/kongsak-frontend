@@ -241,7 +241,7 @@
 <script>
 import { onMounted, onUnmounted, ref, reactive } from "vue";
 import store from "@/store";
-import commonFunctions from "@/utils/commonFunctions";
+import commonFunctions from "@/utils/common-function";
 import { $api } from "@/services/api";
 import { useQuasar } from "quasar";
 export default {

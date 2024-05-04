@@ -75,7 +75,7 @@
 import { onMounted, onUnmounted, ref, watch } from "vue";
 import store from "@/store";
 import { $api } from "@/services/api";
-import commonFunctions from "@/utils/commonFunctions";
+import commonFunctions from "@/utils/common-function";
 import * as XLSX from "xlsx";
 export default {
   setup() {

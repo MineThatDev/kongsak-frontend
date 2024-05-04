@@ -154,7 +154,7 @@
 </template>
 
 <script>
-import commonFunctions from "@/utils/commonFunctions";
+import commonFunctions from "@/utils/common-function";
 import store from "@/store";
 import { computed, ref, onMounted } from "vue";
 import { $api } from "@/services/api";
