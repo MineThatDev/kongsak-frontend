@@ -4,12 +4,6 @@ module.exports = defineConfig({
     https: true,
     hot: true,
     proxy: {
-      "^/api": {
-        target: "http://localhost:4000",
-        pathRewrite: {
-          "^/api": "",
-        },
-      },
       "^/xapi": {
         target: "http://localhost:3000",
         pathRewrite: {
