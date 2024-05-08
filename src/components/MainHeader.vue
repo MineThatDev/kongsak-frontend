@@ -54,7 +54,11 @@
         </div>
         <div v-else>
           <q-btn-dropdown auto-close flat icon="account_circle">
-            <q-list>
+            <q-list style="min-width: 180px">
+              <q-item>
+                <q-item-section class="text-weight-bold"> {{ userInfo.first_name }} {{ userInfo.last_name }}</q-item-section>
+              </q-item>
+
               <q-item clickable @click="redirect('/track-orders')">
                 <q-item-section>ติดตามคำสั่งซื้อ</q-item-section>
               </q-item>
@@ -93,7 +97,10 @@
         </div>
         <div v-else>
           <q-btn-dropdown auto-close flat icon="account_circle">
-            <q-list>
+            <q-list style="min-width: 180px" class="text-center">
+              <q-item>
+                <q-item-section class="text-weight-bold">{{ userInfo.first_name }} {{ userInfo.last_name }}</q-item-section>
+              </q-item>
               <q-item clickable @click="logout()">
                 <q-item-section>ออกจากระบบ</q-item-section>
               </q-item>
