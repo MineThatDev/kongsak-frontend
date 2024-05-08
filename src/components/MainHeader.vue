@@ -112,8 +112,6 @@ import role from "@/utils/role";
 import store from "@/store";
 import { useRoute } from "vue-router";
 import { useQuasar } from "quasar";
-import auth from "@/utils/auth";
-const { checkLoginState } = auth();
 
 export default {
   setup() {
@@ -147,13 +145,7 @@ export default {
         ok: "ยืนยัน",
         cancel: "ยกเลิก",
       }).onOk(() => {
-        checkLoginState((response) => {
-          if (response && response.status === "connected") {
-            // eslint-disable-next-line no-undef
-            FB.logout();
-          }
-          store.dispatch("logout");
-        });
+        store.dispatch("logout");
         $q.notify({
           message: "ออกจากระบบสำเร็จ !",
           position: "top",

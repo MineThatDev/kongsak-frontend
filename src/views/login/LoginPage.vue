@@ -5,16 +5,16 @@
         class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12"
         :style="
           $q.screen.gt.xs
-            ? `padding: 80px 0 0 100px`
-            : 'padding: 0 10px; margin-top: 10px'
+            ? `padding: 80px 100px 0 100px`
+            : 'padding: 0 10px; margin-top: 10px; text-align: center'
         "
       >
-        <div class="font-size-40 text-pumping-spice">
+        <div class="text-pumping-spice" :class="$q.screen.gt.md ? 'font-size-40' : 'font-size-28'">
           รู้สึกมั่นใจในทุกช่วงเวลา
         </div>
-        <div class="font-size-40">ด้วยกล้องวงจรปิด</div>
-        <div class="font-size-40">เครื่องบันทึกเสียง</div>
-        <div class="font-size-40">และอุปกรณ์คุณภาพจากเรา</div>
+        <div :class="$q.screen.gt.md ? 'font-size-40' : 'font-size-28'">ด้วยกล้องวงจรปิด</div>
+        <div :class="$q.screen.gt.md ? 'font-size-40' : 'font-size-28'">เครื่องบันทึกเสียง</div>
+        <div :class="$q.screen.gt.md ? 'font-size-40' : 'font-size-28'">และอุปกรณ์คุณภาพจากเรา</div>
         <div class="q-mt-md font-size-28">
           <q-img
             height="80px"
@@ -143,6 +143,40 @@
             <div style="width: 80%">
               <form @submit.prevent.stop="signUp()">
                 <q-input
+                  label="ชื่อ"
+                  filled
+                  outlined
+                  v-model="signupInformation.firstName"
+                  dense
+                  class="q-mt-md"
+                  :rules="[(val) => val?.length || 'กรุณากรอกชื่อ']"
+                  ref="signUpFirstNameRef"
+                  hide-bottom-space
+                  lazy-rules="ondemand"
+                  @focus="signUpFirstNameRef.resetValidation()"
+                >
+                  <template v-slot:prepend>
+                    <q-icon name="person"></q-icon>
+                  </template>
+                </q-input>
+                <q-input
+                  label="นามสกุล"
+                  filled
+                  outlined
+                  v-model="signupInformation.lastName"
+                  dense
+                  class="q-mt-md"
+                  :rules="[(val) => val?.length || 'กรุณากรอกนามสกุล']"
+                  ref="signUpLastNameRef"
+                  hide-bottom-space
+                  lazy-rules="ondemand"
+                  @focus="signUpLastNameRef.resetValidation()"
+                >
+                  <template v-slot:prepend>
+                    <q-icon name="person"></q-icon>
+                  </template>
+                </q-input>
+                <q-input
                   label="ชื่อผู้ใช้"
                   outlined
                   filled
@@ -157,6 +191,30 @@
                 >
                   <template v-slot:prepend>
                     <q-icon name="account_circle"></q-icon>
+                  </template>
+                </q-input>
+                <q-input
+                  label="อีเมล"
+                  outlined
+                  filled
+                  class="q-mt-md"
+                  dense
+                  v-model="signupInformation.email"
+                  :rules="[
+                    (val) =>
+                      (val?.length &&
+                        /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(
+                          val
+                        )) ||
+                      'รูปแบบอีเมลไม่ถูกต้อง (ตัวอย่าง example@gmail.com)',
+                  ]"
+                  ref="signUpEmailRef"
+                  hide-bottom-space
+                  lazy-rules="ondemand"
+                  @focus="signUpEmailRef.resetValidation()"
+                >
+                  <template v-slot:prepend>
+                    <q-icon name="mail"></q-icon>
                   </template>
                 </q-input>
                 <q-input
@@ -199,64 +257,6 @@
                 >
                   <template v-slot:prepend>
                     <q-icon name="key"></q-icon>
-                  </template>
-                </q-input>
-                <q-input
-                  label="อีเมล"
-                  outlined
-                  filled
-                  class="q-mt-md"
-                  dense
-                  v-model="signupInformation.email"
-                  :rules="[
-                    (val) =>
-                      (val?.length &&
-                        /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(
-                          val
-                        )) ||
-                      'รูปแบบอีเมลไม่ถูกต้อง (ตัวอย่าง example@gmail.com)',
-                  ]"
-                  ref="signUpEmailRef"
-                  hide-bottom-space
-                  lazy-rules="ondemand"
-                  @focus="signUpEmailRef.resetValidation()"
-                >
-                  <template v-slot:prepend>
-                    <q-icon name="mail"></q-icon>
-                  </template>
-                </q-input>
-                <q-input
-                  label="ชื่อ"
-                  filled
-                  outlined
-                  v-model="signupInformation.firstName"
-                  dense
-                  class="q-mt-md"
-                  :rules="[(val) => val?.length || 'กรุณากรอกชื่อ']"
-                  ref="signUpFirstNameRef"
-                  hide-bottom-space
-                  lazy-rules="ondemand"
-                  @focus="signUpFirstNameRef.resetValidation()"
-                >
-                  <template v-slot:prepend>
-                    <q-icon name="person"></q-icon>
-                  </template>
-                </q-input>
-                <q-input
-                  label="นามสกุล"
-                  filled
-                  outlined
-                  v-model="signupInformation.lastName"
-                  dense
-                  class="q-mt-md"
-                  :rules="[(val) => val?.length || 'กรุณากรอกนามสกุล']"
-                  ref="signUpLastNameRef"
-                  hide-bottom-space
-                  lazy-rules="ondemand"
-                  @focus="signUpLastNameRef.resetValidation()"
-                >
-                  <template v-slot:prepend>
-                    <q-icon name="person"></q-icon>
                   </template>
                 </q-input>
                 <q-btn
@@ -344,7 +344,6 @@
 
 <script>
 import commonFunctions from "@/utils/common-function";
-import auth from "@/utils/auth";
 import { reactive, ref, onMounted } from "vue";
 import store from "@/store";
 import { $api } from "@/services/api";
@@ -360,7 +359,6 @@ export default {
       hideSpinnerIosLoading,
       $q,
     } = commonFunctions();
-    const { checkLoginState } = auth();
     const { sendEmail } = emailing();
     const showPage = ref("login");
     const activeForgotPassword = ref(false);
@@ -501,7 +499,7 @@ export default {
                   register_method: "google",
                 });
                 const loginInfo = await $api.users.login({
-                  username: registeredUser.username,
+                  username: registeredUser.email,
                   login_method: "google",
                 });
 
@@ -583,7 +581,6 @@ export default {
       togglePage,
       signupInformation,
       signUp,
-      checkLoginState,
       loginGoogle,
       activeForgotPassword,
       forgotPassword,

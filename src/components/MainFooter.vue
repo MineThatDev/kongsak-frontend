@@ -1,6 +1,8 @@
 <template>
   <div class="q-mt-md row">
-    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-xs-12 text-center q-my-sm">
+    <div
+      class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-xs-12 text-center q-my-sm"
+    >
       <div>
         <span class="text-trapped-darkness text-h5 text-weight-bold">KONG</span
         ><span class="text-pumping-spice text-h5 text-weight-bold">SAK</span>
@@ -12,7 +14,9 @@
         และมีคุณภาพเพื่อคุณ
       </div>
     </div>
-    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-xs-12 text-center q-my-sm">
+    <div
+      class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-xs-12 text-center q-my-sm"
+    >
       <div class="text-trapped-darkness text-weight-bold font-size-16">
         สินค้าของเรา
       </div>
@@ -26,7 +30,9 @@
         อุปกรณ์อื่นๆ
       </div>
     </div>
-    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-xs-12 text-center q-my-sm">
+    <div
+      class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-xs-12 text-center q-my-sm"
+    >
       <div class="text-trapped-darkness text-weight-bold font-size-16">
         บัญชีของฉัน
       </div>
@@ -43,15 +49,19 @@
         การรับประกันสินค้าของฉัน
       </div>
     </div>
-    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-xs-12 text-center q-my-sm">
+    <div
+      class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-xs-12 text-center q-my-sm"
+    >
       <div class="text-trapped-darkness text-weight-bold font-size-16">
         ติดต่อเรา
       </div>
       <div class="q-mt-sm text-grey text-weight-bold font-size-16">
-        <q-icon
-          name="mail"
-          class="q-mr-sm text-pumping-spice"
-        /><div style="word-wrap: break-word;">kongsak@gmail.com</div>
+        <div style="word-wrap: break-word">
+          <span>
+            <q-icon name="mail" class="q-mr-sm text-pumping-spice"
+          /></span>
+          kongsak@gmail.com
+        </div>
       </div>
       <div class="q-mt-sm text-grey text-weight-bold font-size-16">
         <q-icon name="phone" class="q-mr-sm text-pumping-spice" />081-234-5678

@@ -14,7 +14,7 @@ const mutations = {
 
 const actions = {
   logout({ commit }) {
-    commit("setUser", "");
+    commit("setUser", {});
   },
   setUser({ commit }, info) {
     commit("setUser", info);

@@ -102,7 +102,9 @@
         </div> -->
         <div class="row q-my-sm justify-between">
           <div class="font-size-18">ค่าจัดส่ง</div>
-          <div class="font-size-18 text-green">150.00 บาท</div>
+          <div class="font-size-18 text-green">
+            {{ totalPrice ? currencyFormat(150) : currencyFormat(0) }} บาท
+          </div>
         </div>
         <div class="col-12 q-my-sm">
           <q-separator />
@@ -110,7 +112,10 @@
         <div class="row justify-between q-mt-lg q-mb-sm">
           <div class="font-size-18 text-weight-bold">ยอดรวม</div>
           <div class="font-size-18 text-weight-bold">
-            {{ currencyFormat(totalPrice + 150) }} บาท
+            {{
+              totalPrice ? currencyFormat(totalPrice + 150) : currencyFormat(0)
+            }}
+            บาท
           </div>
         </div>
         <div class="row items-center justify-between">
