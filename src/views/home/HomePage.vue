@@ -22,7 +22,7 @@
           ></q-img>
         </div>
         <div class="full-width text-right">
-          <q-img height="80px" :ratio="1" src="../../assets/logos.svg"></q-img>
+          <q-img height="80px" width="70%" :ratio="1" src="../../assets/logos2.png"></q-img>
         </div>
       </div>
     </div>
