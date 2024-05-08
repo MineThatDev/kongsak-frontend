@@ -15,7 +15,7 @@
       <div class="col">
         <div class="full-width text-right">
           <q-img
-            style="max-width: 360px;"
+            style="max-width: 360px"
             height="360px"
             :ratio="1"
             src="../../assets/banner.png"
@@ -161,25 +161,43 @@ import { $api } from "@/services/api";
 import handleFile from "@/utils/file";
 export default {
   setup() {
-    const { handleImageSrc, currencyFormat, redirect, showSpinnerIosLoading, hideSpinnerIosLoading } = commonFunctions();
+    const {
+      handleImageSrc,
+      currencyFormat,
+      redirect,
+      showSpinnerIosLoading,
+      hideSpinnerIosLoading,
+    } = commonFunctions();
     const { createUrlFromBase64 } = handleFile();
     const userInfo = computed(() => store.getters.userInfo);
     const products = ref([]);
     const fetchInformation = async () => {
       showSpinnerIosLoading();
       products.value = [];
+
       const productsRes = await $api.products.getByParams({
         is_active: true,
       });
-      for (let i = 0; i <= 5; i++) {
-        const imageRes = await $api.files.getByParams({
-          key_ref: productsRes[i].id,
-          origin: "product",
-        });
-        products.value.push({
-          ...productsRes[i],
-          content: imageRes && imageRes[0] ? imageRes[0].content : null,
-        });
+      let randomizedProductIndex;
+      while (products.value.length < 6) {
+        randomizedProductIndex =
+          Math.floor(Math.random() * productsRes.length);
+        if (
+          products.value.some(
+            (product) => product.id === productsRes[randomizedProductIndex].id
+          )
+        ) {
+          continue;
+        } else {
+          const imageRes = await $api.files.getByParams({
+            key_ref: productsRes[randomizedProductIndex].id,
+            origin: "product",
+          });
+          products.value.push({
+            ...productsRes[randomizedProductIndex],
+            content: imageRes && imageRes[0] ? imageRes[0].content : null,
+          });
+        }
       }
       hideSpinnerIosLoading();
     };

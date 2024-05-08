@@ -1,6 +1,40 @@
 import axios from "axios";
 import emailjs from "emailjs-com";
-
+import store from "@/store";
+import router from "@/router";
+axios.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const originalRequest = error?.config;
+    const xServiceUrl = process.env.VUE_APP_XSERVICE_URL; // For Production
+    // const xServiceUrl = "/xapi"; // For Development
+    if (
+      error.response.status === 403 &&
+      error.response.data === "Access token expired" &&
+      !originalRequest?._retry
+    ) {
+      originalRequest._retry = true;
+      try {
+        const response = await axios.post(
+          `${xServiceUrl}/users/refresh-token`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${store.getters.userInfo.token.refresh_token}`,
+            },
+          }
+        );
+        originalRequest.headers.Authorization = `Bearer ${response.data.token.access_token}`;
+        store.dispatch("setUser", response.data);
+        return axios(originalRequest);
+      } catch (err) {
+        // Handle Refresh token error
+        router.push("/login");
+      }
+    }
+    return Promise.reject(error);
+  }
+);
 class BaseApiServices {
   xServiceUrl = process.env.VUE_APP_XSERVICE_URL; // For Production
   // xServiceUrl = "/xapi"; // For Development
@@ -9,8 +43,13 @@ class BaseApiServices {
     this.resource = resource;
   }
 
-  handleErrors(error) {
-    console.log({ message: "Errors is handled here", error });
+  setHeaders() {
+    return {
+      Authorization: `Bearer ${store.getters.userInfo.token.access_token}`,
+    };
+  }
+  async handleErrors(error) {
+    console.error(error);
   }
 }
 class EmailsApiService extends BaseApiServices {
@@ -34,7 +73,7 @@ class EmailsApiService extends BaseApiServices {
       return response;
     } catch (error) {
       console.error("Email failed to send: ", error);
-      return false;
+      return;
     }
   }
 }
@@ -46,25 +85,30 @@ class UsersApiServices extends BaseApiServices {
 
   async fetch() {
     try {
-      const response = await axios.get(`${this.xServiceUrl}/${this.resource}`);
+      const response = await axios.get(`${this.xServiceUrl}/${this.resource}`, {
+        headers: this.setHeaders(),
+      });
 
       return response.data;
     } catch (error) {
       this.handleErrors(error);
-      return false;
+      return;
     }
   }
 
   async getById(id) {
     try {
       const response = await axios.get(
-        `${this.xServiceUrl}/${this.resource}/${id}`
+        `${this.xServiceUrl}/${this.resource}/${id}`,
+        {
+          headers: this.setHeaders(),
+        }
       );
 
       return response.data;
     } catch (error) {
       this.handleErrors(error);
-      return false;
+      return;
     }
   }
 
@@ -72,12 +116,13 @@ class UsersApiServices extends BaseApiServices {
     try {
       const response = await axios.get(`${this.xServiceUrl}/${this.resource}`, {
         params: params,
+        headers: this.setHeaders(),
       });
 
       return response.data;
     } catch (error) {
       this.handleErrors(error);
-      return false;
+      return;
     }
   }
 
@@ -91,7 +136,49 @@ class UsersApiServices extends BaseApiServices {
       return response;
     } catch (error) {
       this.handleErrors(error);
-      return false;
+      return;
+    }
+  }
+
+  async registration(payload) {
+    try {
+      const response = await axios.post(
+        `${this.xServiceUrl}/${this.resource}/registration`,
+        payload
+      );
+      return response;
+    } catch (error) {
+      this.handleErrors(error);
+      return;
+    }
+  }
+
+  async login(payload) {
+    try {
+      const response = await axios.post(
+        `${this.xServiceUrl}/${this.resource}/login`,
+        payload
+      );
+      return response.data;
+    } catch (error) {
+      this.handleErrors(error);
+      return;
+    }
+  }
+
+  async checkExistingAccount(params) {
+    try {
+      const response = await axios.get(
+        `${this.xServiceUrl}/${this.resource}/check-existing-account`,
+        {
+          params: params,
+        }
+      );
+      console.log("response: ", response);
+      return response.data;
+    } catch (error) {
+      this.handleErrors(error);
+      return;
     }
   }
 }
@@ -108,7 +195,7 @@ class ProductsApiServices extends BaseApiServices {
       return response.data;
     } catch (error) {
       this.handleErrors(error);
-      return false;
+      return;
     }
   }
 
@@ -121,7 +208,7 @@ class ProductsApiServices extends BaseApiServices {
       return response.data;
     } catch (error) {
       this.handleErrors(error);
-      return false;
+      return;
     }
   }
 
@@ -133,21 +220,24 @@ class ProductsApiServices extends BaseApiServices {
       return response.data;
     } catch (error) {
       this.handleErrors(error);
-      return false;
+      return;
     }
   }
-  
+
   async create(payload) {
     try {
       const response = await axios.post(
         `${this.xServiceUrl}/${this.resource}`,
-        payload
+        payload,
+        {
+          headers: this.setHeaders(),
+        }
       );
 
       return response;
     } catch (error) {
       this.handleErrors(error);
-      return false;
+      return;
     }
   }
 
@@ -155,25 +245,31 @@ class ProductsApiServices extends BaseApiServices {
     try {
       const response = await axios.patch(
         `${this.xServiceUrl}/${this.resource}/${payload.id}`,
-        payload
+        payload,
+        {
+          headers: this.setHeaders(),
+        }
       );
       return response;
     } catch (error) {
       this.handleErrors(error);
-      return false;
+      return;
     }
   }
 
   async delete(id) {
     try {
       const response = await axios.delete(
-        `${this.xServiceUrl}/${this.resource}/${id}`
+        `${this.xServiceUrl}/${this.resource}/${id}`,
+        {
+          headers: this.setHeaders(),
+        }
       );
 
       return response;
     } catch (error) {
       this.handleErrors(error);
-      return false;
+      return;
     }
   }
 }
@@ -185,25 +281,30 @@ class ShippingAddressesApiServices extends BaseApiServices {
 
   async fetch() {
     try {
-      const response = await axios.get(`${this.xServiceUrl}/${this.resource}`);
+      const response = await axios.get(`${this.xServiceUrl}/${this.resource}`, {
+        headers: this.setHeaders(),
+      });
 
       return response.data;
     } catch (error) {
       this.handleErrors(error);
-      return false;
+      return;
     }
   }
 
   async getById(id) {
     try {
       const response = await axios.get(
-        `${this.xServiceUrl}/${this.resource}/${id}`
+        `${this.xServiceUrl}/${this.resource}/${id}`,
+        {
+          headers: this.setHeaders(),
+        }
       );
 
       return response.data;
     } catch (error) {
       this.handleErrors(error);
-      return false;
+      return;
     }
   }
 
@@ -211,12 +312,13 @@ class ShippingAddressesApiServices extends BaseApiServices {
     try {
       const response = await axios.get(`${this.xServiceUrl}/${this.resource}`, {
         params: params,
+        headers: this.setHeaders(),
       });
 
       return response.data;
     } catch (error) {
       this.handleErrors(error);
-      return false;
+      return;
     }
   }
 
@@ -224,13 +326,16 @@ class ShippingAddressesApiServices extends BaseApiServices {
     try {
       const response = await axios.post(
         `${this.xServiceUrl}/${this.resource}`,
-        payload
+        payload,
+        {
+          headers: this.setHeaders(),
+        }
       );
 
       return response;
     } catch (error) {
       this.handleErrors(error);
-      return false;
+      return;
     }
   }
 
@@ -238,25 +343,31 @@ class ShippingAddressesApiServices extends BaseApiServices {
     try {
       const response = await axios.patch(
         `${this.xServiceUrl}/${this.resource}/${payload.id}`,
-        payload
+        payload,
+        {
+          headers: this.setHeaders(),
+        }
       );
 
       return response;
     } catch (error) {
       this.handleErrors(error);
-      return false;
+      return;
     }
   }
   async delete(id) {
     try {
       const response = await axios.delete(
-        `${this.xServiceUrl}/${this.resource}/${id}`
+        `${this.xServiceUrl}/${this.resource}/${id}`,
+        {
+          headers: this.setHeaders(),
+        }
       );
 
       return response;
     } catch (error) {
       this.handleErrors(error);
-      return false;
+      return;
     }
   }
 }
@@ -268,25 +379,30 @@ class WarrantyCardsApiServices extends BaseApiServices {
 
   async fetch() {
     try {
-      const response = await axios.get(`${this.xServiceUrl}/${this.resource}`);
+      const response = await axios.get(`${this.xServiceUrl}/${this.resource}`, {
+        headers: this.setHeaders(),
+      });
 
       return response.data;
     } catch (error) {
       this.handleErrors(error);
-      return false;
+      return;
     }
   }
 
   async getById(id) {
     try {
       const response = await axios.get(
-        `${this.xServiceUrl}/${this.resource}/${id}`
+        `${this.xServiceUrl}/${this.resource}/${id}`,
+        {
+          headers: this.setHeaders(),
+        }
       );
 
       return response.data;
     } catch (error) {
       this.handleErrors(error);
-      return false;
+      return;
     }
   }
 
@@ -294,12 +410,13 @@ class WarrantyCardsApiServices extends BaseApiServices {
     try {
       const response = await axios.get(`${this.xServiceUrl}/${this.resource}`, {
         params: params,
+        headers: this.setHeaders(),
       });
 
       return response.data;
     } catch (error) {
       this.handleErrors(error);
-      return false;
+      return;
     }
   }
 
@@ -307,13 +424,16 @@ class WarrantyCardsApiServices extends BaseApiServices {
     try {
       const response = await axios.post(
         `${this.xServiceUrl}/${this.resource}`,
-        payload
+        payload,
+        {
+          headers: this.setHeaders(),
+        }
       );
 
       return response;
     } catch (error) {
       this.handleErrors(error);
-      return false;
+      return;
     }
   }
 
@@ -321,25 +441,31 @@ class WarrantyCardsApiServices extends BaseApiServices {
     try {
       const response = await axios.patch(
         `${this.xServiceUrl}/${this.resource}/${payload.id}`,
-        payload
+        payload,
+        {
+          headers: this.setHeaders(),
+        }
       );
 
       return response;
     } catch (error) {
       this.handleErrors(error);
-      return false;
+      return;
     }
   }
   async delete(id) {
     try {
       const response = await axios.delete(
-        `${this.xServiceUrl}/${this.resource}/${id}`
+        `${this.xServiceUrl}/${this.resource}/${id}`,
+        {
+          headers: this.setHeaders(),
+        }
       );
 
       return response;
     } catch (error) {
       this.handleErrors(error);
-      return false;
+      return;
     }
   }
 }
@@ -351,12 +477,14 @@ class OrdersApiServices extends BaseApiServices {
 
   async fetch() {
     try {
-      const response = await axios.get(`${this.xServiceUrl}/${this.resource}`);
+      const response = await axios.get(`${this.xServiceUrl}/${this.resource}`, {
+        headers: this.setHeaders(),
+      });
 
       return response.data;
     } catch (error) {
       this.handleErrors(error);
-      return false;
+      return;
     }
   }
 
@@ -364,12 +492,13 @@ class OrdersApiServices extends BaseApiServices {
     try {
       const response = await axios.get(`${this.xServiceUrl}/${this.resource}`, {
         params: params,
+        headers: this.setHeaders(),
       });
 
       return response.data;
     } catch (error) {
       this.handleErrors(error);
-      return false;
+      return;
     }
   }
 
@@ -377,14 +506,17 @@ class OrdersApiServices extends BaseApiServices {
     try {
       const response = await axios.post(
         `${this.xServiceUrl}/${this.resource}`,
-        payload
+        payload,
+        {
+          headers: this.setHeaders(),
+        }
       );
       if (response) {
         return response;
       }
     } catch (error) {
       this.handleErrors(error);
-      return false;
+      return;
     }
   }
 
@@ -392,25 +524,31 @@ class OrdersApiServices extends BaseApiServices {
     try {
       const response = await axios.patch(
         `${this.xServiceUrl}/${this.resource}/${payload.id}`,
-        payload
+        payload,
+        {
+          headers: this.setHeaders(),
+        }
       );
 
       return response;
     } catch (error) {
       this.handleErrors(error);
-      return false;
+      return;
     }
   }
   async delete(id) {
     try {
       const response = await axios.delete(
-        `${this.xServiceUrl}/${this.resource}/${id}`
+        `${this.xServiceUrl}/${this.resource}/${id}`,
+        {
+          headers: this.setHeaders(),
+        }
       );
 
       return response;
     } catch (error) {
       this.handleErrors(error);
-      return false;
+      return;
     }
   }
 }
@@ -422,12 +560,14 @@ class OrderProductsApiServices extends BaseApiServices {
 
   async fetch() {
     try {
-      const response = await axios.get(`${this.xServiceUrl}/${this.resource}`);
+      const response = await axios.get(`${this.xServiceUrl}/${this.resource}`, {
+        headers: this.setHeaders(),
+      });
 
       return response.data;
     } catch (error) {
       this.handleErrors(error);
-      return false;
+      return;
     }
   }
 
@@ -435,12 +575,13 @@ class OrderProductsApiServices extends BaseApiServices {
     try {
       const response = await axios.get(`${this.xServiceUrl}/${this.resource}`, {
         params: params,
+        headers: this.setHeaders(),
       });
 
       return response.data;
     } catch (error) {
       this.handleErrors(error);
-      return false;
+      return;
     }
   }
 
@@ -448,13 +589,16 @@ class OrderProductsApiServices extends BaseApiServices {
     try {
       const response = await axios.post(
         `${this.xServiceUrl}/${this.resource}`,
-        payload
+        payload,
+        {
+          headers: this.setHeaders(),
+        }
       );
 
       return response;
     } catch (error) {
       this.handleErrors(error);
-      return false;
+      return;
     }
   }
 
@@ -462,25 +606,31 @@ class OrderProductsApiServices extends BaseApiServices {
     try {
       const response = await axios.patch(
         `${this.xServiceUrl}/${this.resource}/${payload.id}`,
-        payload
+        payload,
+        {
+          headers: this.setHeaders(),
+        }
       );
 
       return response;
     } catch (error) {
       this.handleErrors(error);
-      return false;
+      return;
     }
   }
   async delete(id) {
     try {
       const response = await axios.delete(
-        `${this.xServiceUrl}/${this.resource}/${id}`
+        `${this.xServiceUrl}/${this.resource}/${id}`,
+        {
+          headers: this.setHeaders(),
+        }
       );
 
       return response;
     } catch (error) {
       this.handleErrors(error);
-      return false;
+      return;
     }
   }
 }
@@ -492,12 +642,14 @@ class OrderStatusesApiServices extends BaseApiServices {
 
   async fetch() {
     try {
-      const response = await axios.get(`${this.xServiceUrl}/${this.resource}`);
+      const response = await axios.get(`${this.xServiceUrl}/${this.resource}`, {
+        headers: this.setHeaders(),
+      });
 
       return response.data;
     } catch (error) {
       this.handleErrors(error);
-      return false;
+      return;
     }
   }
 
@@ -505,12 +657,13 @@ class OrderStatusesApiServices extends BaseApiServices {
     try {
       const response = await axios.get(`${this.xServiceUrl}/${this.resource}`, {
         params: params,
+        headers: this.setHeaders(),
       });
 
       return response.data;
     } catch (error) {
       this.handleErrors(error);
-      return false;
+      return;
     }
   }
 
@@ -518,13 +671,16 @@ class OrderStatusesApiServices extends BaseApiServices {
     try {
       const response = await axios.post(
         `${this.xServiceUrl}/${this.resource}`,
-        payload
+        payload,
+        {
+          headers: this.setHeaders(),
+        }
       );
 
       return response;
     } catch (error) {
       this.handleErrors(error);
-      return false;
+      return;
     }
   }
 
@@ -532,25 +688,31 @@ class OrderStatusesApiServices extends BaseApiServices {
     try {
       const response = await axios.patch(
         `${this.xServiceUrl}/${this.resource}/${payload.id}`,
-        payload
+        payload,
+        {
+          headers: this.setHeaders(),
+        }
       );
 
       return response;
     } catch (error) {
       this.handleErrors(error);
-      return false;
+      return;
     }
   }
   async delete(id) {
     try {
       const response = await axios.delete(
-        `${this.xServiceUrl}/${this.resource}/${id}`
+        `${this.xServiceUrl}/${this.resource}/${id}`,
+        {
+          headers: this.setHeaders(),
+        }
       );
 
       return response;
     } catch (error) {
       this.handleErrors(error);
-      return false;
+      return;
     }
   }
 }
@@ -568,20 +730,23 @@ class FilesApiServices extends BaseApiServices {
       return response.data;
     } catch (error) {
       this.handleErrors(error);
-      return false;
+      return;
     }
   }
   async create(payload) {
     try {
       const response = await axios.post(
         `${this.xServiceUrl}/${this.resource}`,
-        payload
+        payload,
+        {
+          headers: this.setHeaders(),
+        }
       );
-        
+
       return response;
     } catch (error) {
       this.handleErrors(error);
-      return false;
+      return;
     }
   }
 
@@ -589,25 +754,31 @@ class FilesApiServices extends BaseApiServices {
     try {
       const response = await axios.patch(
         `${this.xServiceUrl}/${this.resource}/${payload.id}`,
-        payload
+        payload,
+        {
+          headers: this.setHeaders(),
+        }
       );
       return response;
     } catch (error) {
       this.handleErrors(error);
-      return false;
+      return;
     }
   }
 
   async delete(id) {
     try {
       const response = await axios.delete(
-        `${this.xServiceUrl}/${this.resource}/${id}`
+        `${this.xServiceUrl}/${this.resource}/${id}`,
+        {
+          headers: this.setHeaders(),
+        }
       );
 
       return response;
     } catch (error) {
       this.handleErrors(error);
-      return false;
+      return;
     }
   }
 }

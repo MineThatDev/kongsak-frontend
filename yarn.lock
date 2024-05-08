@@ -6116,11 +6116,6 @@
     "lodash" "^4.17.21"
     "semver" "^7.3.5"
 
-"vue-google-oauth2@^1.5.10":
-  "integrity" "sha512-0+ZGbauhkBhvTln2RPyeaSvRdrka194h+MeEQngy1H4UvGOC5hxRMB8QvUrVRP/w2Tt8/ByCqGDko6MuHpFpbQ=="
-  "resolved" "https://registry.npmjs.org/vue-google-oauth2/-/vue-google-oauth2-1.5.10.tgz"
-  "version" "1.5.10"
-
 "vue-hot-reload-api@^2.3.0":
   "integrity" "sha512-BXq3jwIagosjgNVae6tkHzzIk6a8MHFtzAdwhnV5VlvPTFxDCvIttgSiHWjdGoTJvXtmRu5HacExfdarRcFhog=="
   "resolved" "https://registry.npmjs.org/vue-hot-reload-api/-/vue-hot-reload-api-2.3.4.tgz"

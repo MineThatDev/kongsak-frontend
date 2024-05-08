@@ -16,7 +16,7 @@
         >
       </div>
     </div>
-    <div class="col" v-if="!userInfo || userInfo.role === 'user'">
+    <div class="col" v-if="!Object.keys(userInfo).length || userInfo.role === 'user'">
       <q-tabs align="right" v-model="tab">
         <q-tab
           v-for="(info, index) in userTabsInformation"
@@ -43,7 +43,7 @@
         </div>
         <q-separator vertical inset />
         <!-- <q-tab name="favorite" icon="favorite_border"></q-tab> -->
-        <div v-if="!userInfo" class="q-px-md">
+        <div v-if="!Object.keys(userInfo).length" class="q-px-md">
           <q-btn
             class="bg-trapped-darkness text-white btn-radius"
             @click="redirect('/login')"
@@ -82,7 +82,7 @@
         />
         <q-separator vertical inset />
         <q-separator vertical inset />
-        <div v-if="!userInfo" class="q-pl-md">
+        <div v-if="!Object.keys(userInfo).length" class="q-pl-md">
           <q-btn
             class="bg-trapped-darkness text-white btn-radius"
             dense
@@ -159,7 +159,7 @@ export default {
           position: "top",
           type: "positive",
         });
-        redirect("/home");
+        redirect("/login");
         store.dispatch("clearCart");
       });
     };
@@ -186,6 +186,10 @@ export default {
 
 const userTabsInformation = [
   {
+    name: "หน้าแรก",
+    path: "/home"
+  },
+  {
     name: "กล้องวงจรปิด",
     path: "/cctv",
   },
@@ -204,6 +208,10 @@ const userTabsInformation = [
 ];
 const adminTabsInformation = [
   {
+    name: "หน้าแรก",
+    path: "/home"
+  },
+  {
     name: "รายการคำสั่งซื้อ",
     path: "/admin-track-orders",
   },
@@ -215,10 +223,6 @@ const adminTabsInformation = [
     name: "สินค้าทั้งหมด",
     path: "/all-products",
   },
-  // {
-  //   name: "ข้อมูลสมาชิก",
-  //   path: "/member-information",
-  // },
   {
     name: "ข้อมูลสถิติการขายสินค้า",
     path: "/statistical-information",

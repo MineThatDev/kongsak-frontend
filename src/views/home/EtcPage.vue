@@ -191,7 +191,7 @@
         </div>
       </div>
       <div v-else class="col-12 text-center">
-        <div class="font-size-24" style="margin-top: 200px">
+        <div class="font-size-24" style="margin: 200px 0 200px 0">
           ไม่มีสินค้าในหมวดนี้
         </div>
       </div>
@@ -216,7 +216,7 @@ export default {
       products.value = [];
       const productsRes = await $api.products.getByParams({
         category: "อื่นๆ",
-        name_like: searchString.value ? searchString.value : null,
+        name: searchString.value ? { $regex: searchString.value } : null, 
         is_active: true
       });
       for (const product of productsRes) {

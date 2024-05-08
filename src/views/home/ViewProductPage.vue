@@ -151,9 +151,21 @@ export default {
           "เนื่องจากสั่งซื้อเกิน 10 ชิ้น กรุณาติดต่อทางร้าน !"
         );
       } else {
-        store.dispatch("addItemToCart", { ...item, quantity: quantity.value });
         if (path) {
-          redirect(path);
+          if (Object.keys(store.getters.userInfo).length) {
+            store.dispatch("addItemToCart", {
+              ...item,
+              quantity: quantity.value,
+            });
+            showNotification("positive", "เพิ่มสินค้าเรียบร้อยแล้ว !");
+          }
+          redirect(path); 
+        } else {
+          store.dispatch("addItemToCart", {
+            ...item,
+            quantity: quantity.value,
+          });
+          showNotification("positive", "เพิ่มสินค้าเรียบร้อยแล้ว !");
         }
       }
     };

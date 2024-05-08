@@ -216,7 +216,7 @@ export default {
       products.value = [];
       const productsRes = await $api.products.getByParams({
         category: "เครื่องบันทึกภาพ",
-        name_like: searchString.value ? searchString.value : null,
+        name: searchString.value ? { $regex: searchString.value } : null, 
         is_active: true
       });
       for (const product of productsRes) {

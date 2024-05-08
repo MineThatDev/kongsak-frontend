@@ -399,7 +399,7 @@ export default {
       showSpinnerIosLoading();
       products.value = [];
       const productsRes = await $api.products.getByParams({
-        name_like: searchString.value ? searchString.value : null,
+        name: searchString.value ? { $regex: searchString.value } : null, 
       });
       for (const product of productsRes) {
         const imageRes = await $api.files.getByParams({

@@ -316,7 +316,7 @@ export default {
       succeedLength.value = succeedRes.length;
       const response = await $api.orders.getByParams({
         delivery_status: deliveryStatus,
-        created_by_like: searchString.value ? searchString.value : null,
+        created_by: searchString.value ? { $regex: searchString.value } : null, 
       });
       if (response && response.length) {
         for (const order of response) {
