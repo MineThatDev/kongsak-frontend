@@ -174,7 +174,6 @@ class UsersApiServices extends BaseApiServices {
           params: params,
         }
       );
-      console.log("response: ", response);
       return response.data;
     } catch (error) {
       this.handleErrors(error);

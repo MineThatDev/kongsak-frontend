@@ -97,13 +97,13 @@
           dense
           color="dark"
           label="ค้นหาสินค้า"
-          @keydown.enter.prevent="fetchProducts()"
+          @keydown.enter.prevent="fetchProducts(true)"
         >
           <template v-slot:append
             ><q-icon
               name="search"
               class="cursor-pointer"
-              @click="fetchProducts()"
+              @click="fetchProducts(true)"
             ></q-icon
           ></template>
         </q-input>
@@ -187,10 +187,24 @@
             </q-card-section>
           </q-card>
         </div>
+        <div class="full-width flex flex-center q-py-xl">
+          <q-pagination
+            v-model="pagination.currentPage"
+            color="dark"
+            :max="pagination.totalPages"
+            boundary-numbers
+            size="16px"
+          />
+        </div>
       </div>
       <div v-else class="col-12 text-center">
-        <div class="font-size-24" style="margin-top: 200px">
-          ไม่พบสินค้า
+        <div class="font-size-24" style="margin: 200px 0 200px 0">
+          <q-img
+            :ratio="1"
+            width="200px"
+            height="200px"
+            src="../../assets/noproduct.jpg"
+          ></q-img>
         </div>
       </div>
     </div>
@@ -201,7 +215,7 @@
 import store from "@/store";
 import commonFunctions from "@/utils/common-function";
 import { $api } from "@/services/api";
-import { ref, onMounted, onUnmounted } from "vue";
+import { ref, onMounted, onUnmounted, reactive, watch } from "vue";
 import handleFile from "@/utils/file";
 export default {
   setup() {
@@ -213,30 +227,51 @@ export default {
       hideSpinnerIosLoading,
     } = commonFunctions();
     const { createUrlFromBase64 } = handleFile();
+    const pagination = reactive({
+      currentPage: 1,
+      totalPages: undefined,
+    });
     const products = ref([]);
     const searchString = ref("");
-    const fetchProducts = async () => {
+    const fetchProducts = async (resetPagination = undefined) => {
       showSpinnerIosLoading();
       products.value = [];
-      const { data: productsRes } = await $api.products.getByParams({
-        category: "กล้อง",
-        name: searchString.value && !searchString.value.includes("\\")
-          ? { $regex: searchString.value }
-          : null,
-        is_active: true,
-      });
-      for (const product of productsRes) {
-        const imageRes = await $api.files.getByParams({
-          key_ref: product.id,
-          origin: "product",
+      pagination.totalPages = 0;
+      if (resetPagination && pagination.currentPage > 1) {
+        pagination.currentPage = 1;
+        hideSpinnerIosLoading();
+        return;
+      } else {
+        const response = await $api.products.getByParams({
+          category: "กล้อง",
+          name:
+            searchString.value && !searchString.value.includes("\\")
+              ? { $regex: searchString.value }
+              : null,
+          is_active: true,
+          page: pagination.currentPage,
+          limit: 6,
         });
-        products.value.push({
-          ...product,
-          content: imageRes && imageRes[0] ? imageRes[0].content : null,
-        });
+        for (const product of response.data) {
+          const imageRes = await $api.files.getByParams({
+            key_ref: product.id,
+            origin: "product",
+          });
+          products.value.push({
+            ...product,
+            content: imageRes && imageRes[0] ? imageRes[0].content : null,
+          });
+        }
+        pagination.totalPages = Math.ceil(response.total / response.limit);
+        hideSpinnerIosLoading();
       }
-      hideSpinnerIosLoading();
     };
+    watch(
+      () => pagination.currentPage,
+      async () => {
+        await fetchProducts();
+      }
+    );
     onMounted(async () => {
       store.dispatch("updateBreadCrumbs", ["กล้องวงจรปิด"]);
       await fetchProducts();
@@ -252,6 +287,7 @@ export default {
       fetchProducts,
       searchString,
       createUrlFromBase64,
+      pagination,
     };
   },
 };

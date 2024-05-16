@@ -187,10 +187,19 @@
             </q-card-section>
           </q-card>
         </div>
+        <div class="full-width flex flex-center q-py-xl">
+          <q-pagination
+            v-model="pagination.currentPage"
+            color="dark"
+            :max="pagination.totalPages"
+            boundary-numbers
+            size="16px"
+          />
+        </div>
       </div>
       <div v-else class="col-12 text-center">
         <div class="font-size-24" style="margin: 200px 0 200px 0">
-          ไม่พบสินค้า
+          <q-img :ratio="1" width="200px" height="200px" src="../../assets/noproduct.jpg"></q-img>
         </div>
       </div>
     </div>
@@ -201,7 +210,7 @@
 import store from "@/store";
 import commonFunctions from "@/utils/common-function";
 import { $api } from "@/services/api";
-import { ref, onMounted, onUnmounted } from "vue";
+import { ref, onMounted, onUnmounted, reactive } from "vue";
 import handleFile from "@/utils/file";
 export default {
   setup() {
@@ -215,28 +224,41 @@ export default {
     const { createUrlFromBase64 } = handleFile();
     const products = ref([]);
     const searchString = ref("");
-    const fetchProducts = async () => {
+    const pagination = reactive({
+      currentPage: 1,
+      totalPages: undefined,
+    });
+    const fetchProducts = async (resetPagination = undefined) => {
       showSpinnerIosLoading();
       products.value = [];
-      const { data: productsRes } = await $api.products.getByParams({
-        category: "อื่นๆ",
-        name:
-          searchString.value && !searchString.value.includes("\\")
-            ? { $regex: searchString.value }
-            : null,
-        is_active: true,
-      });
-      for (const product of productsRes) {
-        const imageRes = await $api.files.getByParams({
-          key_ref: product.id,
-          origin: "product",
+      pagination.totalPages = 0;
+      if (resetPagination && pagination.currentPage > 1) {
+        pagination.currentPage = 1;
+        hideSpinnerIosLoading();
+        return;
+      } else {
+        const response = await $api.products.getByParams({
+          category: "อื่นๆ",
+          name:
+            searchString.value && !searchString.value.includes("\\")
+              ? { $regex: searchString.value }
+              : null,
+          is_active: true,
+          page: pagination.currentPage,
+          limit: 6,
         });
-        products.value.push({
-          ...product,
-          content: imageRes && imageRes[0] ? imageRes[0].content : null,
-        });
+        for (const product of response.data) {
+          const imageRes = await $api.files.getByParams({
+            key_ref: product.id,
+            origin: "product",
+          });
+          products.value.push({
+            ...product,
+            content: imageRes && imageRes[0] ? imageRes[0].content : null,
+          });
+        }
+        hideSpinnerIosLoading();
       }
-      hideSpinnerIosLoading();
     };
     onMounted(async () => {
       store.dispatch("updateBreadCrumbs", ["อุปกรณ์อื่นๆ"]);
@@ -253,6 +275,7 @@ export default {
       fetchProducts,
       searchString,
       createUrlFromBase64,
+      pagination,
     };
   },
 };
