@@ -181,6 +181,7 @@ export default {
       products.value = [];
       const { data: response } = await $api.products.getByParams({
         is_active: true,
+        limit: 6
       });
       for (const product of response) {
         const imageRes = await $api.files.getByParams({
