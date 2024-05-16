@@ -22,7 +22,12 @@
           ></q-img>
         </div>
         <div class="full-width text-right">
-          <q-img height="80px" width="70%" :ratio="1" src="../../assets/logos2.png"></q-img>
+          <q-img
+            height="80px"
+            width="70%"
+            :ratio="1"
+            src="../../assets/logos2.png"
+          ></q-img>
         </div>
       </div>
     </div>
@@ -174,31 +179,20 @@ export default {
     const fetchInformation = async () => {
       showSpinnerIosLoading();
       products.value = [];
-
-      const productsRes = await $api.products.getByParams({
+      const { data: response } = await $api.products.getByParams({
         is_active: true,
       });
-      let randomizedProductIndex;
-      while (products.value.length < 6) {
-        randomizedProductIndex =
-          Math.floor(Math.random() * productsRes.length);
-        if (
-          products.value.some(
-            (product) => product.id === productsRes[randomizedProductIndex].id
-          )
-        ) {
-          continue;
-        } else {
-          const imageRes = await $api.files.getByParams({
-            key_ref: productsRes[randomizedProductIndex].id,
-            origin: "product",
-          });
-          products.value.push({
-            ...productsRes[randomizedProductIndex],
-            content: imageRes && imageRes[0] ? imageRes[0].content : null,
-          });
-        }
+      for (const product of response) {
+        const imageRes = await $api.files.getByParams({
+          key_ref: product.id,
+          origin: "product",
+        });
+        products.value.push({
+          ...product,
+          content: imageRes && imageRes[0] ? imageRes[0].content : null,
+        });
       }
+
       hideSpinnerIosLoading();
     };
     onMounted(async () => {

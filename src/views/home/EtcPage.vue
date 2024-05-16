@@ -120,9 +120,7 @@
             v-if="item.is_active"
           >
             <q-card-section align="center" class="q-pa-lg">
-              <q-img
-                :src="createUrlFromBase64(item.content)"
-              />
+              <q-img :src="createUrlFromBase64(item.content)" />
             </q-card-section>
             <q-separator inset />
             <q-card-section style="min-height: 176px">
@@ -192,7 +190,7 @@
       </div>
       <div v-else class="col-12 text-center">
         <div class="font-size-24" style="margin: 200px 0 200px 0">
-          ไม่มีสินค้าในหมวดนี้
+          ไม่พบสินค้า
         </div>
       </div>
     </div>
@@ -207,17 +205,26 @@ import { ref, onMounted, onUnmounted } from "vue";
 import handleFile from "@/utils/file";
 export default {
   setup() {
-    const { handleImageSrc, currencyFormat, redirect, showSpinnerIosLoading, hideSpinnerIosLoading } = commonFunctions();
+    const {
+      handleImageSrc,
+      currencyFormat,
+      redirect,
+      showSpinnerIosLoading,
+      hideSpinnerIosLoading,
+    } = commonFunctions();
     const { createUrlFromBase64 } = handleFile();
     const products = ref([]);
     const searchString = ref("");
     const fetchProducts = async () => {
       showSpinnerIosLoading();
       products.value = [];
-      const productsRes = await $api.products.getByParams({
+      const { data: productsRes } = await $api.products.getByParams({
         category: "อื่นๆ",
-        name: searchString.value ? { $regex: searchString.value } : null, 
-        is_active: true
+        name:
+          searchString.value && !searchString.value.includes("\\")
+            ? { $regex: searchString.value }
+            : null,
+        is_active: true,
       });
       for (const product of productsRes) {
         const imageRes = await $api.files.getByParams({

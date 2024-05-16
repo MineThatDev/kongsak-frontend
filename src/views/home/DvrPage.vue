@@ -192,7 +192,7 @@
       </div>
       <div v-else class="col-12 text-center">
         <div class="font-size-24" style="margin-top: 200px">
-          ไม่มีสินค้าในหมวดนี้
+          ไม่พบสินค้า
         </div>
       </div>
     </div>
@@ -214,9 +214,11 @@ export default {
     const fetchProducts = async () => {
       showSpinnerIosLoading();
       products.value = [];
-      const productsRes = await $api.products.getByParams({
+      const { data: productsRes } = await $api.products.getByParams({
         category: "เครื่องบันทึกภาพ",
-        name: searchString.value ? { $regex: searchString.value } : null, 
+        name: searchString.value && !searchString.value.includes("\\")
+          ? { $regex: searchString.value }
+          : null,
         is_active: true
       });
       for (const product of productsRes) {

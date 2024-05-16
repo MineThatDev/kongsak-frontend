@@ -162,7 +162,12 @@
                       <span> | </span
                       ><span>{{ order.shippingAddresses.phone }}</span>
                     </div>
-                    <div>{{ order.shippingAddresses.address }} {{ order.shippingAddresses.district }} {{ order.shippingAddresses.province }} {{ order.shippingAddresses.zip_code }}</div>
+                    <div>
+                      {{ order.shippingAddresses.address }}
+                      {{ order.shippingAddresses.district }}
+                      {{ order.shippingAddresses.province }}
+                      {{ order.shippingAddresses.zip_code }}
+                    </div>
                   </div>
                   <div>
                     <div>
@@ -316,7 +321,7 @@ export default {
       succeedLength.value = succeedRes.length;
       const response = await $api.orders.getByParams({
         delivery_status: deliveryStatus,
-        created_by: searchString.value ? { $regex: searchString.value } : null, 
+        created_by: searchString.value ? { $regex: searchString.value } : null,
       });
       if (response && response.length) {
         for (const order of response) {
@@ -341,8 +346,7 @@ export default {
                 op.product_id
               );
               totalAmount =
-                totalAmount +
-                additionalProductInformation.price * op.quantity;
+                totalAmount + additionalProductInformation.price * op.quantity;
               products.push({
                 ...op,
                 ...additionalProductInformation,
@@ -379,7 +383,7 @@ export default {
             total_amount: totalAmount,
             ...order,
           });
-          totalAmount = 0
+          totalAmount = 0;
         }
       }
       loading.value = false;

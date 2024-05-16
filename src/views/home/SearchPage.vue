@@ -172,9 +172,10 @@
       const { handleImageSrc, currencyFormat, redirect } = commonFunctions();
       const products = ref([]);
       const fetchProducts = async () => {
-        products.value = await $api.products.getByParams({
+        const { data: response } = await $api.products.getByParams({
           name: props.searchKeyword ? { $regex: props.searchKeyword} : null, 
         });
+        products.value = response
       };
       watch(() => props.searchKeyword, async() => {
         await fetchProducts();

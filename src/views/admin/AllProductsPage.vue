@@ -398,7 +398,7 @@ export default {
     const fetchProducts = async () => {
       showSpinnerIosLoading();
       products.value = [];
-      const productsRes = await $api.products.getByParams({
+      const { data: productsRes } = await $api.products.getByParams({
         name: searchString.value ? { $regex: searchString.value } : null, 
       });
       for (const product of productsRes) {
@@ -450,7 +450,7 @@ export default {
       if (!id) {
         showAddProductDialog.value = true;
       } else {
-        const productRes = await $api.products.getByParams({
+        const { data: productRes } = await $api.products.getByParams({
           _id: id,
         });
         productInformation.id = productRes[0].id;
@@ -505,7 +505,7 @@ export default {
       }
       if (!file.value)
         return [false, "กรุณาอัพโหลดไฟล์"];
-      const productRes = await $api.products.getByParams({
+      const { data: productRes } = await $api.products.getByParams({
         name: productInformation.name,
       });
       // 'id' used for seperate update case and create case
