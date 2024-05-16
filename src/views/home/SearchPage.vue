@@ -173,7 +173,7 @@
       const products = ref([]);
       const fetchProducts = async () => {
         const { data: response } = await $api.products.getByParams({
-          name: props.searchKeyword ? { $regex: props.searchKeyword} : null, 
+          name: props.searchKeyword && !props.searchKeyword.includes("\\") ? { $regex: props.searchKeyword} : null, 
         });
         products.value = response
       };

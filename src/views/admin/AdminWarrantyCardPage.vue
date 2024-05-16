@@ -256,7 +256,7 @@ export default {
       loading.value = true;
       warrantyCardList.value = [];
       const warrantyCards = await $api.warranty_cards.getByParams({
-        created_by: searchString.value ? { $regex: searchString.value } : null, 
+        created_by: searchString.value && !searchString.value.includes("\\") ? { $regex: searchString.value } : null, 
       });
       if (warrantyCards && warrantyCards.length) {
         for (const wc of warrantyCards) {
