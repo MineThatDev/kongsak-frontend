@@ -62,6 +62,7 @@
                 <q-input
                   label="รหัสผ่าน"
                   type="password"
+                  autocomplete="on"
                   dense
                   outlined
                   filled
@@ -220,6 +221,7 @@
                 <q-input
                   label="รหัสผ่าน"
                   type="password"
+                  autocomplete="on"
                   outlined
                   filled
                   dense
@@ -241,6 +243,7 @@
                 <q-input
                   label="ยืนยันรหัสผ่าน"
                   type="password"
+                  autocomplete="on"
                   outlined
                   filled
                   dense
